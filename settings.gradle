@@ -1,0 +1,2 @@
+include ':SHALOMINC'
+rootProject.name = "SMARTBEATS"
