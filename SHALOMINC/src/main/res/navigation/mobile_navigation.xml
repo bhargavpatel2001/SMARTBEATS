@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="ca.shalominc.it.smartbeats.ui.home.HomeFragment"
+        android:name="ca.shalominc.it.smartbeats.ui.music.MusicFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_music" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="ca.shalominc.it.smartbeats.ui.dashboard.DashboardFragment"
+        android:name="ca.shalominc.it.smartbeats.ui.lights.LightsFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_lights" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="ca.shalominc.it.smartbeats.ui.notifications.NotificationsFragment"
+        android:name="ca.shalominc.it.smartbeats.ui.settings.SettingsFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_settings" />
 </navigation>

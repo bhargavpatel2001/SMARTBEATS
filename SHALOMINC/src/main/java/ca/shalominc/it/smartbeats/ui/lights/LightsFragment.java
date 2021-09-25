@@ -1,4 +1,4 @@
-package ca.shalominc.it.smartbeats.ui.home;
+package ca.shalominc.it.smartbeats.ui.lights;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProvider;
 
 import ca.shalominc.it.smartbeats.R;
 
-public class HomeFragment extends Fragment {
+public class LightsFragment extends Fragment {
 
-    private HomeViewModel homeViewModel;
+    private LightsViewModel lightsViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
-        final TextView textView = root.findViewById(R.id.text_home);
-        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        lightsViewModel =
+                new ViewModelProvider(this).get(LightsViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_lights, container, false);
+        final TextView textView = root.findViewById(R.id.text_dashboard);
+        lightsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
