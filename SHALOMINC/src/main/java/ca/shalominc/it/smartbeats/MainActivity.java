@@ -59,10 +59,30 @@ public class MainActivity extends AppCompatActivity
         switch (item.getItemId())
         {
 
-            case R.id.nicholasHelp:
+            case R.id.helpBtn:
 
                 intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.ca"));
                 startActivity(intent);
+
+                break;
+
+            case R.id.musicBtn:
+
+                //
+                intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.ca"));
+                startActivity(intent);
+
+                break;
+
+            case R.id.lightsPwrBtn:
+
+
+
+                break;
+
+            case R.id.audioPlayWhenLockedBtn:
+
+
 
                 break;
 
