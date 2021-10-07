@@ -20,6 +20,7 @@
         <item name="colorPrimaryDark">@color/red</item>
         <item name="colorAccent">@color/purple_500</item>
         <item name="android:statusBarColor">@color/light_orchid</item>
+
     </style>
     <!--Fragment 1 style-->
     <style name="HomeFragment" >
