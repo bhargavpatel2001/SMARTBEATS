@@ -4,8 +4,25 @@
 
     <item
         app:showAsAction="never"
-        android:id="@+id/nicholasHelp"
+        android:id="@+id/helpBtn"
         android:title="Help">
     </item>
 
+    <item
+        app:showAsAction="never"
+        android:id="@+id/musicBtn"
+        android:title="Music">
+    </item>
+
+    <item
+        app:showAsAction="never"
+        android:id="@+id/lightsPwrBtn"
+        android:title="Lights Power">
+    </item>
+
+    <item
+        app:showAsAction="never"
+        android:id="@+id/audioPlayWhenLockedBtn"
+        android:title="Audio Play When Locked">
+    </item>
 </menu>
