@@ -24,8 +24,8 @@
 
     <item
         app:showAsAction="never"
-        android:id="@+id/audioPlayWhenLockedBtn"
-        android:title="Audio Play When Locked">
+        android:id="@+id/bluetoothBtn"
+        android:title="Bluetooth">
     </item>
 
 </menu>

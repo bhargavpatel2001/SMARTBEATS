@@ -2,12 +2,16 @@
 
 package ca.shalominc.it.smartbeats;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.bluetooth.BluetoothAdapter;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,7 +19,9 @@ import android.view.MenuItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -23,6 +29,8 @@ import androidx.navigation.ui.NavigationUI;
 
 public class MainActivity extends AppCompatActivity
 {
+
+    private int PERMISSION_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -104,9 +112,9 @@ public class MainActivity extends AppCompatActivity
 
                 break;
 
-            case R.id.audioPlayWhenLockedBtn:
+            case R.id.bluetoothBtn:
 
-
+                    requestBluetoothPermission();
 
                 break;
 
@@ -117,6 +125,74 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+
+    private void requestBluetoothPermission()
+    {
+
+            new AlertDialog.Builder(this)
+                    .setTitle("Permission Needed")
+                    .setMessage("Do you wish to turn on Bluetooth?")
+                    .setCancelable(false)
+                    .setPositiveButton("Agree", new DialogInterface.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which)
+                        {
+                            requestPermissions(new String[]{Manifest.permission.BLUETOOTH}, PERMISSION_CODE);
+                            requestPermissions(new String[]{Manifest.permission.BLUETOOTH_ADMIN}, PERMISSION_CODE);
+
+                        }
+                    })
+                    .setNegativeButton("Disagree", new DialogInterface.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which)
+                        {
+                            Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),"Bluetooth disabled restart app to enable", Snackbar.LENGTH_LONG);
+                            snackbar.show();
+
+                            BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+                            if (mBluetoothAdapter.isEnabled())
+                            {
+                                mBluetoothAdapter.disable();
+                            }
+
+                            dialog.dismiss();
+                        }
+                    })
+                    .create().show();
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
+    {
+        if(requestCode == PERMISSION_CODE)
+        {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+            {
+                Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),
+                        "Bluetooth Enabled", Snackbar.LENGTH_LONG);
+                snackbar.show();
+
+                BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+                if (!mBluetoothAdapter.isEnabled())
+                {
+                    Intent enable_Bluetooth = new Intent(
+                            BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                    startActivityForResult(enable_Bluetooth, 1);
+
+                }
+
+            }
+            else
+            {
+                Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),"Permission Denied!", Snackbar.LENGTH_LONG);
+                snackbar.show();
+            }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
 
     //OnBackKeyPressed
     @Override
