@@ -16,7 +16,7 @@
     </item>
 
     <item
-        app:showAsAction="ifRoom"
+        app:showAsAction="always"
         android:id="@+id/lightsPwrBtn"
         android:title="Lights Power"
         android:icon="@drawable/on_off_icon_foreground">

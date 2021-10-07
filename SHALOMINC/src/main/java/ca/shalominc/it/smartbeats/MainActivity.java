@@ -13,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -75,7 +76,30 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case R.id.lightsPwrBtn:
+                int flag = 0;
 
+                switch (flag)
+                {
+                    case 0:
+
+                    Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),
+                                    "Power On", Snackbar.LENGTH_LONG);
+                    snackbar.show();
+
+                    flag++;
+
+                    break;
+
+                    case 1:
+
+                    snackbar = Snackbar.make(findViewById(android.R.id.content),
+                            "Power Off", Snackbar.LENGTH_LONG);
+                    snackbar.show();
+
+                    flag=1;
+
+                    break;
+                }
 
 
                 break;
