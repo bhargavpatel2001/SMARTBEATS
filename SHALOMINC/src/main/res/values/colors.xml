@@ -19,13 +19,14 @@
     <color name="haiti">#170E34</color>
     <color name="gray_suit">#C0BDCC</color>
     <color name="kimberly">#71629E</color>
-    <color name="waterloo">#848496</color>
     <color name="grape">#43174E</color>
     <color name="light_orchid">#D99AC3</color>
     <color name="mountain_mist">#9B93A4</color>
     <color name="wisteria">#A36AAC</color>
     <color name="light_green">#78FFBD</color>
-    <color name="laser_lemon">#F1EA72</color>
-    <color name="mint_green">#79EA95</color>
+
+    <color name="violet">#8C91A3</color>
+    <color name="lilac">#C39DCD</color>
+    <color name="lavender_blush">#CAB9D5</color>
     <color name="transparent">#0078FFBD</color>
 </resources>
