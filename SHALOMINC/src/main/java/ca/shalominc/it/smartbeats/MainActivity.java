@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity
 
             case R.id.musicBtn:
 
-                //
+                //will implement feature to take you to the database with music.
                 intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.ca"));
                 startActivity(intent);
 

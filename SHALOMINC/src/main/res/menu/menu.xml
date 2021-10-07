@@ -9,15 +9,17 @@
     </item>
 
     <item
-        app:showAsAction="never"
+        app:showAsAction="ifRoom"
         android:id="@+id/musicBtn"
-        android:title="Music">
+        android:title="Music"
+        android:icon="@drawable/music_note_foreground">
     </item>
 
     <item
-        app:showAsAction="never"
+        app:showAsAction="ifRoom"
         android:id="@+id/lightsPwrBtn"
-        android:title="Lights Power">
+        android:title="Lights Power"
+        android:icon="@drawable/on_off_icon_foreground">
     </item>
 
     <item
@@ -25,4 +27,5 @@
         android:id="@+id/audioPlayWhenLockedBtn"
         android:title="Audio Play When Locked">
     </item>
+
 </menu>
