@@ -14,6 +14,13 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="SplashTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_background</item>
+        <item name="colorPrimary">@color/blue</item>
+        <item name="colorPrimaryDark">@color/red</item>
+        <item name="colorAccent">@color/purple_500</item>
+        <item name="android:statusBarColor">@color/light_orchid</item>
+    </style>
     <!--Fragment 1 style-->
     <style name="HomeFragment" >
         <item name="android:background">@color/grape</item>
