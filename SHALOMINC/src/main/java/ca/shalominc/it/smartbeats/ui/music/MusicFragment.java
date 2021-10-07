@@ -16,20 +16,9 @@ import ca.shalominc.it.smartbeats.R;
 
 public class MusicFragment extends Fragment {
 
-    private MusicViewModel musicViewModel;
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        musicViewModel =
-                new ViewModelProvider(this).get(MusicViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_music, container, false);
-        final TextView textView = root.findViewById(R.id.text_home);
-        musicViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
-        return root;
+
+        return inflater.inflate(R.layout.fragment_music, container, false);
     }
 }
