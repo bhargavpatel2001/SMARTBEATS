@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity
     public void onBackPressed()
     {
         new AlertDialog.Builder(this)
-                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setIcon(R.drawable.ic_baseline_warning_24)
                 .setTitle("Are you sure ?")
                 .setMessage("This will exit the application")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener()
