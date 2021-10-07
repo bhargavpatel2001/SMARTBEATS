@@ -31,6 +31,8 @@ public class MainActivity extends AppCompatActivity
 {
 
     private int PERMISSION_CODE = 1;
+    int flag = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -84,31 +86,8 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case R.id.lightsPwrBtn:
-                int flag = 0;
 
-                switch (flag)
-                {
-                    case 0:
-
-                    Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),
-                                    "Power On", Snackbar.LENGTH_LONG);
-                    snackbar.show();
-
-                    flag++;
-
-                    break;
-
-                    case 1:
-
-                    snackbar = Snackbar.make(findViewById(android.R.id.content),
-                            "Power Off", Snackbar.LENGTH_LONG);
-                    snackbar.show();
-
-                    flag=1;
-
-                    break;
-                }
-
+                pwrOutput();
 
                 break;
 
@@ -123,6 +102,32 @@ public class MainActivity extends AppCompatActivity
         }
         return true;
 
+    }
+
+    void pwrOutput()
+    {
+        switch (flag)
+        {
+            case 1:
+
+                Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),
+                        "Power On", Snackbar.LENGTH_LONG);
+                snackbar.show();
+
+                flag++;
+
+                break;
+
+            case 2:
+
+                snackbar = Snackbar.make(findViewById(android.R.id.content),
+                        "Power Off", Snackbar.LENGTH_LONG);
+                snackbar.show();
+
+                flag=1;
+
+                break;
+        }
     }
 
 
