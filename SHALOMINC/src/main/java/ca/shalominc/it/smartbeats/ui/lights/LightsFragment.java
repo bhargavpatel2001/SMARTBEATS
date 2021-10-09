@@ -1,5 +1,7 @@
 package ca.shalominc.it.smartbeats.ui.lights;
 
+import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +15,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.flask.colorpicker.OnColorSelectedListener;
+import com.flask.colorpicker.builder.ColorPickerClickListener;
+import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
+
 import ca.shalominc.it.smartbeats.R;
+import top.defaults.colorpicker.ColorPickerView;
 
 public class LightsFragment extends Fragment {
 
@@ -57,38 +64,48 @@ public class LightsFragment extends Fragment {
         // handling the Pick Color Button to open color
         // picker dialog
         shalomColorPBtn.setOnClickListener(
-                new View.OnClickListener() {
+                new View.OnClickListener()
+                {
                     @Override
-                    public void onClick(final View v) {
-                        new ColorPickerPopup.Builder(getActivity())
+                    public void onClick(final View v)
+                    {
+                        ColorPickerDialogBuilder
+                                .with(getActivity(),R.style.ColourPickerDialogTheme)
+                                .setTitle("Choose color")
                                 .initialColor(Color.RED)
-                                .enableBrightness(true)
-                                .enableAlpha(true)
-                                .okTitle("Choose")
-                                .cancelTitle("Cancel")
-                                .showIndicator(true)
-                                .showValue(true)
-                                .build()
-                                .show(v, new ColorPickerPopup.ColorPickerObserver() {
-                                            @Override
-                                            public void
-                                            onColorPicked(int color) {
-                                                // set the color
-                                                // which is returned
-                                                // by the color
-                                                // picker
-                                                shalomDefault = color;
+                                .density(12)
+                                .setOnColorSelectedListener(new OnColorSelectedListener()
+                                {
+                                    @Override
+                                    public void onColorSelected(int selectedColor)
+                                    {
+                                        shalomDefault = selectedColor;
 
-                                                // now as soon as
-                                                // the dialog closes
-                                                // set the preview
-                                                // box to returned
-                                                // color
-                                                shalomPreview.setBackgroundColor(shalomDefault);
-                                            }
-                                        });
+                                        shalomPreview.setBackgroundColor(shalomDefault);
+                                    }
+                                })
+                                .setPositiveButton("ok", new ColorPickerClickListener()
+                                {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors)
+                                    {
+
+                                    }
+                                })
+                                .setNegativeButton("cancel", new DialogInterface.OnClickListener()
+                                {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which)
+                                    {
+
+                                    }
+                                })
+                                .build()
+                                .show();
                     }
                 });
+
+
 
         // handling the Set Color button to set the selected
         // color for the GFG text.
