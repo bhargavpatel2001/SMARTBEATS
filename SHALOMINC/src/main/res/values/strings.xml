@@ -5,4 +5,7 @@
     <string name="title_home">Music</string>
     <string name="title_dashboard">Lights</string>
     <string name="title_notifications">Settings</string>
+    <string name="choose_color">Choose Color</string>
+    <string name="chosen_color">Your chosen color is:</string>
+    <string name="set_color">Set Color</string>
 </resources>
