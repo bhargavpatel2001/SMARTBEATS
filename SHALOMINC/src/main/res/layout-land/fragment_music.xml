@@ -9,6 +9,19 @@
     android:orientation="vertical"
     tools:context=".ui.music.MusicFragment">
 
+
+    <ImageView
+        android:id="@+id/shalom_IV"
+        android:layout_width="175dp"
+        android:layout_height="168dp"
+        android:src="@drawable/ic_music"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.879"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.127" />
+
     <TextView
         android:id="@+id/shalom_timer"
         android:layout_width="46dp"
@@ -18,11 +31,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.649"
+        app:layout_constraintHorizontal_bias="0.648"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.541"></TextView>
-
+        app:layout_constraintVertical_bias="0.61"></TextView>
 
     <ImageView
         android:id="@+id/bt_pause"
@@ -44,10 +56,10 @@
         android:layout_weight="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.965"
+        app:layout_constraintHorizontal_bias="0.949"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.459"></SeekBar>
+        app:layout_constraintVertical_bias="0.55"></SeekBar>
 
     <ImageView
         android:id="@+id/shalom_rewind"
@@ -56,10 +68,10 @@
         android:src="@drawable/ic_fast_rewind"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.663"
+        app:layout_constraintHorizontal_bias="0.66"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.698"></ImageView>
+        app:layout_constraintVertical_bias="0.772"></ImageView>
 
     <ImageView
         android:id="@+id/bt_play"
@@ -71,7 +83,7 @@
         app:layout_constraintHorizontal_bias="0.818"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.698"></ImageView>
+        app:layout_constraintVertical_bias="0.772"></ImageView>
 
     <ImageView
         android:id="@+id/bt_ff"
@@ -80,10 +92,10 @@
         android:src="@drawable/shalom_forward"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.976"
+        app:layout_constraintHorizontal_bias="0.973"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.698"></ImageView>
+        app:layout_constraintVertical_bias="0.772"></ImageView>
 
     <TextView
         android:id="@+id/shalom_timer_duration"
@@ -94,8 +106,8 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.976"
+        app:layout_constraintHorizontal_bias="0.974"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.535" />
+        app:layout_constraintVertical_bias="0.614" />
 </androidx.constraintlayout.widget.ConstraintLayout>
