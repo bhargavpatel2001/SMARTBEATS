@@ -1,87 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="horizontal"
     android:background="@color/violet"
+    android:gravity="center"
+    android:orientation="vertical"
     tools:context=".ui.music.MusicFragment">
+
+    <TextView
+        android:id="@+id/shalom_timer"
+        android:layout_width="46dp"
+        android:layout_height="23dp"
+        android:text="00:00"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.649"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.541"></TextView>
 
 
     <ImageView
-        android:id="@+id/shalom_IV"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:src="@drawable/ic_music" />
+        android:id="@+id/bt_pause"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/shalom_pause"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.818"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.698"></ImageView>
 
+    <SeekBar
+        android:id="@+id/shalom_seekbar"
+        android:layout_width="270dp"
+        android:layout_height="24dp"
+        android:layout_weight="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.965"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.459"></SeekBar>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+    <ImageView
+        android:id="@+id/shalom_rewind"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/ic_fast_rewind"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.663"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.698"></ImageView>
 
-        <TextView
-            android:id="@+id/shalom_timer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="00:00"
-            android:textColor="@android:color/white"
-            android:textStyle="bold">
-        </TextView>
+    <ImageView
+        android:id="@+id/bt_play"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/shalom_play"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.818"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.698"></ImageView>
 
-        <SeekBar
-            android:id="@+id/shalom_seekbar"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-        </SeekBar>
+    <ImageView
+        android:id="@+id/bt_ff"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/shalom_forward"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.976"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.698"></ImageView>
 
-
-        <TextView
-            android:id="@+id/shalom_timer_duration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="00:00"
-            android:textColor="@android:color/white"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <LinearLayout
+    <TextView
+        android:id="@+id/shalom_timer_duration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp">
-
-        <ImageView
-            android:id="@+id/shalom_rewind"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:src="@drawable/ic_fast_rewind">
-        </ImageView>
-
-        <ImageView
-            android:src="@drawable/shalom_play"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:id="@+id/bt_play">
-        </ImageView>
-
-        <ImageView
-            android:src="@drawable/shalom_pause"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:id="@+id/bt_pause"
-            android:visibility="gone">
-        </ImageView>
-
-        <ImageView
-            android:src="@drawable/shalom_forward"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:id="@+id/bt_ff">
-        </ImageView>
-
-    </LinearLayout>
-</LinearLayout>
+        android:text="00:00"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.976"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.535" />
+</androidx.constraintlayout.widget.ConstraintLayout>

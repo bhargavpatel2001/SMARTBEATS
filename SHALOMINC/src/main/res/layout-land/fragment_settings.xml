@@ -9,53 +9,53 @@
     android:background="@color/lavender_blush"
     tools:context=".ui.settings.SettingsFragment">
 
+
     <Switch
-        android:id="@+id/switch1"
+        android:id="@+id/shalom_switch1"
         android:layout_width="148dp"
         android:layout_height="46dp"
-        android:text="Vertical Mode"
+        android:text="@string/portrait_mode"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.212"
+        app:layout_constraintHorizontal_bias="0.886"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.608" />
-
-    <Switch
-        android:id="@+id/switch4"
-        android:layout_width="139dp"
-        android:layout_height="48dp"
-        android:text="Force close"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.193"
-        app:layout_constraintStart_toEndOf="@+id/switch1"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.611" />
+        app:layout_constraintVertical_bias="0.446" />
 
     <Button
-        android:id="@+id/button"
-        android:layout_width="169dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="44dp"
-        android:text="Music settings"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.199"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="167dp"
-        android:layout_height="50dp"
-        android:text="Lights Settings"
+        android:id="@+id/shalom_button1"
+        android:layout_width="210dp"
+        android:layout_height="60dp"
+        android:text="@string/music_settings"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.202"
+        app:layout_constraintHorizontal_bias="0.499"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.365" />
+        app:layout_constraintVertical_bias="0.253" />
+
+    <Button
+        android:id="@+id/shalom_button2"
+        android:layout_width="210dp"
+        android:layout_height="60dp"
+        android:text="@string/light_settings"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.499"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.464" />
+
+    <Button
+        android:id="@+id/shalom_button3"
+        android:layout_width="210dp"
+        android:layout_height="60dp"
+        android:text="@string/change_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.499"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.686" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

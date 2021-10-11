@@ -8,4 +8,8 @@
     <string name="choose_color">Choose Color</string>
     <string name="chosen_color">Your chosen color is:</string>
     <string name="set_color">Set Color</string>
+    <string name="light_settings">Light Settings</string>
+    <string name="music_settings">Music Settings</string>
+    <string name="change_background">Change background Color</string>
+    <string name="portrait_mode">Lock to Portrait Mode</string>
 </resources>
