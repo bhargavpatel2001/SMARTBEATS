@@ -50,7 +50,7 @@
         app:layout_constraintHorizontal_bias="0.222"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.351" />
+        app:layout_constraintVertical_bias="0.369" />
 
     <View
         android:id="@+id/shalom_preview_color"
@@ -83,6 +83,8 @@
         android:id="@+id/shalom_seekBar"
         android:layout_width="220dp"
         android:layout_height="24dp"
+        android:background="@color/lilac"
+        android:elevation="16dp"
         android:progressTint="@color/grape"
         android:thumbTint="@color/grape"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -84,6 +84,8 @@
         android:layout_height="24dp"
         android:thumbTint="@color/grape"
         android:progressTint="@color/grape"
+        android:elevation="10dp"
+        android:background="@color/lilac"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.518"

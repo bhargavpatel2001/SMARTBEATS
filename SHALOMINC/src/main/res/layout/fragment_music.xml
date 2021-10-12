@@ -66,6 +66,8 @@
             android:src="@drawable/shalom_play"
             android:layout_width="60dp"
             android:layout_height="60dp"
+            android:elevation="10dp"
+            android:background="@color/violet"
             android:id="@+id/bt_play">
         </ImageView>
 
@@ -73,6 +75,8 @@
             android:src="@drawable/shalom_pause"
             android:layout_width="60dp"
             android:layout_height="60dp"
+            android:elevation="10dp"
+            android:background="@color/violet"
             android:id="@+id/bt_pause"
             android:visibility="gone">
         </ImageView>
