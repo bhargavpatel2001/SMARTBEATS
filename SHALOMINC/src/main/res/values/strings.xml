@@ -15,7 +15,7 @@
     <string name="adjust_bright">Adjust Brightness:</string>
     <string name="colour_picker_dialog_cancel_btn">Cancel</string>
     <string name="colour_picker_dialog_ok_btn">OK</string>
-    <string name="colour_picker_dialog_title">Choose colour</string>
+    <string name="colour_picker_dialog_title">Choose Color</string>
     <string name="menu_bar_help_btn_link">https://www.google.ca</string>
     <string name="menu_bar_music_btn_link">https://www.youtube.ca</string>
     <string name="snackbar_pwr_btn_on">Power On</string>
