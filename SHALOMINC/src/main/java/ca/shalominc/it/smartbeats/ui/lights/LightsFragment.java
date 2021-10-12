@@ -6,9 +6,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.graphics.Color;
+
+import ca.shalominc.it.smartbeats.ModeAdapter;
+import ca.shalominc.it.smartbeats.ModeItem;
 import top.defaults.colorpicker.ColorPickerPopup;
 
 import androidx.annotation.NonNull;
@@ -19,20 +26,28 @@ import com.flask.colorpicker.OnColorSelectedListener;
 import com.flask.colorpicker.builder.ColorPickerClickListener;
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 
+import java.util.ArrayList;
+
 import ca.shalominc.it.smartbeats.R;
 import top.defaults.colorpicker.ColorPickerView;
 
 public class LightsFragment extends Fragment {
 
-
     private TextView shalomTV;
-
 
     private Button shalomColorBtn, shalomColorPBtn;
 
     private View shalomPreview;
 
     private int shalomDefault;
+
+    private ArrayList<ModeItem> mModeList;
+
+    private ModeAdapter mAdapter;
+
+    private Spinner spinnerMode;
+
+    String clickedModeName = "";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -43,6 +58,8 @@ public class LightsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        initList();
+
         shalomTV = view.findViewById(R.id.shalom_heading);
 
 
@@ -52,6 +69,23 @@ public class LightsFragment extends Fragment {
 
         shalomPreview = view.findViewById(R.id.shalom_preview_color);
 
+        spinnerMode = view.findViewById(R.id.shalom_spinner);
+
+        mAdapter = new ModeAdapter(getContext(),mModeList);
+        spinnerMode.setAdapter(mAdapter);
+
+        spinnerMode.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                ModeItem clickedItem = (ModeItem) parent.getItemAtPosition(position);
+                clickedModeName = clickedItem.getModeName();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         shalomDefault = 0;
 
 
@@ -108,5 +142,15 @@ public class LightsFragment extends Fragment {
                         shalomTV.setTextColor(shalomDefault);
                     }
                 });
+    }
+
+    private void initList(){
+        mModeList = new ArrayList<>();
+        mModeList.add(new ModeItem("Please select a light mode",R.mipmap.speak));
+        mModeList.add(new ModeItem("Default",R.mipmap.speak));
+        mModeList.add(new ModeItem("Party",R.drawable.party));
+        mModeList.add(new ModeItem("Zen",R.drawable.zen));
+        mModeList.add(new ModeItem("Focus",R.drawable.workout));
+        mModeList.add(new ModeItem("Sleep",R.drawable.focus1));
     }
 }

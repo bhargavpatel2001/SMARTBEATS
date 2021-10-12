@@ -37,4 +37,5 @@
     <string name="menu_bar_bluetooth_btn_title">Bluetooth</string>
     <string name="lock_portrait">Verrouillage portrait</string>
     <string name="portrait_lock_disable">Verrouillage portrait désactivé</string>
+    <string name="select_mode">Choisissez la mode d\'illumination:</string>
 </resources>
