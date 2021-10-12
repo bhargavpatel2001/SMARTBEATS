@@ -35,4 +35,6 @@
     <string name="menu_bar_music_btn_title">Musique</string>
     <string name="menu_bar_lights_pwr_btn_title">Puissance des lumières</string>
     <string name="menu_bar_bluetooth_btn_title">Bluetooth</string>
+    <string name="lock_portrait">Verrouillage portrait</string>
+    <string name="portrait_lock_disable">Verrouillage portrait désactivé</string>
 </resources>

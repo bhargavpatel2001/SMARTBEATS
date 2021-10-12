@@ -46,14 +46,14 @@ public class SettingsFragment extends Fragment {
                 {
                     case 1:
                         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-                        Toast.makeText(getContext(),"Portrait Lock",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(),R.string.lock_portrait,Toast.LENGTH_LONG).show();
                         flag++;
 
                         break;
 
                     case 2:
                         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
-                        Toast.makeText(getContext(),"Portrait Lock Disabled",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(),R.string.portrait_lock_disable,Toast.LENGTH_LONG).show();
                         flag=1;
 
                         break;
