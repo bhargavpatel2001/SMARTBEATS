@@ -6,6 +6,8 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -28,6 +30,9 @@ public class MusicFragment extends Fragment {
     Handler handler = new Handler();
     Runnable runnable;
 
+    Animation rotateAnimation;
+    ImageView shalomVinyl;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -45,6 +50,9 @@ public class MusicFragment extends Fragment {
         shalomPlay = view.findViewById(R.id.bt_play);
         shalomPause = view.findViewById(R.id.bt_pause);
         shalomFastForward = view.findViewById(R.id.bt_ff);
+        shalomVinyl = view.findViewById(R.id.shalom_IV);
+
+        rotateAnimation();
 
         mediaPlayer = MediaPlayer.create(getContext(), R.raw.music);
 
@@ -152,6 +160,13 @@ public class MusicFragment extends Fragment {
                 mediaPlayer.seekTo(0);
             }
         });
+    }
+
+    private void rotateAnimation(){
+
+        rotateAnimation = AnimationUtils.loadAnimation(getContext(),R.anim.spinimage);
+        shalomVinyl.startAnimation(rotateAnimation);
+
     }
 
     private String convertFormat(int duration) {

@@ -12,7 +12,7 @@
     <string name="music_settings">Parametres pour musique</string>
     <string name="change_background">Changer la couleur de fond</string>
     <string name="portrait_mode">Verrouiller en Mode Portrait</string>
-    <string name="adjust_bright">Regler la luminosite</string>
+    <string name="adjust_bright">Regler la luminosite:</string>
     <string name="colour_picker_dialog_cancel_btn">Annuler</string>
     <string name="colour_picker_dialog_ok_btn">OK</string>
     <string name="colour_picker_dialog_title">Choisissez la Couleur</string>
@@ -27,13 +27,13 @@
     <string name="request_perms_deny_snackbar_message">Bluetooth désactivé redémarrer lapplication pour activer</string>
     <string name="bluetooth_enabled_snackbar_message">Bluetooth activé</string>
     <string name="deny_permission_snackbar_message">Permission refusée!</string>
-    <string name="back_key_pressed_title">Es-tu sûr ?</string>
-    <string name="back_key_pressed_message">Cela quittera lapplication</string>
-    <string name="back_key_pressed_positive_btn">Qui</string>
+    <string name="back_key_pressed_title">Etes-vous sûr ?</string>
+    <string name="back_key_pressed_message">Cela quittera l\'application</string>
+    <string name="back_key_pressed_positive_btn">Oui</string>
     <string name="back_key_pressed_negative_btn">Non</string>
-    <string name="menu_bar_help_btn_title">Aider</string>
+    <string name="menu_bar_help_btn_title">Aide</string>
     <string name="menu_bar_music_btn_title">Musique</string>
-    <string name="menu_bar_lights_pwr_btn_title">Puissance des lumières</string>
+    <string name="menu_bar_lights_pwr_btn_title">Lumieres</string>
     <string name="menu_bar_bluetooth_btn_title">Bluetooth</string>
     <string name="lock_portrait">Verrouillage portrait</string>
     <string name="portrait_lock_disable">Verrouillage portrait désactivé</string>

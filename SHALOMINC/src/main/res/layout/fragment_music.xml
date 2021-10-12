@@ -7,14 +7,14 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    android:background="@color/violet"
+    android:background="@color/lilac"
     tools:context=".ui.music.MusicFragment">
 
     <ImageView
         android:id="@+id/shalom_IV"
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:src="@drawable/ic_music" />
+        android:src="@drawable/vinyl" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,6 +34,8 @@
         <SeekBar
             android:id="@+id/shalom_seekbar"
             android:layout_width="0dp"
+            android:progressTint="@color/grape"
+            android:thumbTint="@color/grape"
             android:layout_height="wrap_content"
             android:layout_weight="1">
         </SeekBar>
@@ -67,7 +69,7 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:elevation="10dp"
-            android:background="@color/violet"
+            android:background="@color/lilac"
             android:id="@+id/bt_play">
         </ImageView>
 
@@ -76,7 +78,7 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:elevation="10dp"
-            android:background="@color/violet"
+            android:background="@color/lilac"
             android:id="@+id/bt_pause"
             android:visibility="gone">
         </ImageView>

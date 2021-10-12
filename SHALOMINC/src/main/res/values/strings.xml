@@ -24,7 +24,7 @@
     <string name="request_perms_alert_dialog_message">Do you wish to turn on Bluetooth?</string>
     <string name="request_perms_alert_dialog_positive_btn">Agree</string>
     <string name="request_perms_alert_dialog_negative_btn">Disagree</string>
-    <string name="request_perms_deny_snackbar_message">Bluetooth disabled restart app to enable</string>
+    <string name="request_perms_deny_snackbar_message">Bluetooth disabled, restart app to enable</string>
     <string name="bluetooth_enabled_snackbar_message">Bluetooth Enabled</string>
     <string name="deny_permission_snackbar_message">Permission Denied!</string>
     <string name="back_key_pressed_title">Are you sure ?</string>
