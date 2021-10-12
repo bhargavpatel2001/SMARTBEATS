@@ -13,4 +13,26 @@
     <string name="change_background">Change background Color</string>
     <string name="portrait_mode">Lock to Portrait Mode</string>
     <string name="adjust_bright">Adjust Brightness:</string>
+    <string name="colour_picker_dialog_cancel_btn">Cancel</string>
+    <string name="colour_picker_dialog_ok_btn">OK</string>
+    <string name="colour_picker_dialog_title">Choose colour</string>
+    <string name="menu_bar_help_btn_link">https://www.google.ca</string>
+    <string name="menu_bar_music_btn_link">https://www.youtube.ca</string>
+    <string name="snackbar_pwr_btn_on">Power On</string>
+    <string name="snackbar_pwr_btn_off">Power Off</string>
+    <string name="request_perms_alert_dialog_title">Permission Needed</string>
+    <string name="request_perms_alert_dialog_message">Do you wish to turn on Bluetooth?</string>
+    <string name="request_perms_alert_dialog_positive_btn">Agree</string>
+    <string name="request_perms_alert_dialog_negative_btn">Disagree</string>
+    <string name="request_perms_deny_snackbar_message">Bluetooth disabled restart app to enable</string>
+    <string name="bluetooth_enabled_snackbar_message">Bluetooth Enabled</string>
+    <string name="deny_permission_snackbar_message">Permission Denied!</string>
+    <string name="back_key_pressed_title">Are you sure ?</string>
+    <string name="back_key_pressed_message">This will exit the application</string>
+    <string name="back_key_pressed_positive_btn">Yes</string>
+    <string name="back_key_pressed_negative_btn">No</string>
+    <string name="menu_bar_help_btn_title">Help</string>
+    <string name="menu_bar_music_btn_title">Music</string>
+    <string name="menu_bar_lights_pwr_btn_title">Lights Power</string>
+    <string name="menu_bar_bluetooth_btn_title">Bluetooth</string>
 </resources>

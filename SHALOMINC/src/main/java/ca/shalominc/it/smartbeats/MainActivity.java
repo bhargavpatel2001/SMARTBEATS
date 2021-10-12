@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity
 
             case R.id.helpBtn:
 
-                intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.ca"));
+                intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.menu_bar_help_btn_link)));
                 startActivity(intent);
 
                 break;
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity
             case R.id.musicBtn:
 
                 //will implement feature to take you to the database with music.
-                intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.ca"));
+                intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.menu_bar_music_btn_link)));
                 startActivity(intent);
 
                 break;
@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity
             case 1:
 
                 Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),
-                        "Power On", Snackbar.LENGTH_LONG);
+                        R.string.snackbar_pwr_btn_on, Snackbar.LENGTH_LONG);
                 snackbar.show();
 
                 flag++;
@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity
             case 2:
 
                 snackbar = Snackbar.make(findViewById(android.R.id.content),
-                        "Power Off", Snackbar.LENGTH_LONG);
+                        R.string.snackbar_pwr_btn_off, Snackbar.LENGTH_LONG);
                 snackbar.show();
 
                 flag=1;
@@ -135,10 +135,10 @@ public class MainActivity extends AppCompatActivity
     {
 
             new AlertDialog.Builder(this)
-                    .setTitle("Permission Needed")
-                    .setMessage("Do you wish to turn on Bluetooth?")
+                    .setTitle(R.string.request_perms_alert_dialog_title)
+                    .setMessage(R.string.request_perms_alert_dialog_message)
                     .setCancelable(false)
-                    .setPositiveButton("Agree", new DialogInterface.OnClickListener()
+                    .setPositiveButton(R.string.request_perms_alert_dialog_positive_btn, new DialogInterface.OnClickListener()
                     {
                         @Override
                         public void onClick(DialogInterface dialog, int which)
@@ -148,12 +148,12 @@ public class MainActivity extends AppCompatActivity
 
                         }
                     })
-                    .setNegativeButton("Disagree", new DialogInterface.OnClickListener()
+                    .setNegativeButton(R.string.request_perms_alert_dialog_negative_btn, new DialogInterface.OnClickListener()
                     {
                         @Override
                         public void onClick(DialogInterface dialog, int which)
                         {
-                            Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),"Bluetooth disabled restart app to enable", Snackbar.LENGTH_LONG);
+                            Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), R.string.request_perms_deny_snackbar_message, Snackbar.LENGTH_LONG);
                             snackbar.show();
 
                             BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -177,7 +177,7 @@ public class MainActivity extends AppCompatActivity
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
             {
                 Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),
-                        "Bluetooth Enabled", Snackbar.LENGTH_LONG);
+                        R.string.bluetooth_enabled_snackbar_message, Snackbar.LENGTH_LONG);
                 snackbar.show();
 
                 BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -192,7 +192,7 @@ public class MainActivity extends AppCompatActivity
             }
             else
             {
-                Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),"Permission Denied!", Snackbar.LENGTH_LONG);
+                Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), R.string.deny_permission_snackbar_message, Snackbar.LENGTH_LONG);
                 snackbar.show();
             }
         }
@@ -205,9 +205,9 @@ public class MainActivity extends AppCompatActivity
     {
         new AlertDialog.Builder(this)
                 .setIcon(R.drawable.ic_baseline_warning_24)
-                .setTitle("Are you sure ?")
-                .setMessage("This will exit the application")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                .setTitle(R.string.back_key_pressed_title)
+                .setMessage(R.string.back_key_pressed_message)
+                .setPositiveButton(R.string.back_key_pressed_positive_btn, new DialogInterface.OnClickListener()
                 {
                     @Override
                     public void onClick(DialogInterface dialog, int which)
@@ -217,7 +217,7 @@ public class MainActivity extends AppCompatActivity
                         finish();
                     }
                 })
-                .setNegativeButton("No", null)
+                .setNegativeButton(R.string.back_key_pressed_negative_btn, null)
                 .show();
     }
 }
