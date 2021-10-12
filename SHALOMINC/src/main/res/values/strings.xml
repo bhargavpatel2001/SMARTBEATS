@@ -33,7 +33,7 @@
     <string name="back_key_pressed_negative_btn">No</string>
     <string name="menu_bar_help_btn_title">Help</string>
     <string name="menu_bar_music_btn_title">Music</string>
-    <string name="menu_bar_lights_pwr_btn_title">Lights Power</string>
+    <string name="menu_bar_lights_pwr_btn_title">Power</string>
     <string name="menu_bar_bluetooth_btn_title">Bluetooth</string>
     <string name="lock_portrait">Portrait Lock</string>
     <string name="portrait_lock_disable">Portrait Lock Disabled</string>
