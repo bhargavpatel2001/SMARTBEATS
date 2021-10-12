@@ -5,27 +5,26 @@
     <item
         app:showAsAction="never"
         android:id="@+id/helpBtn"
-        android:title="Help">
-    </item>
+        android:title="@string/menu_bar_help_btn_title" />
 
     <item
         app:showAsAction="ifRoom"
         android:id="@+id/musicBtn"
-        android:title="Music"
+        android:title="@string/menu_bar_music_btn_title"
         android:icon="@drawable/music_note_foreground">
     </item>
 
     <item
         app:showAsAction="always"
         android:id="@+id/lightsPwrBtn"
-        android:title="Lights Power"
+        android:title="@string/menu_bar_lights_pwr_btn_title"
         android:icon="@drawable/on_off_icon_foreground">
     </item>
 
     <item
         app:showAsAction="never"
         android:id="@+id/bluetoothBtn"
-        android:title="Bluetooth">
+        android:title="@string/menu_bar_bluetooth_btn_title">
     </item>
 
 </menu>

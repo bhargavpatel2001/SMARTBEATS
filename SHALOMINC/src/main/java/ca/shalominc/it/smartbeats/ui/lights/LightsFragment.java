@@ -27,14 +27,11 @@ public class LightsFragment extends Fragment {
 
     private TextView shalomTV;
 
-    // two buttons to open color picker dialog and one to
-    // set the color for GFG text
+
     private Button shalomColorBtn, shalomColorPBtn;
 
-    // view box to preview the selected color
     private View shalomPreview;
 
-    // this is the default color of the preview box
     private int shalomDefault;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -46,23 +43,18 @@ public class LightsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // register the GFG text with appropriate ID
         shalomTV = view.findViewById(R.id.shalom_heading);
 
-        // register two of the buttons with their
-        // appropriate IDs
+
         shalomColorPBtn = view.findViewById(R.id.shalom_pick_color_btn);
         shalomColorBtn = view.findViewById(R.id.shalom_set_color_btn);
 
-        // and also register the view which shows the
-        // preview of the color chosen by the user
+
         shalomPreview = view.findViewById(R.id.shalom_preview_color);
 
-        // set the default color to 0 as it is black
         shalomDefault = 0;
 
-        // handling the Pick Color Button to open color
-        // picker dialog
+
         shalomColorPBtn.setOnClickListener(
                 new View.OnClickListener()
                 {
@@ -71,7 +63,7 @@ public class LightsFragment extends Fragment {
                     {
                         ColorPickerDialogBuilder
                                 .with(getActivity(),R.style.ColourPickerDialogTheme)
-                                .setTitle("Choose color")
+                                .setTitle(getString(R.string.colour_picker_dialog_title))
                                 .initialColor(Color.RED)
                                 .density(12)
                                 .setOnColorSelectedListener(new OnColorSelectedListener()
@@ -84,7 +76,7 @@ public class LightsFragment extends Fragment {
                                         shalomPreview.setBackgroundColor(shalomDefault);
                                     }
                                 })
-                                .setPositiveButton("ok", new ColorPickerClickListener()
+                                .setPositiveButton(getString(R.string.colour_picker_dialog_ok_btn), new ColorPickerClickListener()
                                 {
                                     @Override
                                     public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors)
@@ -92,7 +84,7 @@ public class LightsFragment extends Fragment {
 
                                     }
                                 })
-                                .setNegativeButton("cancel", new DialogInterface.OnClickListener()
+                                .setNegativeButton(getString(R.string.colour_picker_dialog_cancel_btn), new DialogInterface.OnClickListener()
                                 {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which)
@@ -107,14 +99,12 @@ public class LightsFragment extends Fragment {
 
 
 
-        // handling the Set Color button to set the selected
-        // color for the GFG text.
+
         shalomColorBtn.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        // now change the value of the GFG text
-                        // as well.
+
                         shalomTV.setTextColor(shalomDefault);
                     }
                 });
