@@ -38,4 +38,10 @@
     <string name="lock_portrait">Verrouillage portrait</string>
     <string name="portrait_lock_disable">Verrouillage portrait désactivé</string>
     <string name="select_mode">Choisissez la mode d\'illumination:</string>
+    <string name="select_light_mode">Mode d\'illumination:</string>
+    <string name="party_mode">Fete</string>
+    <string name="zen_mode">Zen</string>
+    <string name="sleep_mode">Dormir</string>
+    <string name="focus_mode">Concentrer</string>
+    <string name="workout_mode">Excercise</string>
 </resources>

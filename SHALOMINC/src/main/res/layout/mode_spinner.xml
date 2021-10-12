@@ -1,26 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/lilac"
+    android:elevation="30dp">
 
 
     <ImageView
         android:id="@+id/mode_image"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="119dp"
+        android:layout_height="80dp"
         android:src="@drawable/party" />
 
     <TextView
         android:id="@+id/shalom_modeTV"
-        android:layout_width="232dp"
-        android:layout_height="71dp"
+        android:layout_width="255dp"
+        android:layout_height="22dp"
+        android:layout_alignBottom="@+id/mode_image"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="39dp"
-        android:layout_marginEnd="132dp"
-        android:layout_marginBottom="735dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="21dp"
+        android:layout_marginBottom="36dp"
         android:layout_toEndOf="@+id/mode_image"
         android:text="@string/select_mode" />
+
 </RelativeLayout>

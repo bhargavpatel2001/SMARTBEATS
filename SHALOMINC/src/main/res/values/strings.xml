@@ -38,13 +38,11 @@
     <string name="lock_portrait">Portrait Lock</string>
     <string name="portrait_lock_disable">Portrait Lock Disabled</string>
     <string name="select_mode">Select light mode:</string>
-    <string-array android:name="Modes" name="LightModes">
-        <item>Select the light mode</item>
-        <item>Default</item>
-        <item>Party</item>
-        <item>Zen</item>
-        <item>Focus</item>
-        <item>Workout</item>
-        <item>Sleep</item>
-    </string-array>
+    <string name="select_light_mode">Please select light mode</string>
+    <string name="party_mode">Party</string>
+    <string name="zen_mode">Zen</string>
+    <string name="focus_mode">Focus</string>
+    <string name="sleep_mode">Sleep</string>
+    <string name="workout_mode">Workout</string>
+
 </resources>

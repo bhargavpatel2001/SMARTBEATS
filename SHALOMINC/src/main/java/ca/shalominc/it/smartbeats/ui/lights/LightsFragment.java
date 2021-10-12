@@ -146,11 +146,11 @@ public class LightsFragment extends Fragment {
 
     private void initList(){
         mModeList = new ArrayList<>();
-        mModeList.add(new ModeItem("Please select a light mode",R.mipmap.speak));
-        mModeList.add(new ModeItem("Default",R.mipmap.speak));
-        mModeList.add(new ModeItem("Party",R.drawable.party));
-        mModeList.add(new ModeItem("Zen",R.drawable.zen));
-        mModeList.add(new ModeItem("Focus",R.drawable.workout));
-        mModeList.add(new ModeItem("Sleep",R.drawable.focus1));
+        mModeList.add(new ModeItem(getString(R.string.select_light_mode),R.mipmap.speak));
+        mModeList.add(new ModeItem(getString(R.string.party_mode),R.drawable.party));
+        mModeList.add(new ModeItem(getString(R.string.zen_mode),R.drawable.zen));
+        mModeList.add(new ModeItem(getString(R.string.workout_mode),R.drawable.workout));
+        mModeList.add(new ModeItem(getString(R.string.focus_mode),R.drawable.focus1));
+        mModeList.add(new ModeItem(getString(R.string.sleep_mode),R.drawable.sleep));
     }
 }
