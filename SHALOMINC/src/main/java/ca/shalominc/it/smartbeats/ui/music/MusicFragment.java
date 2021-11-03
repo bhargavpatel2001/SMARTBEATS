@@ -11,6 +11,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
@@ -41,6 +42,7 @@ public class MusicFragment extends Fragment implements AdapterView.OnItemSelecte
     Animation rotateAnimation;
     ImageView shalomVinyl;
     Spinner shalomSongSpinner;
+    Button testing;
 
     String spinnerString;
 
@@ -63,16 +65,41 @@ public class MusicFragment extends Fragment implements AdapterView.OnItemSelecte
         shalomFastForward = view.findViewById(R.id.bt_ff);
         shalomVinyl = view.findViewById(R.id.shalom_IV);
         shalomSongSpinner = view.findViewById(R.id.shalom_music_spinner);
-
+        testing = view.findViewById(R.id.testing);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.Songs, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         shalomSongSpinner.setAdapter(adapter);
         shalomSongSpinner.setOnItemSelectedListener(this);
 
-        rotateAnimation();
+      /*  testing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MediaPlayer mediaPlayer = new MediaPlayer();
+                try
+                {
+                    mediaPlayer.setDataSource("https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/BLR%20x%20Rave%20%26%20Crave%20-%20Taj.mp3?alt=media&token=7db7f980-8834-469b-9f71-bb830c1af99a");
+                    mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener(){
+                        @Override
+                        public void onPrepared(MediaPlayer mp) {
+                            mp.start();
+                        }
+                    });
 
-        mediaPlayer = MediaPlayer.create(getContext(), R.raw.music);
+                    mediaPlayer.prepare();
+                }catch(IOException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        });
+      */
+
+
+
+         rotateAnimation();
+
+          mediaPlayer = MediaPlayer.create(getContext(), R.raw.music);
 
 
         runnable = new Runnable() {
@@ -107,6 +134,7 @@ public class MusicFragment extends Fragment implements AdapterView.OnItemSelecte
 
             }
         });
+
 
         shalomPause.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -198,7 +226,6 @@ public class MusicFragment extends Fragment implements AdapterView.OnItemSelecte
                         TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(duration)));
     }
 
-
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         shalomSongSpinner = view.findViewById(R.id.shalom_music_spinner);
@@ -208,4 +235,5 @@ public class MusicFragment extends Fragment implements AdapterView.OnItemSelecte
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+
 }
