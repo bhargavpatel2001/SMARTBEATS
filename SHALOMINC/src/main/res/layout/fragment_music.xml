@@ -10,6 +10,33 @@
     android:background="@color/lilac"
     tools:context=".ui.music.MusicFragment">
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/text_view_countdown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="4dp"
+            android:text="00:00"
+            android:textColor="#F0F00F"
+            android:textSize="60sp" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="109dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_marginRight="100dp"
+            android:layout_marginBottom="100dp"
+            android:text="START" />
+
+    </LinearLayout>
+
+
     <ImageView
         android:id="@+id/shalom_IV"
         android:layout_width="match_parent"
@@ -91,4 +118,6 @@
         </ImageView>
 
     </LinearLayout>
+
+
 </LinearLayout>
