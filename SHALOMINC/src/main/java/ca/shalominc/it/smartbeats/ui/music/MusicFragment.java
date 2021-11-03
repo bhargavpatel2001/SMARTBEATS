@@ -57,6 +57,9 @@ public class MusicFragment extends Fragment {
 
         mediaPlayer = MediaPlayer.create(getContext(), R.raw.music);
 
+
+
+
         runnable = new Runnable() {
             @Override
             public void run() {
