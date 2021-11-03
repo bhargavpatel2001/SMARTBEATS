@@ -1,5 +1,6 @@
 package ca.shalominc.it.smartbeats.ui.music;
 
+import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,6 +12,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -117,6 +119,8 @@ public class MusicFragment extends Fragment {
                     currentPosition = currentPosition + 5000;
                     shalomPosition.setText(convertFormat(currentPosition));
                     mediaPlayer.seekTo(currentPosition);
+                    Context context =getActivity();
+                    Toast.makeText(context, "Song Fast Forwarded 5 seconds" , Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -129,6 +133,8 @@ public class MusicFragment extends Fragment {
                     currentPosition = currentPosition - 5000;
                     shalomPosition.setText(convertFormat(currentPosition));
                     mediaPlayer.seekTo(currentPosition);
+                    Context context =getActivity();
+                    Toast.makeText(context, "Song Rewinded by 5 seconds" , Toast.LENGTH_LONG).show();
 
                 }
             }
