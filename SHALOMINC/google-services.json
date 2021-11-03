@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "850966877621",
+    "project_id": "shalominc-smartbeats",
+    "storage_bucket": "shalominc-smartbeats.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:850966877621:android:2957f17320e62fcff6b5fc",
+        "android_client_info": {
+          "package_name": "ca.shalominc.it.smartbeats"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "850966877621-bnrurldf84ih5o5pmskh2c1pf4c9ea22.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCd37i5zR5M2aKzFmGdOB3O4rsS1lciIRc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "850966877621-bnrurldf84ih5o5pmskh2c1pf4c9ea22.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

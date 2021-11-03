@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import ca.shalominc.it.smartbeats.R;
@@ -85,6 +86,7 @@ public class MusicFragment extends Fragment {
                 shalomSeekBar.setMax(mediaPlayer.getDuration());
 
                 handler.postDelayed(runnable, 0);
+
 
 
             }

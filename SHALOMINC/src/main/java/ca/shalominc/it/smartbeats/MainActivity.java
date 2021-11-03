@@ -6,6 +6,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -15,6 +16,7 @@ import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
@@ -80,9 +82,11 @@ public class MainActivity extends AppCompatActivity
 
             case R.id.musicBtn:
 
-                //will implement feature to take you to the database with music.
-                intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.menu_bar_music_btn_link)));
-                startActivity(intent);
+                //intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.menu_bar_music_btn_link)));
+
+                //startActivity(intent);
+
+                toastShow();
 
                 break;
 
@@ -103,6 +107,12 @@ public class MainActivity extends AppCompatActivity
         }
         return true;
 
+    }
+
+    void toastShow()
+    {
+        Context context = getApplicationContext();
+        Toast.makeText(context, "Downloading Sample Music, Press Play to Test!", Toast.LENGTH_LONG).show();
     }
 
     void pwrOutput()
