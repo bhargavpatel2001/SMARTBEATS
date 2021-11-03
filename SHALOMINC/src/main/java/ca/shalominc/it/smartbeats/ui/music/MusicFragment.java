@@ -18,11 +18,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-
-import android.os.CountDownTimer;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
@@ -30,7 +25,7 @@ import ca.shalominc.it.smartbeats.R;
 
 public class MusicFragment extends Fragment {
 
-    TextView shalomPosition, shalomDuration, countDown;
+    TextView shalomPosition, shalomDuration;
     SeekBar shalomSeekBar;
     ImageView shalomRew, shalomPlay, shalomPause, shalomFastForward;
 
@@ -59,7 +54,6 @@ public class MusicFragment extends Fragment {
         shalomPause = view.findViewById(R.id.bt_pause);
         shalomFastForward = view.findViewById(R.id.bt_ff);
         shalomVinyl = view.findViewById(R.id.shalom_IV);
-        countDown = view.findViewById(R.id.text_view_countdown);
 
         rotateAnimation();
 
@@ -80,21 +74,6 @@ public class MusicFragment extends Fragment {
         String sDuration = convertFormat(duration);
 
         shalomDuration.setText(sDuration);
-
-        new CountDownTimer(500000, 1000) {
-            public void onTick(long millisUntilFinished) {
-                // Used for formatting digit to be in 2 digits only
-                NumberFormat f = new DecimalFormat("00");
-                long hour = (millisUntilFinished / 3600000) % 24;
-                long min = (millisUntilFinished / 60000) % 60;
-                long sec = (millisUntilFinished / 1000) % 60;
-                countDown.setText(f.format(hour) + ":" + f.format(min) + ":" + f.format(sec));
-            }
-            // When the task is over it will print 00:00:00 there
-            public void onFinish() {
-                countDown.setText("00:00:00");
-            }
-        }.start();
 
         shalomPlay.setOnClickListener(new View.OnClickListener() {
 
@@ -189,8 +168,6 @@ public class MusicFragment extends Fragment {
                 mediaPlayer.seekTo(0);
             }
         });
-
-
     }
 
     private void rotateAnimation(){
@@ -206,7 +183,4 @@ public class MusicFragment extends Fragment {
                 TimeUnit.MILLISECONDS.toSeconds(duration) -
                 TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(duration)));
     }
-
-
-
 }

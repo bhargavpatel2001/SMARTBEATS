@@ -18,8 +18,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.StorageReference;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,11 +35,16 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import java.io.File;
+import java.io.IOException;
+
 public class MainActivity extends AppCompatActivity
 {
 
     private int PERMISSION_CODE = 1;
     int flag = 1;
+    // private FirebaseDatabase storage;
+  //  DatabaseReference httpsReference = storage.getReferenceFromUrl("gs://shalominc-smartbeats.appspot.com/BLR x Rave & Crave - Taj.mp3");
 
 
     @Override
@@ -82,9 +93,7 @@ public class MainActivity extends AppCompatActivity
 
             case R.id.musicBtn:
 
-                //intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.menu_bar_music_btn_link)));
 
-                //startActivity(intent);
 
                 toastShow();
 
