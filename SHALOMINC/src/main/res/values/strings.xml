@@ -45,4 +45,14 @@
     <string name="sleep_mode">Sleep</string>
     <string name="workout_mode">Workout</string>
 
+    <string-array android:name="shalomSongSpinner" name="Songs">
+        <item>Select Your Song</item>
+        <item>Song 1</item>
+        <item>Song 2</item>
+        <item>Song 3</item>
+        <item>Song 4</item>
+        <item>Song 5</item>
+    </string-array>
+
+
 </resources>

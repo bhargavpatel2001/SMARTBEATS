@@ -39,9 +39,16 @@
 
     <ImageView
         android:id="@+id/shalom_IV"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_width="210dp"
+        android:layout_height="212dp"
         android:src="@drawable/vinyl" />
+
+    <Spinner
+        android:id="@+id/shalom_music_spinner"
+        android:layout_width="281dp"
+        android:layout_height="wrap_content"
+        android:spinnerMode="dropdown">
+    </Spinner>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -76,7 +83,6 @@
             android:textStyle="bold"
             android:textColor="@android:color/white"/>
     </LinearLayout>
-
 
     <LinearLayout
         android:layout_width="wrap_content"

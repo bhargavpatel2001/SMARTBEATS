@@ -43,8 +43,8 @@ public class MainActivity extends AppCompatActivity
 
     private int PERMISSION_CODE = 1;
     int flag = 1;
-    private FirebaseDatabase storage;
-    DatabaseReference httpsReference = storage.getReferenceFromUrl("gs://shalominc-smartbeats.appspot.com/BLR x Rave & Crave - Taj.mp3");
+    // private FirebaseDatabase storage;
+  //  DatabaseReference httpsReference = storage.getReferenceFromUrl("gs://shalominc-smartbeats.appspot.com/BLR x Rave & Crave - Taj.mp3");
 
 
     @Override
