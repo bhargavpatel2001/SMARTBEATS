@@ -83,7 +83,7 @@ public class MusicFragment extends Fragment implements AdapterView.OnItemSelecte
         shalomFastForward = view.findViewById(R.id.bt_ff);
         shalomVinyl = view.findViewById(R.id.shalom_IV);
         shalomSongSpinner = view.findViewById(R.id.shalom_music_spinner);
-        testing = view.findViewById(R.id.testing);
+        //testing = view.findViewById(R.id.testing);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.Songs, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
