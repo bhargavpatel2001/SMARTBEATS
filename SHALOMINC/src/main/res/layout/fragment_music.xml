@@ -116,13 +116,6 @@
             android:id="@+id/bt_play">
         </ImageView>
 
-        <Button
-            android:id="@+id/testing"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="TeST">
-        </Button>
-
         <ImageView
             android:src="@drawable/shalom_pause"
             android:layout_width="60dp"
