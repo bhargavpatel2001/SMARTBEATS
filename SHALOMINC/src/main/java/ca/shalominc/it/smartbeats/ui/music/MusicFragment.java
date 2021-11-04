@@ -1,10 +1,13 @@
 package ca.shalominc.it.smartbeats.ui.music;
 
 import android.content.Context;
+import android.media.AudioAttributes;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +34,8 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import ca.shalominc.it.smartbeats.R;
+
+import static android.content.ContentValues.TAG;
 
 public class MusicFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
@@ -95,14 +100,19 @@ public class MusicFragment extends Fragment implements AdapterView.OnItemSelecte
         mButtonStartPause = view.findViewById(R.id.button_start_pause);
         mButtonReset = view.findViewById(R.id.button_reset);
 
-
+        //Setting Attributes
+        mediaPlayer.setAudioAttributes(
+                new AudioAttributes
+                        .Builder()
+                        .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                        .build());
 
 
          rotateAnimation();
 
           //mediaPlayer = MediaPlayer.create(getContext(), R.raw.music);
 
-        /*
+
         runnable = new Runnable() {
             @Override
             public void run() {
@@ -112,13 +122,13 @@ public class MusicFragment extends Fragment implements AdapterView.OnItemSelecte
 
             }
         };
-
+// --------------------------------------------------*-
         int duration = mediaPlayer.getDuration();
 
         String sDuration = convertFormat(duration);
 
         shalomDuration.setText(sDuration);
-        */
+   // _________________________________________________
 
 
         shalomPlay.setOnClickListener(new View.OnClickListener() {
@@ -126,21 +136,17 @@ public class MusicFragment extends Fragment implements AdapterView.OnItemSelecte
             @Override
             public void onClick(View v) {
                 shalomPlay.setVisibility(View.GONE);
-
                 shalomPause.setVisibility(View.VISIBLE);
-
-
+                mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
                 try
                 {
                     mediaPlayer.setDataSource("https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/BLR%20x%20Rave%20%26%20Crave%20-%20Taj.mp3?alt=media&token=7db7f980-8834-469b-9f71-bb830c1af99a");
-                    mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener(){
-                        @Override
-                        public void onPrepared(MediaPlayer mp) {
-                            mp.start();
-                        }
-                    });
-
                     mediaPlayer.prepare();
+                    mediaPlayer.start();
+
+                    shalomSeekBar.setMax(mediaPlayer.getDuration());
+
+                    handler.postDelayed(runnable, 0);
                 }
                 catch(IOException e)
                 {
@@ -148,10 +154,8 @@ public class MusicFragment extends Fragment implements AdapterView.OnItemSelecte
                 }
 
                 //mediaPlayer.start();
+                Log.v(TAG,"Music is streaming");
 
-                //shalomSeekBar.setMax(mediaPlayer.getDuration());
-
-                //handler.postDelayed(runnable, 0);
 
             }
         });
@@ -166,11 +170,11 @@ public class MusicFragment extends Fragment implements AdapterView.OnItemSelecte
 
                 mediaPlayer.pause();
 
-                //handler.removeCallbacks(runnable);
+                handler.removeCallbacks(runnable);
 
             }
         });
-        /*
+
         shalomFastForward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -182,8 +186,7 @@ public class MusicFragment extends Fragment implements AdapterView.OnItemSelecte
                     currentPosition = currentPosition + 5000;
                     shalomPosition.setText(convertFormat(currentPosition));
                     mediaPlayer.seekTo(currentPosition);
-                    Context context = getActivity();
-                    Toast.makeText(context, "Song Fast Forwarded 5 seconds", Toast.LENGTH_LONG).show();
+
                 }
             }
         });
@@ -196,12 +199,11 @@ public class MusicFragment extends Fragment implements AdapterView.OnItemSelecte
                     currentPosition = currentPosition - 5000;
                     shalomPosition.setText(convertFormat(currentPosition));
                     mediaPlayer.seekTo(currentPosition);
-                    Context context = getActivity();
-                    Toast.makeText(context, "Song Rewinded by 5 seconds", Toast.LENGTH_LONG).show();
 
                 }
             }
         });
+
 
         shalomSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -223,18 +225,21 @@ public class MusicFragment extends Fragment implements AdapterView.OnItemSelecte
             }
         });
 
-         */
+
+
+
 
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 shalomPause.setVisibility(View.GONE);
                 shalomPlay.setVisibility(View.VISIBLE);
-                //mediaPlayer.seekTo(0);
+                mediaPlayer.seekTo(0);
             }
         });
 
 
+//        ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
         mButtonSet.setOnClickListener(new View.OnClickListener() {
@@ -277,7 +282,7 @@ public class MusicFragment extends Fragment implements AdapterView.OnItemSelecte
         });
 
     }
-
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     private void rotateAnimation() {
 
         rotateAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.spinimage);
@@ -285,24 +290,14 @@ public class MusicFragment extends Fragment implements AdapterView.OnItemSelecte
 
     }
 
+
     private String convertFormat(int duration) {
         return String.format("%02d:%02d",
                 TimeUnit.MILLISECONDS.toMinutes(duration),
                 TimeUnit.MILLISECONDS.toSeconds(duration) -
                         TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(duration)));
     }
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        shalomSongSpinner = view.findViewById(R.id.shalom_music_spinner);
-//        spinnerString = shalomSongSpinner.getItemAtPosition(position).toString();
-    }
-
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
-
-
+   //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     //Setting the CountDown Timer
     private void setTime(long milliseconds) {
@@ -312,7 +307,6 @@ public class MusicFragment extends Fragment implements AdapterView.OnItemSelecte
 
     private void startTimer() {
         mEndTime = System.currentTimeMillis() + mTimeLeftInMillis;
-
         mCountDownTimer = new CountDownTimer(mTimeLeftInMillis, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -330,7 +324,6 @@ public class MusicFragment extends Fragment implements AdapterView.OnItemSelecte
         mTimerRunning = true;
         updateWatchInterface();
     }
-
 
     private void pauseTimer() {
         mCountDownTimer.cancel();
@@ -386,6 +379,13 @@ public class MusicFragment extends Fragment implements AdapterView.OnItemSelecte
         }
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        shalomSongSpinner = view.findViewById(R.id.shalom_music_spinner);
+//        spinnerString = shalomSongSpinner.getItemAtPosition(position).toString();
+    }
 
+    public void onNothingSelected(AdapterView<?> parent) {
 
+    }
 }
