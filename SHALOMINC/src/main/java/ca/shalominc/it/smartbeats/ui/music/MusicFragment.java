@@ -45,7 +45,6 @@ public class MusicFragment extends Fragment implements AdapterView.OnItemSelecte
     Animation rotateAnimation;
     ImageView shalomVinyl;
     Spinner shalomSongSpinner;
-    Button testing;
 
     private EditText mEditTextInput;
     private TextView mTextViewCountDown;
@@ -74,6 +73,7 @@ public class MusicFragment extends Fragment implements AdapterView.OnItemSelecte
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        mediaPlayer = new MediaPlayer();
         shalomPosition = view.findViewById(R.id.shalom_timer);
         shalomDuration = view.findViewById(R.id.shalom_timer_duration);
         shalomSeekBar = view.findViewById(R.id.shalom_seekbar);
@@ -83,7 +83,6 @@ public class MusicFragment extends Fragment implements AdapterView.OnItemSelecte
         shalomFastForward = view.findViewById(R.id.bt_ff);
         shalomVinyl = view.findViewById(R.id.shalom_IV);
         shalomSongSpinner = view.findViewById(R.id.shalom_music_spinner);
-        //testing = view.findViewById(R.id.testing);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.Songs, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -96,36 +95,14 @@ public class MusicFragment extends Fragment implements AdapterView.OnItemSelecte
         mButtonStartPause = view.findViewById(R.id.button_start_pause);
         mButtonReset = view.findViewById(R.id.button_reset);
 
-      /*  testing.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                MediaPlayer mediaPlayer = new MediaPlayer();
-                try
-                {
-                    mediaPlayer.setDataSource("https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/BLR%20x%20Rave%20%26%20Crave%20-%20Taj.mp3?alt=media&token=7db7f980-8834-469b-9f71-bb830c1af99a");
-                    mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener(){
-                        @Override
-                        public void onPrepared(MediaPlayer mp) {
-                            mp.start();
-                        }
-                    });
-
-                    mediaPlayer.prepare();
-                }catch(IOException e)
-                {
-                    e.printStackTrace();
-                }
-            }
-        });
-      */
 
 
 
          rotateAnimation();
 
-          mediaPlayer = MediaPlayer.create(getContext(), R.raw.music);
+          //mediaPlayer = MediaPlayer.create(getContext(), R.raw.music);
 
-
+        /*
         runnable = new Runnable() {
             @Override
             public void run() {
@@ -141,7 +118,7 @@ public class MusicFragment extends Fragment implements AdapterView.OnItemSelecte
         String sDuration = convertFormat(duration);
 
         shalomDuration.setText(sDuration);
-
+        */
 
 
         shalomPlay.setOnClickListener(new View.OnClickListener() {
@@ -152,11 +129,29 @@ public class MusicFragment extends Fragment implements AdapterView.OnItemSelecte
 
                 shalomPause.setVisibility(View.VISIBLE);
 
-                mediaPlayer.start();
 
-                shalomSeekBar.setMax(mediaPlayer.getDuration());
+                try
+                {
+                    mediaPlayer.setDataSource("https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/BLR%20x%20Rave%20%26%20Crave%20-%20Taj.mp3?alt=media&token=7db7f980-8834-469b-9f71-bb830c1af99a");
+                    mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener(){
+                        @Override
+                        public void onPrepared(MediaPlayer mp) {
+                            mp.start();
+                        }
+                    });
 
-                handler.postDelayed(runnable, 0);
+                    mediaPlayer.prepare();
+                }
+                catch(IOException e)
+                {
+                    e.printStackTrace();
+                }
+
+                //mediaPlayer.start();
+
+                //shalomSeekBar.setMax(mediaPlayer.getDuration());
+
+                //handler.postDelayed(runnable, 0);
 
             }
         });
@@ -171,11 +166,11 @@ public class MusicFragment extends Fragment implements AdapterView.OnItemSelecte
 
                 mediaPlayer.pause();
 
-                handler.removeCallbacks(runnable);
+                //handler.removeCallbacks(runnable);
 
             }
         });
-
+        /*
         shalomFastForward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -228,12 +223,14 @@ public class MusicFragment extends Fragment implements AdapterView.OnItemSelecte
             }
         });
 
+         */
+
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 shalomPause.setVisibility(View.GONE);
                 shalomPlay.setVisibility(View.VISIBLE);
-                mediaPlayer.seekTo(0);
+                //mediaPlayer.seekTo(0);
             }
         });
 
