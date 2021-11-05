@@ -1,5 +1,6 @@
 package ca.shalominc.it.smartbeats.ui.music;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
@@ -56,19 +57,19 @@ public class MusicFragment extends Fragment
     String spinnerString;
 
 
-    private EditText mEditTextInput;
-    private TextView mTextViewCountDown;
-    private Button mButtonSet;
-    private Button mButtonStartPause;
-    private Button mButtonReset;
+    private EditText shalomEditTextInput;
+    private TextView shalomTextViewCountDown;
+    private Button shalomButtonSet;
+    private Button shalomButtonStartPause;
+    private Button shalomButtonReset;
 
-    private CountDownTimer mCountDownTimer;
+    private CountDownTimer shalomCountDownTimer;
 
-    private boolean mTimerRunning;
+    private boolean shalomTimerRunning;
 
-    private long mStartTimeInMillis;
-    private long mTimeLeftInMillis;
-    private long mEndTime;
+    private long shalomStartTimeInMillis;
+    private long shalomTimeLeftInMillis;
+    private long shalomEndTime;
 
 
 
@@ -209,11 +210,8 @@ public class MusicFragment extends Fragment
             }
         });
 
-        mEditTextInput = view.findViewById(R.id.edit_text_input);
-        mTextViewCountDown = view.findViewById(R.id.text_view_countdown);
-        mButtonSet = view.findViewById(R.id.button_set);
-        mButtonStartPause = view.findViewById(R.id.button_start_pause);
-        mButtonReset = view.findViewById(R.id.button_reset);
+
+
 
         //Setting Attributes
         mediaPlayer.setAudioAttributes
@@ -372,30 +370,36 @@ public class MusicFragment extends Fragment
 //        ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-        mButtonSet.setOnClickListener(new View.OnClickListener() {
+        shalomEditTextInput = view.findViewById(R.id.shalom_edit_text_input);
+        shalomTextViewCountDown = view.findViewById(R.id.shalom_text_view_countdown);
+        shalomButtonSet = view.findViewById(R.id.shalom_button_set);
+        shalomButtonStartPause = view.findViewById(R.id.shalom_button_start_pause);
+        shalomButtonReset = view.findViewById(R.id.shalom_button_reset);
+
+        shalomButtonSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String input = mEditTextInput.getText().toString();
+                String input = shalomEditTextInput.getText().toString();
                 if (input.length() == 0) {
-                    Toast.makeText(getContext(), "Field can't be empty", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),R.string.field_not_empty, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 long millisInput = Long.parseLong(input) * 60000;
                 if (millisInput == 0) {
-                    Toast.makeText(getContext(), "Please enter a positive number", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),R.string.enter_positive_number, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 setTime(millisInput);
-                mEditTextInput.setText("");
+                shalomEditTextInput.setText("");
             }
         });
 
-        mButtonStartPause.setOnClickListener(new View.OnClickListener() {
+        shalomButtonStartPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mTimerRunning) {
+                if (shalomTimerRunning) {
                     pauseTimer();
                 } else {
                     startTimer();
@@ -403,7 +407,7 @@ public class MusicFragment extends Fragment
             }
         });
 
-        mButtonReset.setOnClickListener(new View.OnClickListener() {
+        shalomButtonReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 resetTimer();
@@ -434,46 +438,46 @@ public class MusicFragment extends Fragment
 
     //Setting the CountDown Timer
     private void setTime(long milliseconds) {
-        mStartTimeInMillis = milliseconds;
+        shalomStartTimeInMillis = milliseconds;
         resetTimer();
     }
 
     private void startTimer() {
-        mEndTime = System.currentTimeMillis() + mTimeLeftInMillis;
-        mCountDownTimer = new CountDownTimer(mTimeLeftInMillis, 1000) {
+        shalomEndTime = System.currentTimeMillis() + shalomTimeLeftInMillis;
+        shalomCountDownTimer = new CountDownTimer(shalomTimeLeftInMillis, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                mTimeLeftInMillis = millisUntilFinished;
+                shalomTimeLeftInMillis = millisUntilFinished;
                 updateCountDownText();
             }
 
             @Override
             public void onFinish() {
-                mTimerRunning = false;
+                shalomTimerRunning = false;
                 updateWatchInterface();
             }
         }.start();
 
-        mTimerRunning = true;
+        shalomTimerRunning = true;
         updateWatchInterface();
     }
 
     private void pauseTimer() {
-        mCountDownTimer.cancel();
-        mTimerRunning = false;
+        shalomCountDownTimer.cancel();
+        shalomTimerRunning = false;
         updateWatchInterface();
     }
 
     private void resetTimer() {
-        mTimeLeftInMillis = mStartTimeInMillis;
+        shalomTimeLeftInMillis = shalomStartTimeInMillis;
         updateCountDownText();
         updateWatchInterface();
     }
 
     private void updateCountDownText() {
-        int hours = (int) (mTimeLeftInMillis / 1000) / 3600;
-        int minutes = (int) ((mTimeLeftInMillis / 1000) % 3600) / 60;
-        int seconds = (int) (mTimeLeftInMillis / 1000) % 60;
+        int hours = (int) (shalomTimeLeftInMillis / 1000) / 3600;
+        int minutes = (int) ((shalomTimeLeftInMillis / 1000) % 3600) / 60;
+        int seconds = (int) (shalomTimeLeftInMillis / 1000) % 60;
 
         String timeLeftFormatted;
         if (hours > 0) {
@@ -484,30 +488,31 @@ public class MusicFragment extends Fragment
                     "%02d:%02d", minutes, seconds);
         }
 
-        mTextViewCountDown.setText(timeLeftFormatted);
+        shalomTextViewCountDown.setText(timeLeftFormatted);
     }
 
+    @SuppressLint("SetTextI18n")
     private void updateWatchInterface() {
-        if (mTimerRunning) {
-            mEditTextInput.setVisibility(View.INVISIBLE);
-            mButtonSet.setVisibility(View.INVISIBLE);
-            mButtonReset.setVisibility(View.INVISIBLE);
-            mButtonStartPause.setText("Pause");
+        if (shalomTimerRunning) {
+            shalomEditTextInput.setVisibility(View.INVISIBLE);
+            shalomButtonSet.setVisibility(View.INVISIBLE);
+            shalomButtonReset.setVisibility(View.INVISIBLE);
+            shalomButtonStartPause.setText(R.string.pause);
         } else {
-            mEditTextInput.setVisibility(View.VISIBLE);
-            mButtonSet.setVisibility(View.VISIBLE);
-            mButtonStartPause.setText("Start");
+            shalomEditTextInput.setVisibility(View.VISIBLE);
+            shalomButtonSet.setVisibility(View.VISIBLE);
+            shalomButtonStartPause.setText(R.string.start);
 
-            if (mTimeLeftInMillis < 1000) {
-                mButtonStartPause.setVisibility(View.INVISIBLE);
+            if (shalomTimeLeftInMillis < 1000) {
+                shalomButtonStartPause.setVisibility(View.INVISIBLE);
             } else {
-                mButtonStartPause.setVisibility(View.VISIBLE);
+                shalomButtonStartPause.setVisibility(View.VISIBLE);
             }
 
-            if (mTimeLeftInMillis < mStartTimeInMillis) {
-                mButtonReset.setVisibility(View.VISIBLE);
+            if (shalomTimeLeftInMillis < shalomStartTimeInMillis) {
+                shalomButtonReset.setVisibility(View.VISIBLE);
             } else {
-                mButtonReset.setVisibility(View.INVISIBLE);
+                shalomButtonReset.setVisibility(View.INVISIBLE);
             }
         }
     }
