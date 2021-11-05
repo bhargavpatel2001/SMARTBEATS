@@ -107,7 +107,6 @@ public class MusicFragment extends Fragment implements AdapterView.OnItemSelecte
                         .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
                         .build());
 
-
          rotateAnimation();
 
           //mediaPlayer = MediaPlayer.create(getContext(), R.raw.music);
@@ -130,6 +129,15 @@ public class MusicFragment extends Fragment implements AdapterView.OnItemSelecte
         shalomDuration.setText(sDuration);
    // _________________________________________________
 
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        try
+        {
+            mediaPlayer.setDataSource("https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/BLR%20x%20Rave%20%26%20Crave%20-%20Taj.mp3?alt=media&token=7db7f980-8834-469b-9f71-bb830c1af99a");
+            mediaPlayer.prepare();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         shalomPlay.setOnClickListener(new View.OnClickListener() {
 
@@ -137,27 +145,14 @@ public class MusicFragment extends Fragment implements AdapterView.OnItemSelecte
             public void onClick(View v) {
                 shalomPlay.setVisibility(View.GONE);
                 shalomPause.setVisibility(View.VISIBLE);
-                mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                try
-                {
-                    mediaPlayer.setDataSource("https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/BLR%20x%20Rave%20%26%20Crave%20-%20Taj.mp3?alt=media&token=7db7f980-8834-469b-9f71-bb830c1af99a");
-                    mediaPlayer.prepare();
-                    mediaPlayer.start();
+
+                mediaPlayer.start();
 
                     shalomSeekBar.setMax(mediaPlayer.getDuration());
 
                     handler.postDelayed(runnable, 0);
                 }
-                catch(IOException e)
-                {
-                    e.printStackTrace();
-                }
 
-                //mediaPlayer.start();
-                Log.v(TAG,"Music is streaming");
-
-
-            }
         });
 
 
