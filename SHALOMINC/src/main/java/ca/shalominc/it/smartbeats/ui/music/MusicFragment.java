@@ -37,7 +37,8 @@ import ca.shalominc.it.smartbeats.R;
 
 import static android.content.ContentValues.TAG;
 
-public class MusicFragment extends Fragment implements AdapterView.OnItemSelectedListener {
+public class MusicFragment extends Fragment
+{
 
     TextView shalomPosition, shalomDuration;
     SeekBar shalomSeekBar;
@@ -50,6 +51,10 @@ public class MusicFragment extends Fragment implements AdapterView.OnItemSelecte
     Animation rotateAnimation;
     ImageView shalomVinyl;
     Spinner shalomSongSpinner;
+    String DBSongUrl;
+    String DBSongUrlChoice;
+    String spinnerString;
+
 
     private EditText mEditTextInput;
     private TextView mTextViewCountDown;
@@ -66,7 +71,6 @@ public class MusicFragment extends Fragment implements AdapterView.OnItemSelecte
     private long mEndTime;
 
 
-    String spinnerString;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -75,7 +79,8 @@ public class MusicFragment extends Fragment implements AdapterView.OnItemSelecte
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
+    {
         super.onViewCreated(view, savedInstanceState);
 
         mediaPlayer = new MediaPlayer();
@@ -89,10 +94,120 @@ public class MusicFragment extends Fragment implements AdapterView.OnItemSelecte
         shalomVinyl = view.findViewById(R.id.shalom_IV);
         shalomSongSpinner = view.findViewById(R.id.shalom_music_spinner);
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.Songs, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        shalomSongSpinner.setAdapter(adapter);
-        shalomSongSpinner.setOnItemSelectedListener(this);
+        ArrayAdapter<CharSequence> sAdapter = ArrayAdapter.createFromResource(getContext(), R.array.Songs, android.R.layout.simple_spinner_item);
+        sAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        shalomSongSpinner.setAdapter(sAdapter);
+        shalomSongSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l)
+            {
+                spinnerString = shalomSongSpinner.getItemAtPosition(position).toString();
+                Context context = getContext();
+                switch (spinnerString)
+                {
+                    case "Select Your Song":
+
+                        Toast.makeText(context, "Select a Song Below", Toast.LENGTH_LONG).show();
+
+                        break;
+
+                    case "Song 1":
+                        Toast.makeText(context, "Song 1", Toast.LENGTH_LONG).show();
+                        DBSongUrlChoice = "https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/ATC%20-%20All%20Around%20The%20World%20(la%20la%20la%20la%20la%20la%20la%20la).mp3?alt=media&token=a145dfdc-75c6-4da7-a5a0-52ce1fa8c4e6";
+
+                        mediaPlayer.reset();
+
+                        try
+                        {
+                            mediaPlayer.setDataSource(DBSongUrlChoice);
+                            mediaPlayer.prepare();
+                        }
+                        catch (IOException e)
+                        {
+                            e.printStackTrace();
+                        }
+
+                        break;
+
+                    case "Song 2":
+
+                        Toast.makeText(context, "Song 2", Toast.LENGTH_LONG).show();
+                        DBSongUrlChoice = "https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/Dynoro%20%C2%B7%20Gigi%20D'Agostino%20-%20In%20My%20Mind.mp3?alt=media&token=b5ea0fa4-e46f-4a8a-8cad-87a4c71f32f2";
+                        mediaPlayer.reset();
+
+                        try
+                        {
+                            mediaPlayer.setDataSource(DBSongUrlChoice);
+                            mediaPlayer.prepare();
+                        }
+                        catch (IOException e)
+                        {
+                            e.printStackTrace();
+                        }
+
+                        break;
+
+                    case "Song 3":
+                        Toast.makeText(context, "Song 3", Toast.LENGTH_LONG).show();
+                        DBSongUrlChoice = "https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/MEDUZA%20%C2%B7%20Becky%20Hill%20%C2%B7%20Goodboys%20-%20Lose%20Control.mp3?alt=media&token=2bc00ee9-3eef-4961-a691-40b75d817451";
+                        mediaPlayer.reset();
+
+                        try
+                        {
+                            mediaPlayer.setDataSource(DBSongUrlChoice);
+                            mediaPlayer.prepare();
+                        }
+                        catch (IOException e)
+                        {
+                            e.printStackTrace();
+                        }
+
+                        break;
+
+                    case "Song 4":
+                        Toast.makeText(context, "Song 4", Toast.LENGTH_LONG).show();
+                        DBSongUrlChoice = "https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/Regard%20-%20Ride%20It.mp3?alt=media&token=5d9e3f2f-a952-484e-8314-580293780e12";
+                        mediaPlayer.reset();
+
+                        try
+                        {
+                            mediaPlayer.setDataSource(DBSongUrlChoice);
+                            mediaPlayer.prepare();
+                        }
+                        catch (IOException e)
+                        {
+                            e.printStackTrace();
+                        }
+
+                        break;
+
+                    case "Song 5":
+                        Toast.makeText(context, "Song 5", Toast.LENGTH_LONG).show();
+                        DBSongUrlChoice = "https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/SAINt%20Jhn%20%26%20J.%20Balvin%20-%20%E2%80%9CRoses%E2%80%9D%20%5B(Imanbek%20Remix)%5D%20(Latino%20Gang).mp3?alt=media&token=0b97c748-f23e-4de4-bd68-513124093fdb";
+                        mediaPlayer.reset();
+
+                        try
+                        {
+                            mediaPlayer.setDataSource(DBSongUrlChoice);
+                            mediaPlayer.prepare();
+                        }
+                        catch (IOException e)
+                        {
+                            e.printStackTrace();
+                        }
+
+                        break;
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView)
+            {
+
+            }
+        });
 
         mEditTextInput = view.findViewById(R.id.edit_text_input);
         mTextViewCountDown = view.findViewById(R.id.text_view_countdown);
@@ -101,20 +216,23 @@ public class MusicFragment extends Fragment implements AdapterView.OnItemSelecte
         mButtonReset = view.findViewById(R.id.button_reset);
 
         //Setting Attributes
-        mediaPlayer.setAudioAttributes(
-                new AudioAttributes
+        mediaPlayer.setAudioAttributes
+                (new AudioAttributes
                         .Builder()
                         .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-                        .build());
+                        .build()
+                );
 
          rotateAnimation();
 
           //mediaPlayer = MediaPlayer.create(getContext(), R.raw.music);
 
 
-        runnable = new Runnable() {
+        runnable = new Runnable()
+        {
             @Override
-            public void run() {
+            public void run()
+            {
                 shalomSeekBar.setProgress(mediaPlayer.getCurrentPosition());
 
                 handler.postDelayed(this, 500);
@@ -127,22 +245,30 @@ public class MusicFragment extends Fragment implements AdapterView.OnItemSelecte
         String sDuration = convertFormat(duration);
 
         shalomDuration.setText(sDuration);
-   // _________________________________________________
+
+
+   // _______________________Default Track_________________________________________\\
 
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        DBSongUrl = "https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/BLR%20x%20Rave%20%26%20Crave%20-%20Taj.mp3?alt=media&token=7db7f980-8834-469b-9f71-bb830c1af99a";
+
         try
         {
-            mediaPlayer.setDataSource("https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/BLR%20x%20Rave%20%26%20Crave%20-%20Taj.mp3?alt=media&token=7db7f980-8834-469b-9f71-bb830c1af99a");
+            mediaPlayer.setDataSource(DBSongUrl);
             mediaPlayer.prepare();
 
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             e.printStackTrace();
         }
 
-        shalomPlay.setOnClickListener(new View.OnClickListener() {
+        shalomPlay.setOnClickListener(new View.OnClickListener()
+        {
 
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 shalomPlay.setVisibility(View.GONE);
                 shalomPause.setVisibility(View.VISIBLE);
 
@@ -151,12 +277,13 @@ public class MusicFragment extends Fragment implements AdapterView.OnItemSelecte
                     shalomSeekBar.setMax(mediaPlayer.getDuration());
 
                     handler.postDelayed(runnable, 0);
-                }
+            }
 
         });
 
 
-        shalomPause.setOnClickListener(new View.OnClickListener() {
+        shalomPause.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View v) {
                 shalomPause.setVisibility(View.GONE);
@@ -170,7 +297,8 @@ public class MusicFragment extends Fragment implements AdapterView.OnItemSelecte
             }
         });
 
-        shalomFastForward.setOnClickListener(new View.OnClickListener() {
+        shalomFastForward.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View v) {
                 int currentPosition = mediaPlayer.getCurrentPosition();
@@ -186,7 +314,8 @@ public class MusicFragment extends Fragment implements AdapterView.OnItemSelecte
             }
         });
 
-        shalomRew.setOnClickListener(new View.OnClickListener() {
+        shalomRew.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View v) {
                 int currentPosition = mediaPlayer.getCurrentPosition();
@@ -200,9 +329,11 @@ public class MusicFragment extends Fragment implements AdapterView.OnItemSelecte
         });
 
 
-        shalomSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        shalomSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
+        {
             @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
+            {
                 if (fromUser) {
                     mediaPlayer.seekTo(progress);
                 }
@@ -210,12 +341,14 @@ public class MusicFragment extends Fragment implements AdapterView.OnItemSelecte
             }
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
+            public void onStartTrackingTouch(SeekBar seekBar)
+            {
 
             }
 
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
+            public void onStopTrackingTouch(SeekBar seekBar)
+            {
 
             }
         });
@@ -224,12 +357,14 @@ public class MusicFragment extends Fragment implements AdapterView.OnItemSelecte
 
 
 
-        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener()
+        {
             @Override
-            public void onCompletion(MediaPlayer mp) {
+            public void onCompletion(MediaPlayer mp)
+            {
                 shalomPause.setVisibility(View.GONE);
                 shalomPlay.setVisibility(View.VISIBLE);
-                mediaPlayer.seekTo(0);
+                //mediaPlayer.seekTo(0);
             }
         });
 
@@ -278,7 +413,8 @@ public class MusicFragment extends Fragment implements AdapterView.OnItemSelecte
 
     }
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    private void rotateAnimation() {
+    private void rotateAnimation()
+    {
 
         rotateAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.spinimage);
         shalomVinyl.startAnimation(rotateAnimation);
@@ -286,12 +422,14 @@ public class MusicFragment extends Fragment implements AdapterView.OnItemSelecte
     }
 
 
-    private String convertFormat(int duration) {
+    private String convertFormat(int duration)
+    {
         return String.format("%02d:%02d",
                 TimeUnit.MILLISECONDS.toMinutes(duration),
                 TimeUnit.MILLISECONDS.toSeconds(duration) -
                         TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(duration)));
     }
+
    //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     //Setting the CountDown Timer
@@ -374,13 +512,5 @@ public class MusicFragment extends Fragment implements AdapterView.OnItemSelecte
         }
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        shalomSongSpinner = view.findViewById(R.id.shalom_music_spinner);
-//        spinnerString = shalomSongSpinner.getItemAtPosition(position).toString();
-    }
 
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
 }

@@ -30,6 +30,7 @@ import com.google.firebase.storage.StorageReference;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -43,9 +44,6 @@ public class MainActivity extends AppCompatActivity
 
     private int PERMISSION_CODE = 1;
     int flag = 1;
-    // private FirebaseDatabase storage;
-  //  DatabaseReference httpsReference = storage.getReferenceFromUrl("gs://shalominc-smartbeats.appspot.com/BLR x Rave & Crave - Taj.mp3");
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -94,7 +92,6 @@ public class MainActivity extends AppCompatActivity
             case R.id.musicBtn:
 
 
-
                 toastShow();
 
                 break;
@@ -121,7 +118,7 @@ public class MainActivity extends AppCompatActivity
     void toastShow()
     {
         Context context = getApplicationContext();
-        Toast.makeText(context, "Downloading Sample Music, Press Play to Test!", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, "Enabling Song Database!", Toast.LENGTH_LONG).show();
     }
 
     void pwrOutput()
