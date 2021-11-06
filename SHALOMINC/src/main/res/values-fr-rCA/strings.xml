@@ -44,4 +44,8 @@
     <string name="sleep_mode">Dormir</string>
     <string name="focus_mode">Concentrer</string>
     <string name="workout_mode">Excercise</string>
+    <string name="field_not_empty">Casier ne peut etre vide</string>
+    <string name="enter_positive_number">Veuillez ajouter un chiffre positif</string>
+    <string name="pause">Pause</string>
+    <string name="start">Demarrer</string>
 </resources>
