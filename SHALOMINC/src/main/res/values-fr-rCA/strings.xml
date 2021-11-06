@@ -2,9 +2,6 @@
 <!--Bhargav Patel (N01373029) & Ripal Patel (N01354619) & Vidhi Kanhye (N01354573) & Nicholas Mohan (N01361663), Section-RNA-->
 <resources>
     <string name="app_name">SMARTBEATS</string>
-    <string name="title_home">Musique</string>
-    <string name="title_notifications">Parametres</string>
-    <string name="title_dashboard">Lumieres</string>
     <string name="choose_color">Choisissez la Couleur</string>
     <string name="chosen_color">La couleur de votre choix est:</string>
     <string name="set_color">Appliquez la couleur</string>

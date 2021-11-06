@@ -3,30 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_music">
 
     <fragment
-        android:id="@+id/navigation_home"
+        android:id="@+id/navigation_music"
         android:name="ca.shalominc.it.smartbeats.ui.music.MusicFragment"
-        android:label="@string/title_home"
+        android:label="@string/title_music"
         tools:layout="@layout/fragment_music" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_lights"
         android:name="ca.shalominc.it.smartbeats.ui.lights.LightsFragment"
-        android:label="@string/title_dashboard"
+        android:label="@string/title_lights"
         tools:layout="@layout/fragment_lights" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_settings"
         android:name="ca.shalominc.it.smartbeats.ui.settings.SettingsFragment"
-        android:label="@string/title_notifications"
+        android:label="@string/title_settings"
         tools:layout="@layout/fragment_settings" />
 
     <fragment
-        android:id="@+id/navigation_database"
-        android:name="ca.shalominc.it.smartbeats.ui.database.DatabaseFragment"
-        android:label="@string/database"
-        tools:layout="@layout/fragment_database" />
+        android:id="@+id/navigation_review"
+        android:name="ca.shalominc.it.smartbeats.ui.review.ReviewFragment"
+        android:label="@string/title_review"
+        tools:layout="@layout/fragment_review" />
 
 </navigation>
