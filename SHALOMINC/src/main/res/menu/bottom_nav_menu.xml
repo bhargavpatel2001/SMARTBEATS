@@ -16,4 +16,9 @@
         android:icon="@drawable/settings_icon_foreground"
         android:title="@string/title_notifications" />
 
+    <item
+        android:id="@+id/navigation_database"
+        android:icon="@android:drawable/ic_menu_view"
+        android:title="@string/database" />
+
 </menu>

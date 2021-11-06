@@ -22,4 +22,11 @@
         android:name="ca.shalominc.it.smartbeats.ui.settings.SettingsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_settings" />
+
+    <fragment
+        android:id="@+id/navigation_database"
+        android:name="ca.shalominc.it.smartbeats.ui.database.DatabaseFragment"
+        android:label="@string/database"
+        tools:layout="@layout/fragment_database" />
+
 </navigation>
