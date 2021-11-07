@@ -8,8 +8,7 @@
     android:gravity="center"
     android:orientation="vertical"
     android:background="@color/lilac"
-    tools:context=".ui.music.MusicFragment"
-    android:id="@+id/shalom_music_layout">
+    tools:context=".ui.music.MusicFragment">
 
 
     <RelativeLayout
@@ -106,7 +105,8 @@
         android:id="@+id/shalom_music_spinner"
         android:layout_width="281dp"
         android:layout_height="wrap_content"
-        android:spinnerMode="dropdown">
+        android:spinnerMode="dropdown"
+        android:visibility="invisible">
     </Spinner>
 
     <LinearLayout

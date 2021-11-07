@@ -7,8 +7,7 @@
     android:background="@color/lilac"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".ui.music.MusicFragment"
-    android:id="@+id/shalom_music_layout">
+    tools:context=".ui.music.MusicFragment">
 
 
     <EditText

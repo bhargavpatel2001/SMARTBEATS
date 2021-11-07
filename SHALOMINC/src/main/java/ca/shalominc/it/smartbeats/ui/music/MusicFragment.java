@@ -1,6 +1,7 @@
 package ca.shalominc.it.smartbeats.ui.music;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
@@ -10,6 +11,7 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -37,6 +39,7 @@ import java.util.concurrent.TimeUnit;
 import ca.shalominc.it.smartbeats.R;
 
 import static android.content.ContentValues.TAG;
+import static java.sql.Types.NULL;
 
 public class MusicFragment extends Fragment
 {
@@ -71,18 +74,15 @@ public class MusicFragment extends Fragment
     private long shalomTimeLeftInMillis;
     private long shalomEndTime;
 
-    int musicFlag;
-
-
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_music, container, false);
 
 
-        return view;
+        return inflater.inflate(R.layout.fragment_music, container, false);
     }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
@@ -421,8 +421,11 @@ public class MusicFragment extends Fragment
 
         });
 
+
+
     }
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     private void rotateAnimation()
     {
 

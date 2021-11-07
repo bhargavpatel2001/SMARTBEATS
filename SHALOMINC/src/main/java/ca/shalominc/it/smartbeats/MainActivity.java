@@ -13,9 +13,12 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -48,8 +51,8 @@ public class MainActivity extends AppCompatActivity
 
     private int PERMISSION_CODE = 1;
     int flag = 1;
-    int musicFlag =0;
-    private Object MusicFragment;
+
+    Spinner musicSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -85,6 +88,7 @@ public class MainActivity extends AppCompatActivity
 
         // Handle item selection
         Intent intent = null;
+        musicSpinner = findViewById(R.id.shalom_music_spinner);
         switch (item.getItemId())
         {
 
@@ -96,16 +100,12 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case R.id.musicBtn:
-                if (musicFlag==0){
-                    musicFlag=1;
-                    Toast.makeText(getApplicationContext(), "music flag is 1", Toast.LENGTH_LONG).show();
-                }else if(musicFlag==1){
-                    musicFlag = 0;
-                    Toast.makeText(getApplicationContext(), "music flag is 0", Toast.LENGTH_LONG).show();
+
+                if(musicSpinner.getVisibility() != View.VISIBLE){
+                    musicSpinner.setVisibility(View.VISIBLE);
+                }else{
+                    musicSpinner.setVisibility(View.INVISIBLE);
                 }
-
-
-                toastShow();
 
                 break;
 
