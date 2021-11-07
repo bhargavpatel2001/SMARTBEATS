@@ -71,12 +71,17 @@ public class MusicFragment extends Fragment
     private long shalomTimeLeftInMillis;
     private long shalomEndTime;
 
+    int musicFlag;
+
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.fragment_music, container, false);
+        View view = inflater.inflate(R.layout.fragment_music, container, false);
+
+
+        return view;
     }
 
     @Override
@@ -94,6 +99,7 @@ public class MusicFragment extends Fragment
         shalomFastForward = view.findViewById(R.id.bt_ff);
         shalomVinyl = view.findViewById(R.id.shalom_IV);
         shalomSongSpinner = view.findViewById(R.id.shalom_music_spinner);
+
 
         ArrayAdapter<CharSequence> sAdapter = ArrayAdapter.createFromResource(getContext(), R.array.Songs, android.R.layout.simple_spinner_item);
         sAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

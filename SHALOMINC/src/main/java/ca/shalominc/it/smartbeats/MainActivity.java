@@ -31,6 +31,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -39,11 +41,15 @@ import androidx.navigation.ui.NavigationUI;
 import java.io.File;
 import java.io.IOException;
 
+import ca.shalominc.it.smartbeats.ui.music.MusicFragment;
+
 public class MainActivity extends AppCompatActivity
 {
 
     private int PERMISSION_CODE = 1;
     int flag = 1;
+    int musicFlag =0;
+    private Object MusicFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -90,6 +96,13 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case R.id.musicBtn:
+                if (musicFlag==0){
+                    musicFlag=1;
+                    Toast.makeText(getApplicationContext(), "music flag is 1", Toast.LENGTH_LONG).show();
+                }else if(musicFlag==1){
+                    musicFlag = 0;
+                    Toast.makeText(getApplicationContext(), "music flag is 0", Toast.LENGTH_LONG).show();
+                }
 
 
                 toastShow();

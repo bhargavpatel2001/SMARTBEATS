@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="54dp"
         android:layout_marginTop="150dp"
-        android:text="Plain Jane Review Page"
+        android:text="@string/plain_jane_review_page"
         android:textAlignment="center"
         android:textStyle="bold"
         android:theme="@style/large_title_text" />
@@ -24,7 +24,7 @@
         android:layout_marginTop="250dp"
         android:ems="10"
         android:inputType="textPersonName|textCapWords"
-        android:hint="Enter Your Name" />
+        android:hint="@string/enter_your_name" />
 
     <EditText
         android:id="@+id/ShalomEditTextPhone"
@@ -34,7 +34,7 @@
         android:layout_marginTop="350dp"
         android:ems="10"
         android:inputType="phone"
-        android:hint="Enter Your Phone Number"
+        android:hint="@string/enter_your_phone_number"
         android:textAlignment="center" />
 
     <EditText
@@ -46,7 +46,7 @@
         android:textAlignment="center"
         android:ems="10"
         android:inputType="textEmailAddress"
-        android:hint="Enter A Email Address"/>
+        android:hint="@string/enter_a_email_address"/>
 
 
     <EditText
@@ -58,7 +58,7 @@
         android:textAlignment="center"
         android:ems="10"
         android:inputType="textPersonName|textAutoCorrect"
-        android:hint="Enter A Comment" />
+        android:hint="@string/enter_a_comment" />
 
 
 </FrameLayout>

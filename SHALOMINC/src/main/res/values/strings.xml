@@ -54,11 +54,20 @@
         <item>Song 5</item>
     </string-array>
 
-    <string name="database">database</string>
     <string name="title_review">Review</string>
     <string name="title_settings">Settings</string>
     <string name="title_lights">Lights</string>
     <string name="title_music">music</string>
+    <string name="plain_jane_review_page">Plain Jane Review Page</string>
+    <string name="enter_your_name">Enter Your Name</string>
+    <string name="enter_your_phone_number">Enter Your Phone Number</string>
+    <string name="enter_a_email_address">Enter A Email Address</string>
+    <string name="enter_a_comment">Enter A Comment</string>
+    <string name="minutes">Minutes</string>
+    <string name="reset">reset</string>
+    <string name="t_start">START</string>
+    <string name="set">Set</string>
+    <string name="_00_00" translatable="false">00:00</string>
 
 
 </resources>

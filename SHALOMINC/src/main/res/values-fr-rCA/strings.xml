@@ -45,5 +45,17 @@
     <string name="enter_positive_number">Veuillez ajouter un chiffre positif</string>
     <string name="pause">Pause</string>
     <string name="start">Demarrer</string>
-    <string name="database">database</string>
+    <string name="title_settings">Parametres</string>
+    <string name="title_lights">Lumieres</string>
+    <string name="title_music">Musique</string>
+    <string name="title_review">Revue</string>
+    <string name="plain_jane_review_page">Page du revue</string>
+    <string name="enter_your_phone_number">Votre numero de telephone</string>
+    <string name="enter_a_comment">Votre commentaire</string>
+    <string name="enter_a_email_address">Votre address courriel</string>
+    <string name="enter_your_name">Votre nom</string>
+    <string name="minutes">Minutes</string>
+    <string name="reset">Reinitialiser</string>
+    <string name="t_start">Commencer</string>
+    <string name="set">Appliquer</string>
 </resources>
