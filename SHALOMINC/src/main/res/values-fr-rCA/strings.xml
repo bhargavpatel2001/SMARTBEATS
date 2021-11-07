@@ -58,4 +58,6 @@
     <string name="reset">Reinitialiser</string>
     <string name="t_start">Commencer</string>
     <string name="set">Appliquer</string>
+    <string name="reset_btn_label">réinitialiser</string>
+    <string name="submit_btn_label">nous faire parvenir</string>
 </resources>

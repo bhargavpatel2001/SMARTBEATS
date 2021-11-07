@@ -68,6 +68,8 @@
     <string name="t_start">START</string>
     <string name="set">Set</string>
     <string name="_00_00" translatable="false">00:00</string>
+    <string name="reset_btn_label">Reset</string>
+    <string name="submit_btn_label">Submit</string>
 
 
 </resources>
