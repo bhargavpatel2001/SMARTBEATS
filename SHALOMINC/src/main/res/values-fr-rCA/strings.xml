@@ -55,10 +55,10 @@
     <string name="enter_a_email_address">Votre address courriel</string>
     <string name="enter_your_name">Votre nom</string>
     <string name="minutes">Minutes</string>
-    <string name="reset">Reinitialiser</string>
+    <string name="reset">Réinitialiser</string>
     <string name="t_start">Commencer</string>
     <string name="set">Appliquer</string>
-    <string name="reset_btn_label">réinitialiser</string>
-    <string name="submit_btn_label">nous faire parvenir</string>
-    <string name="model_no">Modèle non</string>
+    <string name="reset_btn_label">Réinitialiser</string>
+    <string name="submit_btn_label">Soumettre</string>
+    <string name="model_no">Nom du Modèle:</string>
 </resources>

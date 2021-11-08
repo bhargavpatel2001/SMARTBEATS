@@ -26,7 +26,7 @@ public class ReviewFragment extends Fragment
     RatingBar shalomRateUs;
     String pNumber,userValue, userValue2, userValue3, rateOverall, rateOverallTV;
     float  rateReading, amountOfStars;
-    Button shalomSubmit;
+    Button shalomSubmit, shalomReset;
 
 
 
@@ -48,6 +48,7 @@ public class ReviewFragment extends Fragment
         shalomEmail = view.findViewById(R.id.shalom_EditText_EmailAddress);
         shalomComment = view.findViewById(R.id.shalom_EditText_Comment);
         shalomRateUs = view.findViewById(R.id.shalom_ratingBar);
+        shalomReset = view.findViewById(R.id.reset_review_form_btn);
 
         //Gets Model Number
         ModelNo = getModelNo();
@@ -100,6 +101,21 @@ public class ReviewFragment extends Fragment
 
             }
         });
+
+        // Reset button's functionality
+        shalomReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                shalomPhone.setText("");
+                shalomName.setText("");
+                shalomEmail.setText("");
+                shalomComment.setText("");
+
+
+            }
+        });
+
     }
 
     public String getRate()
