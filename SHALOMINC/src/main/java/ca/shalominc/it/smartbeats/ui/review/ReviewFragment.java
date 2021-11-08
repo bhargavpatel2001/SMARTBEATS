@@ -14,7 +14,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import ca.shalominc.it.smartbeats.MainActivity;
 import ca.shalominc.it.smartbeats.R;
 
 
@@ -22,7 +21,7 @@ public class ReviewFragment extends Fragment
 {
     String modelNum = Build.MODEL;
     String manufacturerName = Build.MANUFACTURER;
-    TextView TESTING;
+    TextView shalomModelNo;
     String ModelNo;
     Button shalomSubmit;
     EditText shalomName, shalomPhone, shalomEmail, shalomComment;
@@ -40,7 +39,7 @@ public class ReviewFragment extends Fragment
 
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        TESTING = view.findViewById(R.id.TEST_WILL_BE_REMOVED_AFTER);
+        shalomModelNo = view.findViewById(R.id.shalom_model_no);
         shalomSubmit = view.findViewById(R.id.submit_review_form_btn);
         shalomPhone = view.findViewById(R.id.shalom_EditText_Phone);
         shalomName = view.findViewById(R.id.shalom_EditText_PersonName);
@@ -49,7 +48,7 @@ public class ReviewFragment extends Fragment
 
         //
         ModelNo = getModelNo();
-        TESTING.setText(ModelNo);
+        shalomModelNo.setText(ModelNo);
 
         //retriving
         SharedPreferences shalomprefs = PreferenceManager.getDefaultSharedPreferences(getContext());
