@@ -94,7 +94,12 @@
         android:layout_marginStart="220dp"
         android:text="@string/submit_btn_label" />
 
-
+    <TextView
+        android:id="@+id/shalomRateTV"
+        android:layout_width="107dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="500dp" />
 
 
 </FrameLayout>
