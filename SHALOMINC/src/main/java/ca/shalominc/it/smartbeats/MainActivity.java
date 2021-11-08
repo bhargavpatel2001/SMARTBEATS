@@ -128,11 +128,11 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    void toastShow()
-    {
-        Context context = getApplicationContext();
-        Toast.makeText(context, "Enabling Song Database!", Toast.LENGTH_LONG).show();
-    }
+//    void toastShow()
+//    {
+//        Context context = getApplicationContext();
+//        Toast.makeText(context, "Enabling Song Database!", Toast.LENGTH_LONG).show();
+//    }
 
     void pwrOutput()
     {

@@ -119,8 +119,8 @@ public class MusicFragment extends Fragment
 
                         break;
 
-                    case "Song 1":
-                        Toast.makeText(context, "Song 1", Toast.LENGTH_LONG).show();
+                    case "ATC - All Around The World":
+                        Toast.makeText(context, "ATC - All Around The World", Toast.LENGTH_LONG).show();
                         DBSongUrlChoice = "https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/ATC%20-%20All%20Around%20The%20World%20(la%20la%20la%20la%20la%20la%20la%20la).mp3?alt=media&token=a145dfdc-75c6-4da7-a5a0-52ce1fa8c4e6";
 
                         mediaPlayer.reset();
@@ -137,9 +137,9 @@ public class MusicFragment extends Fragment
 
                         break;
 
-                    case "Song 2":
+                    case "Dynoro - In My Mind":
 
-                        Toast.makeText(context, "Song 2", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "Dynoro - In My Mind", Toast.LENGTH_LONG).show();
                         DBSongUrlChoice = "https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/Dynoro%20%C2%B7%20Gigi%20D'Agostino%20-%20In%20My%20Mind.mp3?alt=media&token=b5ea0fa4-e46f-4a8a-8cad-87a4c71f32f2";
                         mediaPlayer.reset();
 
@@ -155,8 +155,8 @@ public class MusicFragment extends Fragment
 
                         break;
 
-                    case "Song 3":
-                        Toast.makeText(context, "Song 3", Toast.LENGTH_LONG).show();
+                    case "MEDUZA - Lose Control":
+                        Toast.makeText(context, "MEDUZA - Lose Control", Toast.LENGTH_LONG).show();
                         DBSongUrlChoice = "https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/MEDUZA%20%C2%B7%20Becky%20Hill%20%C2%B7%20Goodboys%20-%20Lose%20Control.mp3?alt=media&token=2bc00ee9-3eef-4961-a691-40b75d817451";
                         mediaPlayer.reset();
 
@@ -172,8 +172,8 @@ public class MusicFragment extends Fragment
 
                         break;
 
-                    case "Song 4":
-                        Toast.makeText(context, "Song 4", Toast.LENGTH_LONG).show();
+                    case "Regard - Ride It":
+                        Toast.makeText(context, "Regard - Ride It", Toast.LENGTH_LONG).show();
                         DBSongUrlChoice = "https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/Regard%20-%20Ride%20It.mp3?alt=media&token=5d9e3f2f-a952-484e-8314-580293780e12";
                         mediaPlayer.reset();
 
@@ -189,8 +189,8 @@ public class MusicFragment extends Fragment
 
                         break;
 
-                    case "Song 5":
-                        Toast.makeText(context, "Song 5", Toast.LENGTH_LONG).show();
+                    case "SAINt Jhn - Roses":
+                        Toast.makeText(context, "SAINt Jhn - Roses", Toast.LENGTH_LONG).show();
                         DBSongUrlChoice = "https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/SAINt%20Jhn%20%26%20J.%20Balvin%20-%20%E2%80%9CRoses%E2%80%9D%20%5B(Imanbek%20Remix)%5D%20(Latino%20Gang).mp3?alt=media&token=0b97c748-f23e-4de4-bd68-513124093fdb";
                         mediaPlayer.reset();
 
