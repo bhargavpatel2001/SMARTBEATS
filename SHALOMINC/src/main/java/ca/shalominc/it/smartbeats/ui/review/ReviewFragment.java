@@ -1,12 +1,15 @@
 package ca.shalominc.it.smartbeats.ui.review;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +17,21 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import ca.shalominc.it.smartbeats.R;
+
+import static android.content.ContentValues.TAG;
 
 
 public class ReviewFragment extends Fragment
@@ -54,6 +70,9 @@ public class ReviewFragment extends Fragment
         ModelNo = getModelNo();
         shalomModelNo.setText(ModelNo);
 
+
+
+
         //retriving
         SharedPreferences shalomprefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 
@@ -71,6 +90,7 @@ public class ReviewFragment extends Fragment
 
         float value4 = shalomprefs.getFloat("rateReading",4);
         shalomRateUs.setRating(value4);
+
 
         // Submit buttons functionality
         shalomSubmit.setOnClickListener(new View.OnClickListener() {
@@ -99,6 +119,29 @@ public class ReviewFragment extends Fragment
                 change.putFloat("rateReading",rateReading);
                 change.apply();
 
+                //Database Sender
+                FirebaseFirestore shalomData = FirebaseFirestore.getInstance();
+                Map<String, Object> data = new HashMap<>();
+                data.put("Phone Number",pNumber);
+                data.put("User Name",userValue);
+                data.put("Email",userValue2);;
+                data.put("Comments",userValue3);
+
+                Map<RatingBar, Object> data1 = new HashMap<>();
+                data.put("rateReading",rateReading);
+
+                shalomData.collection("user_review").document("reviewSent").set(data).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "Succesfully sent!");
+                    }
+                })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.d(TAG, "Error Failed",e);
+                            }
+                        });
             }
         });
 
