@@ -43,10 +43,10 @@ import static java.sql.Types.NULL;
 
 public class MusicFragment extends Fragment
 {
-
+    private AudioManager aM;
     TextView shalomPosition, shalomDuration;
-    SeekBar shalomSeekBar;
-    ImageView shalomRew, shalomPlay, shalomPause, shalomFastForward;
+    SeekBar shalomSeekBar, shalomVolume;
+    ImageView shalomRew, shalomPlay, shalomPause, shalomFastForward, shalomStop;
 
     MediaPlayer mediaPlayer;
     Handler handler = new Handler();
@@ -97,9 +97,17 @@ public class MusicFragment extends Fragment
         shalomPlay = view.findViewById(R.id.bt_play);
         shalomPause = view.findViewById(R.id.bt_pause);
         shalomFastForward = view.findViewById(R.id.bt_ff);
+        shalomStop = view.findViewById(R.id.bt_stop);
+
+        shalomVolume = view.findViewById(R.id.shalom_volume);
+        aM = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
+        int maxVol = aM.getStreamMaxVolume(aM.STREAM_MUSIC);
+        int curVol = aM.getStreamVolume(aM.STREAM_MUSIC);
+        shalomVolume.setMax(maxVol);
+        shalomVolume.setProgress(curVol);
+
         shalomVinyl = view.findViewById(R.id.shalom_IV);
         shalomSongSpinner = view.findViewById(R.id.shalom_music_spinner);
-
 
         ArrayAdapter<CharSequence> sAdapter = ArrayAdapter.createFromResource(getContext(), R.array.Songs, android.R.layout.simple_spinner_item);
         sAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -217,7 +225,27 @@ public class MusicFragment extends Fragment
         });
 
 
+        shalomVolume.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
+        {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
+            {
+                aM.setStreamVolume(AudioManager.STREAM_MUSIC, progress, 0);
 
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar)
+            {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar)
+            {
+
+            }
+        });
 
         //Setting Attributes
         mediaPlayer.setAudioAttributes
@@ -304,7 +332,8 @@ public class MusicFragment extends Fragment
         shalomFastForward.setOnClickListener(new View.OnClickListener()
         {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 int currentPosition = mediaPlayer.getCurrentPosition();
 
                 int duration = mediaPlayer.getDuration();
@@ -315,6 +344,7 @@ public class MusicFragment extends Fragment
                     mediaPlayer.seekTo(currentPosition);
 
                 }
+
             }
         });
 
@@ -329,6 +359,19 @@ public class MusicFragment extends Fragment
                     mediaPlayer.seekTo(currentPosition);
 
                 }
+            }
+        });
+
+        shalomStop.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                mediaPlayer.stop();
+
+                mediaPlayer.seekTo(0);
+
+                handler.removeCallbacks(runnable);
             }
         });
 
