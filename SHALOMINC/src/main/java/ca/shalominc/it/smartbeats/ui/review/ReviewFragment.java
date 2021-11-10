@@ -23,6 +23,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 
@@ -42,7 +44,9 @@ public class ReviewFragment extends Fragment
     RatingBar shalomRateUs;
     String pNumber,userValue, userValue2, userValue3, rateOverall, rateOverallTV;
     float  rateReading, amountOfStars;
-    Button shalomSubmit, shalomReset;
+    Button shalomSubmit, shalomReset, shalomRead;
+    TextView shalomReadName, shalomReadPhoneNo, shalomReadEmail, shalomReadComment, shalomReadRatings;
+    DocumentReference shalomDocRef;
 
 
 
@@ -65,10 +69,20 @@ public class ReviewFragment extends Fragment
         shalomComment = view.findViewById(R.id.shalom_EditText_Comment);
         shalomRateUs = view.findViewById(R.id.shalom_ratingBar);
         shalomReset = view.findViewById(R.id.reset_review_form_btn);
+        shalomReadName = view.findViewById(R.id.shalomReviverTV);
+        shalomReadPhoneNo = view.findViewById(R.id.shalomReviverTV2);
+        shalomReadEmail = view.findViewById(R.id.shalomReviverTV3);
+        shalomReadComment = view.findViewById(R.id.shalomReviverTV4);
+        shalomReadRatings = view.findViewById(R.id.shalomReviverTV5);
+        shalomRead = view.findViewById(R.id.read_review_form_btn);
+
+        FirebaseFirestore shalomData = FirebaseFirestore.getInstance();
+        shalomDocRef = shalomData.collection("user_review").document("reviewSent");
 
         //Gets Model Number
         ModelNo = getModelNo();
         shalomModelNo.setText(ModelNo);
+
 
 
 
@@ -120,7 +134,7 @@ public class ReviewFragment extends Fragment
                 change.apply();
 
                 //Database Sender
-                FirebaseFirestore shalomData = FirebaseFirestore.getInstance();
+
                 Map<String, Object> data = new HashMap<>();
                 data.put("Phone Number",pNumber);
                 data.put("User Name",userValue);
@@ -130,7 +144,7 @@ public class ReviewFragment extends Fragment
                 Map<RatingBar, Object> data1 = new HashMap<>();
                 data.put("rateReading",rateReading);
 
-                shalomData.collection("user_review").document("reviewSent").set(data).addOnSuccessListener(new OnSuccessListener<Void>() {
+                shalomDocRef.set(data).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d(TAG, "Succesfully sent!");
@@ -145,6 +159,38 @@ public class ReviewFragment extends Fragment
             }
         });
 
+        //Receving data from the database
+
+        shalomRead.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                shalomDocRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if (documentSnapshot.exists()){
+                            String nameRecevier = documentSnapshot.getString("User Name");
+                            String phoneReceiver = documentSnapshot.getString("Phone Number");
+                            String emailRecevier = documentSnapshot.getString("Email");
+                            String commentsRecevier = documentSnapshot.getString("Comments");
+                            //    String ratingRecevier = documentSnapshot.getString("rateReading");
+
+                            shalomReadName.setText(nameRecevier);
+                            shalomReadPhoneNo.setText("" + phoneReceiver);
+                            shalomReadEmail.setText(emailRecevier);
+                            shalomReadComment.setText(commentsRecevier);
+                            //     shalomReadRatings.setText("" + ratingRecevier);
+
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d(TAG, "Error Failed",e);
+                    }
+                });
+            }
+        });
+
         // Reset button's functionality
         shalomReset.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -154,7 +200,6 @@ public class ReviewFragment extends Fragment
                 shalomName.setText("");
                 shalomEmail.setText("");
                 shalomComment.setText("");
-                shalomRateUs.setRating(0);
 
 
             }
