@@ -96,6 +96,22 @@
         app:layout_constraintVertical_bias="0.242"
         tools:visibility="visible" />
 
+    <SeekBar
+        android:id="@+id/shalom_volume"
+        android:layout_width="286dp"
+        android:layout_height="30dp"
+        android:layout_weight="0.5"
+        android:progressTint="@color/grape"
+        android:thumbTint="@color/grape"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.806"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.356">
+
+    </SeekBar>
+
     <ImageView
         android:id="@+id/shalom_IV"
         android:layout_width="175dp"
@@ -118,7 +134,7 @@
         app:layout_constraintHorizontal_bias="0.82"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.498"></Spinner>
+        app:layout_constraintVertical_bias="0.431"></Spinner>
 
     <TextView
         android:id="@+id/shalom_timer"
@@ -129,10 +145,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.471"
+        app:layout_constraintHorizontal_bias="0.478"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.592"></TextView>
+        app:layout_constraintVertical_bias="0.512"></TextView>
 
     <ImageView
         android:id="@+id/bt_pause"
@@ -155,10 +171,9 @@
         android:thumbTint="@color/grape"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.81"
+        app:layout_constraintHorizontal_bias="0.821"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.59"></SeekBar>
+        app:layout_constraintTop_toTopOf="parent"></SeekBar>
 
     <ImageView
         android:id="@+id/shalom_rewind"
@@ -167,10 +182,10 @@
         android:src="@drawable/ic_fast_rewind"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.511"
+        app:layout_constraintHorizontal_bias="0.581"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.783"></ImageView>
+        app:layout_constraintVertical_bias="0.621"></ImageView>
 
     <ImageView
         android:id="@+id/bt_play"
@@ -179,10 +194,10 @@
         android:src="@drawable/shalom_play"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.707"
+        app:layout_constraintHorizontal_bias="0.724"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.783"></ImageView>
+        app:layout_constraintVertical_bias="0.621"></ImageView>
 
     <ImageView
         android:id="@+id/bt_ff"
@@ -191,10 +206,10 @@
         android:src="@drawable/shalom_forward"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.909"
+        app:layout_constraintHorizontal_bias="0.856"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.783"></ImageView>
+        app:layout_constraintVertical_bias="0.632"></ImageView>
 
     <TextView
         android:id="@+id/shalom_timer_duration"
@@ -208,5 +223,20 @@
         app:layout_constraintHorizontal_bias="0.935"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.596" />
+        app:layout_constraintVertical_bias="0.507" />
+
+    <ImageView
+        android:id="@+id/bt_stop"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@color/lilac"
+        android:elevation="10dp"
+        android:src="@drawable/shalom_stop_foreground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.724"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.803" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

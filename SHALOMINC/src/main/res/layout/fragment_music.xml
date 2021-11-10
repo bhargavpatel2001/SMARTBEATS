@@ -12,8 +12,8 @@
 
 
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="259dp"
+        android:layout_width="match_parent"
+        android:layout_height="254dp"
         android:orientation="horizontal">
 
         <EditText
@@ -48,8 +48,8 @@
 
         <TextView
             android:id="@+id/shalom_text_view_countdown"
-            android:layout_width="219dp"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="77dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
@@ -57,7 +57,7 @@
             android:layout_marginStart="119dp"
             android:layout_marginTop="51dp"
             android:layout_marginEnd="73dp"
-            android:layout_marginBottom="121dp"
+            android:layout_marginBottom="141dp"
             android:text="@string/_00_00"
             android:textColor="#000000"
             android:textSize="50dp" />
@@ -111,8 +111,8 @@
 
     <SeekBar
         android:id="@+id/shalom_volume"
-        android:layout_width="303dp"
-        android:layout_height="0dp"
+        android:layout_width="331dp"
+        android:layout_height="53dp"
         android:layout_weight="0.5"
         android:progressTint="@color/grape"
         android:thumbTint="@color/grape">
@@ -167,13 +167,12 @@
         </ImageView>
 
         <ImageView
-            android:src="@drawable/shalom_play"
+            android:id="@+id/bt_play"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:elevation="10dp"
             android:background="@color/lilac"
-            android:id="@+id/bt_play">
-        </ImageView>
+            android:elevation="10dp"
+            android:src="@drawable/shalom_play"></ImageView>
 
         <ImageView
             android:src="@drawable/shalom_pause"
