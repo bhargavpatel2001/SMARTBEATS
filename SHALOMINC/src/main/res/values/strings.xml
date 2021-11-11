@@ -71,6 +71,7 @@
     <string name="reset_btn_label">Reset</string>
     <string name="submit_btn_label">Submit</string>
     <string name="model_no">Model No:</string>
+    <string name="read">read</string>
 
 
 </resources>
