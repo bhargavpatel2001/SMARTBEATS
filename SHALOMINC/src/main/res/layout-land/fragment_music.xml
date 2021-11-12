@@ -227,7 +227,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.507" />
 
-    <ImageView
+<!--    <ImageView
         android:id="@+id/bt_stop"
         android:layout_width="60dp"
         android:layout_height="60dp"
@@ -240,5 +240,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.803" />
-
+-->
 </androidx.constraintlayout.widget.ConstraintLayout>
