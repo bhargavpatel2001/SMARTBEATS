@@ -129,7 +129,7 @@ public class MusicFragment extends Fragment
 
                     case "ATC - All Around The World":
                         Toast.makeText(context, "ATC - All Around The World", Toast.LENGTH_LONG).show();
-                        DBSongUrlChoice = "https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/ATC%20-%20All%20Around%20The%20World%20(la%20la%20la%20la%20la%20la%20la%20la).mp3?alt=media&token=a145dfdc-75c6-4da7-a5a0-52ce1fa8c4e6";
+                        DBSongUrlChoice = "https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/ATC%20-%20All%20Around%20The%20World.mp3?alt=media&token=41077a29-12e9-4371-b8a0-af1c7179a0d4";
 
                         mediaPlayer.reset();
 
@@ -148,7 +148,7 @@ public class MusicFragment extends Fragment
                     case "Dynoro - In My Mind":
 
                         Toast.makeText(context, "Dynoro - In My Mind", Toast.LENGTH_LONG).show();
-                        DBSongUrlChoice = "https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/Dynoro%20%C2%B7%20Gigi%20D'Agostino%20-%20In%20My%20Mind.mp3?alt=media&token=b5ea0fa4-e46f-4a8a-8cad-87a4c71f32f2";
+                        DBSongUrlChoice = "https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/Dynoro%20-%20In%20My%20Mind.mp3?alt=media&token=8600afad-31fb-4f7f-97b4-92e2968ff851";
                         mediaPlayer.reset();
 
                         try
@@ -165,7 +165,7 @@ public class MusicFragment extends Fragment
 
                     case "MEDUZA - Lose Control":
                         Toast.makeText(context, "MEDUZA - Lose Control", Toast.LENGTH_LONG).show();
-                        DBSongUrlChoice = "https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/MEDUZA%20%C2%B7%20Becky%20Hill%20%C2%B7%20Goodboys%20-%20Lose%20Control.mp3?alt=media&token=2bc00ee9-3eef-4961-a691-40b75d817451";
+                        DBSongUrlChoice = "https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/MEDUZA%20-%20Lose%20Control.mp3?alt=media&token=92253d10-47c6-455b-897b-14bec7e1b923";
                         mediaPlayer.reset();
 
                         try
@@ -182,7 +182,7 @@ public class MusicFragment extends Fragment
 
                     case "Regard - Ride It":
                         Toast.makeText(context, "Regard - Ride It", Toast.LENGTH_LONG).show();
-                        DBSongUrlChoice = "https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/Regard%20-%20Ride%20It.mp3?alt=media&token=5d9e3f2f-a952-484e-8314-580293780e12";
+                        DBSongUrlChoice = "https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/Regard%20-%20Ride%20It.mp3?alt=media&token=d52d0d1e-1152-4b64-9cfc-0def83505f00";
                         mediaPlayer.reset();
 
                         try
@@ -199,7 +199,7 @@ public class MusicFragment extends Fragment
 
                     case "SAINt Jhn - Roses":
                         Toast.makeText(context, "SAINt Jhn - Roses", Toast.LENGTH_LONG).show();
-                        DBSongUrlChoice = "https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/SAINt%20Jhn%20%26%20J.%20Balvin%20-%20%E2%80%9CRoses%E2%80%9D%20%5B(Imanbek%20Remix)%5D%20(Latino%20Gang).mp3?alt=media&token=0b97c748-f23e-4de4-bd68-513124093fdb";
+                        DBSongUrlChoice = "https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/SAINt%20Jhn%20-%20Roses.mp3?alt=media&token=d077c318-e028-4ee1-a043-bc896c49dacb";
                         mediaPlayer.reset();
 
                         try
@@ -282,7 +282,7 @@ public class MusicFragment extends Fragment
    // _______________________Default Track_________________________________________\\
 
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        DBSongUrl = "https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/BLR%20x%20Rave%20%26%20Crave%20-%20Taj.mp3?alt=media&token=7db7f980-8834-469b-9f71-bb830c1af99a";
+        DBSongUrl = "https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/BLR%20-%20Taj.mp3?alt=media&token=e3aacbca-33a4-4368-ad0a-7ba49f2f6692";
 
         try
         {
