@@ -200,7 +200,7 @@ public class ReviewFragment extends Fragment
                 shalomName.setText("");
                 shalomEmail.setText("");
                 shalomComment.setText("");
-
+                shalomRateUs.setRating(0);
 
             }
         });
