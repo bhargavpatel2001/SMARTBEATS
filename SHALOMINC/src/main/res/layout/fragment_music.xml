@@ -171,7 +171,8 @@
             android:layout_height="60dp"
             android:background="@color/lilac"
             android:elevation="10dp"
-            android:src="@drawable/shalom_play"></ImageView>
+            android:src="@drawable/shalom_play">
+        </ImageView>
 
         <ImageView
             android:src="@drawable/shalom_pause"
@@ -191,16 +192,6 @@
         </ImageView>
 
     </LinearLayout>
-
-    <ImageView
-        android:src="@drawable/shalom_stop_foreground"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:elevation="10dp"
-        android:background="@color/lilac"
-        android:id="@+id/bt_stop"/>
-
-
 
 
 </LinearLayout>
