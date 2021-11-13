@@ -122,7 +122,7 @@ public class MusicFragment extends Fragment
         shalomPause = view.findViewById(R.id.bt_pause);
         shalomFastForward = view.findViewById(R.id.bt_ff);
         shalomVinyl = view.findViewById(R.id.shalom_IV);
-        shalomStop = view.findViewById(R.id.bt_stop);
+        //shalomStop = view.findViewById(R.id.bt_stop);
 
         //Adjust Volumes.
         shalomVolume = view.findViewById(R.id.shalom_volume);
@@ -450,18 +450,18 @@ public class MusicFragment extends Fragment
         });
 
         //Stop button click listener
-        shalomStop.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                mediaPlayer.stop();
-
-                mediaPlayer.seekTo(0);
-
-                handler.removeCallbacks(runnable);
-            }
-        });
+//        shalomStop.setOnClickListener(new View.OnClickListener()
+//        {
+//            @Override
+//            public void onClick(View v)
+//            {
+//                mediaPlayer.stop();
+//
+//                mediaPlayer.seekTo(0);
+//
+//                handler.removeCallbacks(runnable);
+//            }
+//        });
 
         //SeekBar change listener
         shalomSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
