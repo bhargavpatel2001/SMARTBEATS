@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -48,9 +49,6 @@ public class ReviewFragment extends Fragment
     TextView shalomReadName, shalomReadPhoneNo, shalomReadEmail, shalomReadComment, shalomReadRatings;
     DocumentReference shalomDocRef;
 
-
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
@@ -58,8 +56,17 @@ public class ReviewFragment extends Fragment
         return inflater.inflate(R.layout.fragment_review, container, false);
     }
 
+    @Override
+    public void onPrepareOptionsMenu(@NonNull Menu menu)
+    {
+        super.onPrepareOptionsMenu(menu);
+        menu.findItem(R.id.musicBtn).setVisible(false);
+    }
+
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        setHasOptionsMenu(true);
+
         shalomModelNo = view.findViewById(R.id.shalom_model_no);
         shalomRateDisp = view.findViewById(R.id.shalomRateTV);
         shalomSubmit = view.findViewById(R.id.submit_review_form_btn);
