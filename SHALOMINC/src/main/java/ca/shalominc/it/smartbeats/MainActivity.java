@@ -18,12 +18,15 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -31,6 +34,7 @@ import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.StorageReference;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -43,14 +47,16 @@ import androidx.navigation.ui.NavigationUI;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import ca.shalominc.it.smartbeats.ui.music.MusicFragment;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity<myFragment> extends AppCompatActivity
 {
 
     private int PERMISSION_CODE = 1;
     int flag = 1;
+    Boolean visibleFrag = false;
 
     Spinner musicSpinner;
 
@@ -80,7 +86,6 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
@@ -89,6 +94,7 @@ public class MainActivity extends AppCompatActivity
         // Handle item selection
         Intent intent = null;
         musicSpinner = findViewById(R.id.shalom_music_spinner);
+
         switch (item.getItemId())
         {
 
@@ -101,10 +107,22 @@ public class MainActivity extends AppCompatActivity
 
             case R.id.musicBtn:
 
-                if(musicSpinner.getVisibility() != View.VISIBLE){
-                    musicSpinner.setVisibility(View.VISIBLE);
-                }else{
-                    musicSpinner.setVisibility(View.INVISIBLE);
+                if (visibleFrag == true)
+                {
+                    Toast.makeText(getApplicationContext(), "Must Be In Music Fragment!", Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+
+                    if (musicSpinner.getVisibility() != View.VISIBLE)
+                    {
+                        musicSpinner.setVisibility(View.VISIBLE);
+                    }
+                    else
+                    {
+                        musicSpinner.setVisibility(View.INVISIBLE);
+                    }
+
                 }
 
                 break;
