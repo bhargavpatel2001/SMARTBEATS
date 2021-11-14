@@ -1,8 +1,11 @@
 package ca.shalominc.it.smartbeats.ui.lights;
 
+import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -57,6 +60,7 @@ public class LightsFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_lights, container, false);
     }
 
+    //Sets Visibilty to false in this fragment for Music note In menu
     @Override
     public void onPrepareOptionsMenu(@NonNull Menu menu)
     {
@@ -71,12 +75,10 @@ public class LightsFragment extends Fragment {
 
         initList();
 
-        shalomTV = view.findViewById(R.id.shalom_heading); //Heading SMARTBEATS Text View
-
+        shalomTV = view.findViewById(R.id.shalom_heading);                                          //Heading SMARTBEATS Text View
 
         shalomColorPBtn = view.findViewById(R.id.shalom_pick_color_btn);                            //Color Picker Button
         shalomColorBtn = view.findViewById(R.id.shalom_set_color_btn);                              //Color Set Button
-
 
         shalomPreview = view.findViewById(R.id.shalom_preview_color);                               //Shows Pre view
 
@@ -85,11 +87,23 @@ public class LightsFragment extends Fragment {
         mAdapter = new ModeAdapter(getContext(),mModeList);
         spinnerMode.setAdapter(mAdapter);
 
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
+        int spinnerValue = sharedPref.getInt("userChoiceSpinner",-1);
+        if (spinnerValue != -1){
+            spinnerMode.setSelection(spinnerValue);
+        }
+        spinnerMode.setSelection(spinnerValue);
+
         spinnerMode.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 ModeItem clickedItem = (ModeItem) parent.getItemAtPosition(position);
                 clickedModeName = clickedItem.getModeName();
+
+                int userChoice = spinnerMode.getSelectedItemPosition();
+                SharedPreferences.Editor prefEditor = sharedPref.edit();
+                prefEditor.putInt("userChoiceSpinner", userChoice);
+                prefEditor.apply();
             }
 
             @Override
@@ -100,8 +114,7 @@ public class LightsFragment extends Fragment {
         shalomDefault = 0;
 
         //Color Picker button
-        shalomColorPBtn.setOnClickListener(
-                new View.OnClickListener()
+        shalomColorPBtn.setOnClickListener(new View.OnClickListener()
                 {
                     @Override
                     public void onClick(final View v)
@@ -144,8 +157,7 @@ public class LightsFragment extends Fragment {
 
 
         //Color Set Button.
-        shalomColorBtn.setOnClickListener(
-                new View.OnClickListener() {
+        shalomColorBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 

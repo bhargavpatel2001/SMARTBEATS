@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.DownloadManager;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -13,6 +14,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -84,9 +86,6 @@ public class MusicFragment extends Fragment
     ProgressDialog PD;
     File dir;
 
-
-
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -133,6 +132,10 @@ public class MusicFragment extends Fragment
         ArrayAdapter<CharSequence> sAdapter = ArrayAdapter.createFromResource(getContext(), R.array.Songs, android.R.layout.simple_spinner_item);
         sAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         shalomSongSpinner.setAdapter(sAdapter);
+
+        SharedPreferences shalomprefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        String decrementTV = shalomprefs.getString("TimeChanger", getString(R.string.zero));
+        shalomTextViewCountDown.setText(decrementTV);
 
         //Finding the downloads Folder
 //        dir = new File (String.valueOf(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)));
@@ -210,6 +213,7 @@ public class MusicFragment extends Fragment
 
                     case "ATC - All Around The World":
                         Toast.makeText(context,R.string.atc, Toast.LENGTH_LONG).show();
+
                         DBSongUrlChoice = "https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/ATC%20-%20All%20Around%20The%20World.mp3?alt=media&token=41077a29-12e9-4371-b8a0-af1c7179a0d4";
                         DBSongName = getString(R.string.atc);
                         DBSongExtension = getString(R.string.mp3);
@@ -676,7 +680,12 @@ public class MusicFragment extends Fragment
         }
 
         shalomTextViewCountDown.setText(timeLeftFormatted);
+        SharedPreferences shalomprefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        SharedPreferences.Editor change = shalomprefs.edit();
+        change.putString("TimeChanger", timeLeftFormatted);
+        change.apply();
     }
+
 
     @SuppressLint("SetTextI18n")
     private void updateWatchInterface() {

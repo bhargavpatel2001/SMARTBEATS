@@ -173,30 +173,6 @@ public class ReviewFragment extends Fragment
         shalomSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                if (shalomName.getText().toString().equals("") || shalomComment.getText().toString().equals("") || shalomEmail.getText().toString().equals("")
-                        || shalomPhone.length() == 0) {
-                    Toast.makeText(getContext(), R.string.field_not_empty, Toast.LENGTH_SHORT).show();
-                } else {
-
-                    NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), getString(R.string.myNoti));
-                    builder.setContentTitle(getString(R.string.review_submission));
-                    builder.setContentText(getString(R.string.review_message));
-                    builder.setSmallIcon(R.drawable.ic_baseline_chat_24);
-                    builder.setAutoCancel(true);
-
-                    NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getContext());
-                    notificationManagerCompat.notify(1, builder.build());
-                }
-            }
-        });
-
-
-        //Receving data from the database
-        shalomRead.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
                 pNumber = shalomPhone.getText().toString();
                 userValue = shalomName.getText().toString();
                 userValue2 = shalomEmail.getText().toString();
@@ -239,6 +215,29 @@ public class ReviewFragment extends Fragment
                                 Log.d(TAG, "Error Failed", e);
                             }
                         });
+
+                if (shalomName.getText().toString().equals("") || shalomComment.getText().toString().equals("") || shalomEmail.getText().toString().equals("")
+                        || shalomPhone.length() == 0) {
+                    Toast.makeText(getContext(), R.string.field_not_empty, Toast.LENGTH_SHORT).show();
+                } else {
+
+                    NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), getString(R.string.myNoti));
+                    builder.setContentTitle(getString(R.string.review_submission));
+                    builder.setContentText(getString(R.string.review_message));
+                    builder.setSmallIcon(R.drawable.ic_baseline_chat_24);
+                    builder.setAutoCancel(true);
+
+                    NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getContext());
+                    notificationManagerCompat.notify(1, builder.build());
+                }
+            }
+        });
+
+
+        //Receving data from the database
+        shalomRead.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
         shalomDocRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
