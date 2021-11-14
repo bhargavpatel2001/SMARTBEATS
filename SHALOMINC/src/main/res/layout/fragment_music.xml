@@ -109,13 +109,6 @@
         android:visibility="invisible">
     </Spinner>
 
-    <Button
-        android:id="@+id/test_notification"
-        android:layout_width="196dp"
-        android:layout_height="39dp"
-        android:text="Notification Test" />
-
-
 
     <SeekBar
         android:id="@+id/shalom_volume"

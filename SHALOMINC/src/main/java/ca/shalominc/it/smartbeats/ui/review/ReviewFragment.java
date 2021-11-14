@@ -1,11 +1,15 @@
 package ca.shalominc.it.smartbeats.ui.review;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 
 import android.preference.PreferenceManager;
@@ -165,6 +169,37 @@ public class ReviewFragment extends Fragment
                         });
             }
         });
+
+        //Notification for review!
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationChannel channel = new NotificationChannel("My notification", "My Notification", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationManager manager = getActivity().getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
+        shalomSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(shalomName.getText().toString().equals("") || shalomComment.getText().toString().equals("") || shalomEmail.getText().toString().equals("")
+                        || shalomPhone.length() == 0 ) {
+                    Toast.makeText(getContext(),R.string.field_not_empty, Toast.LENGTH_SHORT).show();
+                }
+
+                else {
+
+                    NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), "My notification");
+                    builder.setContentTitle("Review Submission");
+                    builder.setContentText("Thanks! Your review has been submitted successfully!");
+                    builder.setSmallIcon(R.drawable.ic_baseline_chat_24);
+                    builder.setAutoCancel(true);
+
+                    NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getContext());
+                    notificationManagerCompat.notify(1, builder.build());
+                }
+            }
+        });
+
 
         //Receving data from the database
 
