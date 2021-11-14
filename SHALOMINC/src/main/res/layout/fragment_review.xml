@@ -100,7 +100,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="575dp"
         android:layout_marginStart="140dp"
-        android:text="read" />
+        android:text="@string/read" />
 
     <TextView
         android:id="@+id/shalomRateTV"

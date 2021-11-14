@@ -215,16 +215,16 @@ public class MusicFragment extends Fragment
                 {
                     case "Select Your Song":
 
-                        Toast.makeText(context, "Select a Song Below", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context,R.string.select_song_below, Toast.LENGTH_LONG).show();
 
                         break;
 
                     case "ATC - All Around The World":
-                        Toast.makeText(context, "ATC - All Around The World", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context,R.string.atc, Toast.LENGTH_LONG).show();
                         DBSongUrlChoice = "https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/ATC%20-%20All%20Around%20The%20World.mp3?alt=media&token=41077a29-12e9-4371-b8a0-af1c7179a0d4";
-                        DBSongName = "ATC - All Around The World";
-                        DBSongExtension = ".mp3";
-                        PDTextChanger = "Downloading ATC - All Around The World ...";
+                        DBSongName = getString(R.string.atc);
+                        DBSongExtension = getString(R.string.mp3);
+                        PDTextChanger = getString(R.string.downloading_atc);
                         PDChoice = 1;
 
                         downloadMP3.execute();
@@ -246,11 +246,11 @@ public class MusicFragment extends Fragment
 
                     case "Dynoro - In My Mind":
 
-                        Toast.makeText(context, "Dynoro - In My Mind", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context,R.string.dynoro, Toast.LENGTH_LONG).show();
                         DBSongUrlChoice = "https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/Dynoro%20-%20In%20My%20Mind.mp3?alt=media&token=8600afad-31fb-4f7f-97b4-92e2968ff851";
-                        DBSongName = "Dynoro - In My Mind";
-                        DBSongExtension = ".mp3";
-                        PDTextChanger = "Downloading Dynoro - In My Mind ...";
+                        DBSongName = getString(R.string.dynoro);
+                        DBSongExtension = getString(R.string.mp3);
+                        PDTextChanger = getString(R.string.downloading_dynoro);
                         PDChoice = 2;
 
                         downloadMP3.execute();
@@ -270,11 +270,11 @@ public class MusicFragment extends Fragment
                         break;
 
                     case "MEDUZA - Lose Control":
-                        Toast.makeText(context, "MEDUZA - Lose Control", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context,R.string.meduza, Toast.LENGTH_LONG).show();
                         DBSongUrlChoice = "https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/MEDUZA%20-%20Lose%20Control.mp3?alt=media&token=92253d10-47c6-455b-897b-14bec7e1b923";
-                        DBSongName = "MEDUZA - Lose Control";
-                        DBSongExtension = ".mp3";
-                        PDTextChanger = "Downloading MEDUZA - Lose Control ...";
+                        DBSongName = getString(R.string.meduza);
+                        DBSongExtension = getString(R.string.mp3);
+                        PDTextChanger = getString(R.string.downloading_meduza);
                         PDChoice = 3;
 
                         downloadMP3.execute();
@@ -294,11 +294,11 @@ public class MusicFragment extends Fragment
                         break;
 
                     case "Regard - Ride It":
-                        Toast.makeText(context, "Regard - Ride It", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context,R.string.rideIt, Toast.LENGTH_LONG).show();
                         DBSongUrlChoice = "https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/Regard%20-%20Ride%20It.mp3?alt=media&token=d52d0d1e-1152-4b64-9cfc-0def83505f00";
-                        DBSongName = "Regard - Ride It";
-                        DBSongExtension = ".mp3";
-                        PDTextChanger = "Downloading Regard - Ride It ...";
+                        DBSongName = getString(R.string.rideIt);
+                        DBSongExtension = getString(R.string.mp3);
+                        PDTextChanger = getString(R.string.downloading_riedIt);
                         PDChoice = 4;
 
                         downloadMP3.execute();
@@ -318,11 +318,11 @@ public class MusicFragment extends Fragment
                         break;
 
                     case "SAINt Jhn - Roses":
-                        Toast.makeText(context, "SAINt Jhn - Roses", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context,R.string.roses, Toast.LENGTH_LONG).show();
                         DBSongUrlChoice = "https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/SAINt%20Jhn%20-%20Roses.mp3?alt=media&token=d077c318-e028-4ee1-a043-bc896c49dacb";
-                        DBSongName = "SAINt Jhn - Roses";
-                        DBSongExtension = ".mp3";
-                        PDTextChanger = "Downloading SAINt Jhn - Roses ...";
+                        DBSongName = getString(R.string.roses);
+                        DBSongExtension = getString(R.string.mp3);
+                        PDTextChanger = getString(R.string.downloading_roses);
                         PDChoice = 5;
 
                         downloadMP3.execute();
@@ -555,7 +555,7 @@ public class MusicFragment extends Fragment
         protected void onPreExecute()
         {
             super.onPreExecute();
-            Log.w("MP3 PRE-DOWNLOAD","1");
+            Log.w(getString(R.string.mp3_pre_download),getString(R.string.one));
             PD = new ProgressDialog(getContext());
             if(PDChoice == 1)
             {
@@ -613,7 +613,7 @@ public class MusicFragment extends Fragment
         protected void onPostExecute(String s)
         {
             super.onPostExecute(s);
-            Log.w("MP3 DOWNLOADED","2 " + s);
+            Log.w(getString(R.string.mp3_downloaded),getString(R.string.two) + s);
             PD.hide();
         }
 

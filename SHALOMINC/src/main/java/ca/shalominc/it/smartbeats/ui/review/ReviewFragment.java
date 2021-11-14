@@ -88,7 +88,7 @@ public class ReviewFragment extends Fragment
         shalomRead = view.findViewById(R.id.read_review_form_btn);
 
         FirebaseFirestore shalomData = FirebaseFirestore.getInstance();
-        shalomDocRef = shalomData.collection("user_review").document("reviewSent");
+        shalomDocRef = shalomData.collection(getString(R.string.userReview)).document(getString(R.string.sent_Review));
 
         //Gets Model Number
         ModelNo = getModelNo();
@@ -101,19 +101,19 @@ public class ReviewFragment extends Fragment
         //retriving
         SharedPreferences shalomprefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 
-        String Number = shalomprefs.getString("pNumber","0");
+        String Number = shalomprefs.getString(getString(R.string.phoneNUm),getString(R.string.zero));
         shalomPhone.setText(Number);
 
-        String value1 = shalomprefs.getString("userValue","1");
+        String value1 = shalomprefs.getString(getString(R.string.userValue),getString(R.string.one));
         shalomName.setText(value1);
 
-        String value2 = shalomprefs.getString("userValue2","2");
+        String value2 = shalomprefs.getString(getString(R.string.userValue2),getString(R.string.two));
         shalomEmail.setText(value2);
 
-        String value3 = shalomprefs.getString("userValue3","3");
+        String value3 = shalomprefs.getString(getString(R.string.uservalue3),getString(R.string.three));
         shalomComment.setText(value3);
 
-        float value4 = shalomprefs.getFloat("rateReading",4);
+        float value4 = shalomprefs.getFloat(getString(R.string.rateReading),4);
         shalomRateUs.setRating(value4);
 
 
@@ -137,34 +137,34 @@ public class ReviewFragment extends Fragment
                 SharedPreferences shalomprefs = PreferenceManager.getDefaultSharedPreferences(getContext());
                 SharedPreferences.Editor change = shalomprefs.edit();
 
-                change.putString("pNumber",pNumber);
-                change.putString("userValue",userValue);
-                change.putString("userValue2",userValue2);
-                change.putString("userValue3",userValue3);
-                change.putFloat("rateReading",rateReading);
+                change.putString(getString(R.string.phoneNUm),pNumber);
+                change.putString(getString(R.string.userValue),userValue);
+                change.putString(getString(R.string.userValue2),userValue2);
+                change.putString(getString(R.string.uservalue3),userValue3);
+                change.putFloat(getString(R.string.rateReading),rateReading);
                 change.apply();
 
                 //Database Sender
 
                 Map<String, Object> data = new HashMap<>();
-                data.put("Phone Number",pNumber);
-                data.put("User Name",userValue);
-                data.put("Email",userValue2);;
-                data.put("Comments",userValue3);
+                data.put(getString(R.string.phone_number),pNumber);
+                data.put(getString(R.string.user_name),userValue);
+                data.put(getString(R.string.email),userValue2);;
+                data.put(getString(R.string.cmnts),userValue3);
 
                 Map<RatingBar, Object> data1 = new HashMap<>();
-                data.put("rateReading",rateReading);
+                data.put(getString(R.string.rateReading),rateReading);
 
                 shalomDocRef.set(data).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Log.d(TAG, "Succesfully sent!");
+                        Log.d(TAG, getString(R.string.sent_success));
                     }
                 })
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Log.d(TAG, "Error Failed",e);
+                                Log.d(TAG, getString(R.string.error),e);
                             }
                         });
             }
@@ -173,7 +173,7 @@ public class ReviewFragment extends Fragment
         //Notification for review!
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            NotificationChannel channel = new NotificationChannel("My notification", "My Notification", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationChannel channel = new NotificationChannel(getString(R.string.myNoti), getString(R.string.myNoti), NotificationManager.IMPORTANCE_DEFAULT);
             NotificationManager manager = getActivity().getSystemService(NotificationManager.class);
             manager.createNotificationChannel(channel);
         }
@@ -188,9 +188,9 @@ public class ReviewFragment extends Fragment
 
                 else {
 
-                    NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), "My notification");
-                    builder.setContentTitle("Review Submission");
-                    builder.setContentText("Thanks! Your review has been submitted successfully!");
+                    NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), getString(R.string.myNoti));
+                    builder.setContentTitle(getString(R.string.review_submission));
+                    builder.setContentText(getString(R.string.review_message));
                     builder.setSmallIcon(R.drawable.ic_baseline_chat_24);
                     builder.setAutoCancel(true);
 
@@ -210,10 +210,10 @@ public class ReviewFragment extends Fragment
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         if (documentSnapshot.exists()){
-                            String nameRecevier = documentSnapshot.getString("User Name");
-                            String phoneReceiver = documentSnapshot.getString("Phone Number");
-                            String emailRecevier = documentSnapshot.getString("Email");
-                            String commentsRecevier = documentSnapshot.getString("Comments");
+                            String nameRecevier = documentSnapshot.getString(getString(R.string.user_name));
+                            String phoneReceiver = documentSnapshot.getString(getString(R.string.phone_number));
+                            String emailRecevier = documentSnapshot.getString(getString(R.string.email));
+                            String commentsRecevier = documentSnapshot.getString(getString(R.string.cmnts));
                             //    String ratingRecevier = documentSnapshot.getString("rateReading");
 
                             shalomReadName.setText(nameRecevier);
@@ -227,7 +227,7 @@ public class ReviewFragment extends Fragment
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.d(TAG, "Error Failed",e);
+                        Log.d(TAG, getString(R.string.error),e);
                     }
                 });
             }
@@ -253,7 +253,7 @@ public class ReviewFragment extends Fragment
     {
         float starsSelected = shalomRateUs.getRating();
         int  totalStars = shalomRateUs.getNumStars();
-        return rateOverall = "Rating: "+starsSelected+"/"+totalStars;
+        return rateOverall = getString(R.string.rating)+starsSelected+"/"+totalStars;
     }
     public String getModelNo()
     {

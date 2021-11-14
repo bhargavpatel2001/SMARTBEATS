@@ -140,8 +140,7 @@
             android:progressTint="@color/grape"
             android:thumbTint="@color/grape"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
-        </SeekBar>
+            android:layout_weight="1" />
 
 
         <TextView
