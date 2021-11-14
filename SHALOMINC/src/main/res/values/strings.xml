@@ -78,7 +78,7 @@
     <string name="userValue">userValue</string>
     <string name="userValue2">userValue2</string>
     <string name="uservalue3">userValue3</string>
-    <string name="rateReading">rateReading</string>
+
     <string name="zero">0</string>
     <string name="one">1</string>
     <string name="two">2</string>
@@ -94,7 +94,7 @@
     <string name="review_submission">Review Submission</string>
     <string name="review_message">Thanks! Your review has been submitted successfully!</string>
     <string name="rating">\"Rating: \"</string>
-    <string name="read">read</string>
+
     <string name="select_song_below">Select a Song Below</string>
     <string name="atc">ATC - All Around The World</string>
     <string name="mp3">.mp3</string>
