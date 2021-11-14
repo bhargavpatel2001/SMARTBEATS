@@ -3,6 +3,7 @@ package ca.shalominc.it.smartbeats.ui.settings;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -33,8 +34,16 @@ public class SettingsFragment extends Fragment {
     }
 
     @Override
+    public void onPrepareOptionsMenu(@NonNull Menu menu)
+    {
+        super.onPrepareOptionsMenu(menu);
+        menu.findItem(R.id.musicBtn).setVisible(false);
+    }
+
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        setHasOptionsMenu(true);
 
         portraitSwitch = view.findViewById(R.id.shalom_switch1);
 

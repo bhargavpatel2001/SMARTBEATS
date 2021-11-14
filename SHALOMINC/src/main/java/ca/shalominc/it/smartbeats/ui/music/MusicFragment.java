@@ -2,17 +2,17 @@ package ca.shalominc.it.smartbeats.ui.music;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
+import android.app.DownloadManager;
+import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.os.Build;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,15 +31,17 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
@@ -51,7 +53,6 @@ import static java.sql.Types.NULL;
 
 public class MusicFragment extends Fragment
 {
-
     //Media Player
     MediaPlayer mediaPlayer;
     TextView shalomPosition, shalomDuration;
@@ -71,11 +72,11 @@ public class MusicFragment extends Fragment
     String spinnerString;
 
     //Song selector
-    String DBSongUrl;
-    String DBSongUrlChoice;
+    String DBSongUrl, DBSongUrlChoice, DBSongName, DBSongExtension, PDTextChanger;
 
 
-// Timer countdown till the song auto stops.
+
+    // Timer countdown till the song auto stops.
     EditText shalomEditTextInput;
     TextView shalomTextViewCountDown;
     Button shalomButtonSet;
@@ -86,16 +87,25 @@ public class MusicFragment extends Fragment
     long shalomStartTimeInMillis;
     long shalomTimeLeftInMillis;
     long shalomEndTime;
+    private DownloadManager mgr = null;
+    private long lastDownload;
 
-    //Notification
-    Button testNotification;
+    //Async
+    int PDChoice;
+    ProgressDialog PD;
+    File dir;
 
-    //-------------------------------------------------------------------------------------------------------------------------------------------//
-    // Functionality Starts here for OnCreateView
+
+
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
+
+
         return inflater.inflate(R.layout.fragment_music, container, false);
     }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
@@ -112,7 +122,7 @@ public class MusicFragment extends Fragment
         shalomPause = view.findViewById(R.id.bt_pause);
         shalomFastForward = view.findViewById(R.id.bt_ff);
         shalomVinyl = view.findViewById(R.id.shalom_IV);
-  //    shalomStop = view.findViewById(R.id.bt_stop);
+        //shalomStop = view.findViewById(R.id.bt_stop);
 
         //Adjust Volumes.
         shalomVolume = view.findViewById(R.id.shalom_volume);
@@ -129,37 +139,25 @@ public class MusicFragment extends Fragment
         shalomButtonStartPause = view.findViewById(R.id.shalom_button_start_pause);
         shalomButtonReset = view.findViewById(R.id.shalom_button_reset);
 
-
-        //Notification
-
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            NotificationChannel channel = new NotificationChannel("My notification", "My Notification", NotificationManager.IMPORTANCE_DEFAULT);
-            NotificationManager manager = getActivity().getSystemService(NotificationManager.class);
-            manager.createNotificationChannel(channel);
-        }
-        testNotification = view.findViewById(R.id.test_notification);
-        testNotification.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                NotificationCompat.Builder builder = new NotificationCompat.Builder (getContext(), "My notification");
-                builder.setContentTitle("My Title");
-                builder.setContentText("This is a notification");
-                builder.setSmallIcon(R.drawable.ic_baseline_chat_24);
-                builder.setAutoCancel(true);
-
-                NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getContext());
-                notificationManagerCompat.notify(1, builder.build());
-            }
-        });
-
         //Spinner for user to select their songs
         shalomSongSpinner = view.findViewById(R.id.shalom_music_spinner);
         ArrayAdapter<CharSequence> sAdapter = ArrayAdapter.createFromResource(getContext(), R.array.Songs, android.R.layout.simple_spinner_item);
         sAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         shalomSongSpinner.setAdapter(sAdapter);
 
-
+        //Finding the downloads Folder
+//        dir = new File (String.valueOf(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)));
+//        if(!dir.exists())
+//        {
+//            try
+//            {
+//                dir.mkdirs();
+//            }
+//            catch (Exception e)
+//            {
+//                e.printStackTrace();
+//            }
+//        }
 
         //Seekbar progress Duration check for the song.
         runnable = new Runnable()
@@ -189,6 +187,8 @@ public class MusicFragment extends Fragment
                 );
 
         rotateAnimation();  // Calling function rotateAnimation();
+
+        //Setting Audio Stream / Default Track
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         DBSongUrl = "https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/BLR%20-%20Taj.mp3?alt=media&token=e3aacbca-33a4-4368-ad0a-7ba49f2f6692";
         try
@@ -210,16 +210,27 @@ public class MusicFragment extends Fragment
             {
                 spinnerString = shalomSongSpinner.getItemAtPosition(position).toString();
                 Context context = getContext();
+                MusicFragment.DownloadMP3 downloadMP3 = new MusicFragment.DownloadMP3();
                 switch (spinnerString)
                 {
                     case "Select Your Song":
+
                         Toast.makeText(context, "Select a Song Below", Toast.LENGTH_LONG).show();
+
                         break;
 
                     case "ATC - All Around The World":
                         Toast.makeText(context, "ATC - All Around The World", Toast.LENGTH_LONG).show();
                         DBSongUrlChoice = "https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/ATC%20-%20All%20Around%20The%20World.mp3?alt=media&token=41077a29-12e9-4371-b8a0-af1c7179a0d4";
+                        DBSongName = "ATC - All Around The World";
+                        DBSongExtension = ".mp3";
+                        PDTextChanger = "Downloading ATC - All Around The World ...";
+                        PDChoice = 1;
+
+                        downloadMP3.execute();
+
                         mediaPlayer.reset();
+
                         try
                         {
                             mediaPlayer.setDataSource(DBSongUrlChoice);
@@ -229,12 +240,23 @@ public class MusicFragment extends Fragment
                         {
                             e.printStackTrace();
                         }
+
+
                         break;
 
                     case "Dynoro - In My Mind":
+
                         Toast.makeText(context, "Dynoro - In My Mind", Toast.LENGTH_LONG).show();
                         DBSongUrlChoice = "https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/Dynoro%20-%20In%20My%20Mind.mp3?alt=media&token=8600afad-31fb-4f7f-97b4-92e2968ff851";
+                        DBSongName = "Dynoro - In My Mind";
+                        DBSongExtension = ".mp3";
+                        PDTextChanger = "Downloading Dynoro - In My Mind ...";
+                        PDChoice = 2;
+
+                        downloadMP3.execute();
+
                         mediaPlayer.reset();
+
                         try
                         {
                             mediaPlayer.setDataSource(DBSongUrlChoice);
@@ -244,12 +266,21 @@ public class MusicFragment extends Fragment
                         {
                             e.printStackTrace();
                         }
+
                         break;
 
                     case "MEDUZA - Lose Control":
                         Toast.makeText(context, "MEDUZA - Lose Control", Toast.LENGTH_LONG).show();
                         DBSongUrlChoice = "https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/MEDUZA%20-%20Lose%20Control.mp3?alt=media&token=92253d10-47c6-455b-897b-14bec7e1b923";
+                        DBSongName = "MEDUZA - Lose Control";
+                        DBSongExtension = ".mp3";
+                        PDTextChanger = "Downloading MEDUZA - Lose Control ...";
+                        PDChoice = 3;
+
+                        downloadMP3.execute();
+
                         mediaPlayer.reset();
+
                         try
                         {
                             mediaPlayer.setDataSource(DBSongUrlChoice);
@@ -259,12 +290,21 @@ public class MusicFragment extends Fragment
                         {
                             e.printStackTrace();
                         }
+
                         break;
 
                     case "Regard - Ride It":
                         Toast.makeText(context, "Regard - Ride It", Toast.LENGTH_LONG).show();
                         DBSongUrlChoice = "https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/Regard%20-%20Ride%20It.mp3?alt=media&token=d52d0d1e-1152-4b64-9cfc-0def83505f00";
+                        DBSongName = "Regard - Ride It";
+                        DBSongExtension = ".mp3";
+                        PDTextChanger = "Downloading Regard - Ride It ...";
+                        PDChoice = 4;
+
+                        downloadMP3.execute();
+
                         mediaPlayer.reset();
+
                         try
                         {
                             mediaPlayer.setDataSource(DBSongUrlChoice);
@@ -274,12 +314,21 @@ public class MusicFragment extends Fragment
                         {
                             e.printStackTrace();
                         }
+
                         break;
 
                     case "SAINt Jhn - Roses":
                         Toast.makeText(context, "SAINt Jhn - Roses", Toast.LENGTH_LONG).show();
                         DBSongUrlChoice = "https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/SAINt%20Jhn%20-%20Roses.mp3?alt=media&token=d077c318-e028-4ee1-a043-bc896c49dacb";
+                        DBSongName = "SAINt Jhn - Roses";
+                        DBSongExtension = ".mp3";
+                        PDTextChanger = "Downloading SAINt Jhn - Roses ...";
+                        PDChoice = 5;
+
+                        downloadMP3.execute();
+
                         mediaPlayer.reset();
+
                         try
                         {
                             mediaPlayer.setDataSource(DBSongUrlChoice);
@@ -289,8 +338,11 @@ public class MusicFragment extends Fragment
                         {
                             e.printStackTrace();
                         }
+
                         break;
+
                 }
+
             }
 
             @Override
@@ -299,10 +351,10 @@ public class MusicFragment extends Fragment
 
             }
         });
+
         // Spinner Item selector ENDS HERE
 
-
-        // Volume changer for musics
+        // Volume changer for music
         shalomVolume.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
         {
             @Override
@@ -326,20 +378,24 @@ public class MusicFragment extends Fragment
         });
         // Volume Changer for music Ends here
 
-          //mediaPlayer = MediaPlayer.create(getContext(), R.raw.music);
-
-        // Play button click listenenr
+        // Play button click listener
         shalomPlay.setOnClickListener(new View.OnClickListener()
         {
+
             @Override
             public void onClick(View v)
             {
                 shalomPlay.setVisibility(View.GONE);
                 shalomPause.setVisibility(View.VISIBLE);
+
                 mediaPlayer.start();
-                shalomSeekBar.setMax(mediaPlayer.getDuration());
+
+
+                    shalomSeekBar.setMax(mediaPlayer.getDuration());
+
                     handler.postDelayed(runnable, 0);
             }
+
         });
 
         // Pause button click listener
@@ -348,9 +404,13 @@ public class MusicFragment extends Fragment
             @Override
             public void onClick(View v) {
                 shalomPause.setVisibility(View.GONE);
+
                 shalomPlay.setVisibility(View.VISIBLE);
+
                 mediaPlayer.pause();
+
                 handler.removeCallbacks(runnable);
+
             }
         });
 
@@ -361,12 +421,16 @@ public class MusicFragment extends Fragment
             public void onClick(View v)
             {
                 int currentPosition = mediaPlayer.getCurrentPosition();
+
                 int duration = mediaPlayer.getDuration();
+
                 if (mediaPlayer.isPlaying() && duration != currentPosition) {
                     currentPosition = currentPosition + 5000;
                     shalomPosition.setText(convertFormat(currentPosition));
                     mediaPlayer.seekTo(currentPosition);
+
                 }
+
             }
         });
 
@@ -380,23 +444,24 @@ public class MusicFragment extends Fragment
                     currentPosition = currentPosition - 5000;
                     shalomPosition.setText(convertFormat(currentPosition));
                     mediaPlayer.seekTo(currentPosition);
+
                 }
             }
         });
 
-  /*      shalomStop.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                mediaPlayer.stop();
-
-                mediaPlayer.seekTo(0);
-
-                handler.removeCallbacks(runnable);
-            }
-        });
-*/
+        //Stop button click listener
+//        shalomStop.setOnClickListener(new View.OnClickListener()
+//        {
+//            @Override
+//            public void onClick(View v)
+//            {
+//                mediaPlayer.stop();
+//
+//                mediaPlayer.seekTo(0);
+//
+//                handler.removeCallbacks(runnable);
+//            }
+//        });
 
         //SeekBar change listener
         shalomSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
@@ -408,14 +473,20 @@ public class MusicFragment extends Fragment
                     mediaPlayer.seekTo(progress);
                 }
                 shalomPosition.setText(convertFormat(mediaPlayer.getCurrentPosition()));
-                shalomDuration.setText(convertFormat(mediaPlayer.getCurrentPosition()));
             }
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) { }
+            public void onStartTrackingTouch(SeekBar seekBar)
+            {
+
+            }
 
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) { }});
+            public void onStopTrackingTouch(SeekBar seekBar)
+            {
+
+            }
+        });
 
         //Pause and play visibility
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener()
@@ -429,7 +500,11 @@ public class MusicFragment extends Fragment
             }
         });
 
-//      ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+//        ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
 
         shalomButtonSet.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -467,15 +542,90 @@ public class MusicFragment extends Fragment
             public void onClick(View v) {
                 resetTimer();
             }
+
         });
 
-    } //OnViewCreated Ends here                     Functions next
-    //----------------------------------------------------------------------------------------------------------------------------------
 
+
+    }
+
+    private class DownloadMP3 extends AsyncTask<String, Integer, String>
+    {
+        @Override
+        protected void onPreExecute()
+        {
+            super.onPreExecute();
+            Log.w("MP3 PRE-DOWNLOAD","1");
+            PD = new ProgressDialog(getContext());
+            if(PDChoice == 1)
+            {
+                PD.setIcon(R.drawable.music_icon_foreground);
+            }
+            else if (PDChoice == 2)
+            {
+                PD.setIcon(R.drawable.music_icon_foreground);
+            }
+            else if (PDChoice == 3)
+            {
+                PD.setIcon(R.drawable.music_icon_foreground);
+            }
+            else if (PDChoice == 4)
+            {
+                PD.setIcon(R.drawable.music_icon_foreground);
+            }
+            else if(PDChoice == 5)
+            {
+                PD.setIcon(R.drawable.music_icon_foreground);
+            }
+            PD.setTitle(PDTextChanger);
+            PD.setIndeterminate(false);
+            PD.setCancelable(false);
+            PD.show();
+        }
+        //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        @Override
+        protected String doInBackground(String... urlParams)
+        {
+            int count;
+            try
+            {
+                Context context1 = getActivity();
+                Uri uri=Uri.parse(DBSongUrlChoice);
+                mgr = (DownloadManager) getActivity().getSystemService(Context.DOWNLOAD_SERVICE);
+                lastDownload=
+                        mgr.enqueue(new DownloadManager.Request(uri)
+                                .setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI |
+                                        DownloadManager.Request.NETWORK_MOBILE)
+                                .setAllowedOverRoaming(false)
+                                .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,
+                                        DBSongName+DBSongExtension));
+
+
+            }
+            catch (Exception ignored)
+            {
+                PD.hide();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s)
+        {
+            super.onPostExecute(s);
+            Log.w("MP3 DOWNLOADED","2 " + s);
+            PD.hide();
+        }
+
+    }
+
+    //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     private void rotateAnimation()
     {
+
         rotateAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.spinimage);
         shalomVinyl.startAnimation(rotateAnimation);
+
     }
 
 
@@ -487,7 +637,7 @@ public class MusicFragment extends Fragment
                         TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(duration)));
     }
 
-   //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//   //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     //Setting the CountDown Timer
     private void setTime(long milliseconds) {
@@ -569,8 +719,6 @@ public class MusicFragment extends Fragment
             }
         }
     }
-
-
 
 
 }
