@@ -36,7 +36,6 @@
             android:id="@+id/shalom_button_set"
             android:layout_width="wrap_content"
             android:layout_height="49dp"
-
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"

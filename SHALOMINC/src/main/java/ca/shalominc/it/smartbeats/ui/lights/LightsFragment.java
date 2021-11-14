@@ -71,17 +71,17 @@ public class LightsFragment extends Fragment {
 
         initList();
 
-        shalomTV = view.findViewById(R.id.shalom_heading);
+        shalomTV = view.findViewById(R.id.shalom_heading); //Heading SMARTBEATS Text View
 
 
-        shalomColorPBtn = view.findViewById(R.id.shalom_pick_color_btn);
-        shalomColorBtn = view.findViewById(R.id.shalom_set_color_btn);
+        shalomColorPBtn = view.findViewById(R.id.shalom_pick_color_btn);                            //Color Picker Button
+        shalomColorBtn = view.findViewById(R.id.shalom_set_color_btn);                              //Color Set Button
 
 
-        shalomPreview = view.findViewById(R.id.shalom_preview_color);
+        shalomPreview = view.findViewById(R.id.shalom_preview_color);                               //Shows Pre view
 
-        spinnerMode = view.findViewById(R.id.shalom_spinner);
-
+        //Spinner Code For Light Mode
+        spinnerMode = view.findViewById(R.id.shalom_spinner);                                       //Light mode Spinner
         mAdapter = new ModeAdapter(getContext(),mModeList);
         spinnerMode.setAdapter(mAdapter);
 
@@ -99,7 +99,7 @@ public class LightsFragment extends Fragment {
         });
         shalomDefault = 0;
 
-
+        //Color Picker button
         shalomColorPBtn.setOnClickListener(
                 new View.OnClickListener()
                 {
@@ -143,8 +143,7 @@ public class LightsFragment extends Fragment {
                 });
 
 
-
-
+        //Color Set Button.
         shalomColorBtn.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -155,6 +154,7 @@ public class LightsFragment extends Fragment {
                 });
     }
 
+    // Function for Providing images to spinner
     private void initList(){
         mModeList = new ArrayList<>();
         mModeList.add(new ModeItem(getString(R.string.select_light_mode),R.mipmap.speak));

@@ -1,7 +1,6 @@
 package ca.shalominc.it.smartbeats.ui.music;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.DownloadManager;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -16,7 +15,6 @@ import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -35,21 +33,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import ca.shalominc.it.smartbeats.R;
-
-import static android.content.ContentValues.TAG;
-import static java.sql.Types.NULL;
 
 public class MusicFragment extends Fragment
 {
@@ -64,7 +53,7 @@ public class MusicFragment extends Fragment
     Runnable runnable;
 
     //Audio Manager
-    AudioManager aM;
+    AudioManager ShalomAM;
     SeekBar shalomVolume;
 
     //Spinner for user to select songs.
@@ -113,34 +102,34 @@ public class MusicFragment extends Fragment
         super.onViewCreated(view, savedInstanceState);
 
         //Media Player and the options
-        mediaPlayer = new MediaPlayer();
-        shalomPosition = view.findViewById(R.id.shalom_timer);
-        shalomDuration = view.findViewById(R.id.shalom_timer_duration);
-        shalomSeekBar = view.findViewById(R.id.shalom_seekbar);
-        shalomRew = view.findViewById(R.id.shalom_rewind);
-        shalomPlay = view.findViewById(R.id.bt_play);
-        shalomPause = view.findViewById(R.id.bt_pause);
-        shalomFastForward = view.findViewById(R.id.bt_ff);
-        shalomVinyl = view.findViewById(R.id.shalom_IV);
+        mediaPlayer = new MediaPlayer();                                                            // Creates New MediaPlayer
+        shalomPosition = view.findViewById(R.id.shalom_timer);                                      // Increment Counter TextView
+        shalomDuration = view.findViewById(R.id.shalom_timer_duration);                             // Decrement Counter TextView
+        shalomSeekBar = view.findViewById(R.id.shalom_seekbar);                                     // Music Seekbar
+        shalomRew = view.findViewById(R.id.shalom_rewind);                                          // Rewind Button ImageView
+        shalomPlay = view.findViewById(R.id.bt_play);                                               // Play Button ImageView
+        shalomPause = view.findViewById(R.id.bt_pause);                                             // Pause Button ImageView
+        shalomFastForward = view.findViewById(R.id.bt_ff);                                          // Fast Forward Button ImageView
+        shalomVinyl = view.findViewById(R.id.shalom_IV);                                            // Disc Display Rotating ImageView
         //shalomStop = view.findViewById(R.id.bt_stop);
 
         //Adjust Volumes.
-        shalomVolume = view.findViewById(R.id.shalom_volume);
-        aM = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
-        int maxVol = aM.getStreamMaxVolume(aM.STREAM_MUSIC);
-        int curVol = aM.getStreamVolume(aM.STREAM_MUSIC);
+        shalomVolume = view.findViewById(R.id.shalom_volume);                                       // Volume Seekbar
+        ShalomAM = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);            // Audio Manager
+        int maxVol = ShalomAM.getStreamMaxVolume(ShalomAM.STREAM_MUSIC);
+        int curVol = ShalomAM.getStreamVolume(ShalomAM.STREAM_MUSIC);
         shalomVolume.setMax(maxVol);
         shalomVolume.setProgress(curVol);
 
         // Timer Count down
-        shalomEditTextInput = view.findViewById(R.id.shalom_edit_text_input);
-        shalomTextViewCountDown = view.findViewById(R.id.shalom_text_view_countdown);
-        shalomButtonSet = view.findViewById(R.id.shalom_button_set);
-        shalomButtonStartPause = view.findViewById(R.id.shalom_button_start_pause);
-        shalomButtonReset = view.findViewById(R.id.shalom_button_reset);
+        shalomEditTextInput = view.findViewById(R.id.shalom_edit_text_input);                       // User Input for EditText
+        shalomTextViewCountDown = view.findViewById(R.id.shalom_text_view_countdown);               // Decrementing TextView
+        shalomButtonSet = view.findViewById(R.id.shalom_button_set);                                // Set Button
+        shalomButtonStartPause = view.findViewById(R.id.shalom_button_start_pause);                 // Pause Button
+        shalomButtonReset = view.findViewById(R.id.shalom_button_reset);                            // Reset Button
 
         //Spinner for user to select their songs
-        shalomSongSpinner = view.findViewById(R.id.shalom_music_spinner);
+        shalomSongSpinner = view.findViewById(R.id.shalom_music_spinner);                           // Music Selector Spinner
         ArrayAdapter<CharSequence> sAdapter = ArrayAdapter.createFromResource(getContext(), R.array.Songs, android.R.layout.simple_spinner_item);
         sAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         shalomSongSpinner.setAdapter(sAdapter);
@@ -360,7 +349,7 @@ public class MusicFragment extends Fragment
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
             {
-                aM.setStreamVolume(AudioManager.STREAM_MUSIC, progress, 0);
+                ShalomAM.setStreamVolume(AudioManager.STREAM_MUSIC, progress, 0);
 
             }
 
@@ -503,9 +492,7 @@ public class MusicFragment extends Fragment
 
 //        ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-
-
-
+        //Set Button
         shalomButtonSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -526,6 +513,7 @@ public class MusicFragment extends Fragment
             }
         });
 
+        //Pause Button
         shalomButtonStartPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -537,6 +525,7 @@ public class MusicFragment extends Fragment
             }
         });
 
+        //Reset Button
         shalomButtonReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -544,11 +533,9 @@ public class MusicFragment extends Fragment
             }
 
         });
-
-
-
     }
 
+    // Asycn Task for Downloading music to Downloads folder
     private class DownloadMP3 extends AsyncTask<String, Integer, String>
     {
         @Override
@@ -586,10 +573,8 @@ public class MusicFragment extends Fragment
         @Override
         protected String doInBackground(String... urlParams)
         {
-            int count;
             try
             {
-                Context context1 = getActivity();
                 Uri uri=Uri.parse(DBSongUrlChoice);
                 mgr = (DownloadManager) getActivity().getSystemService(Context.DOWNLOAD_SERVICE);
                 lastDownload=
@@ -616,7 +601,6 @@ public class MusicFragment extends Fragment
             Log.w(getString(R.string.mp3_downloaded),getString(R.string.two) + s);
             PD.hide();
         }
-
     }
 
     //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
