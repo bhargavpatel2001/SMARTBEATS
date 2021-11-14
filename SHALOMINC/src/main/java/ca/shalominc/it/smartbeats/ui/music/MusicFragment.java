@@ -2,10 +2,15 @@ package ca.shalominc.it.smartbeats.ui.music;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -29,6 +34,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -80,6 +87,9 @@ public class MusicFragment extends Fragment
     long shalomTimeLeftInMillis;
     long shalomEndTime;
 
+    //Notification
+    Button testNotification;
+
     //-------------------------------------------------------------------------------------------------------------------------------------------//
     // Functionality Starts here for OnCreateView
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -120,11 +130,36 @@ public class MusicFragment extends Fragment
         shalomButtonReset = view.findViewById(R.id.shalom_button_reset);
 
 
+        //Notification
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationChannel channel = new NotificationChannel("My notification", "My Notification", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationManager manager = getActivity().getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
+        testNotification = view.findViewById(R.id.test_notification);
+        testNotification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                NotificationCompat.Builder builder = new NotificationCompat.Builder (getContext(), "My notification");
+                builder.setContentTitle("My Title");
+                builder.setContentText("This is a notification");
+                builder.setSmallIcon(R.drawable.ic_baseline_chat_24);
+                builder.setAutoCancel(true);
+
+                NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getContext());
+                notificationManagerCompat.notify(1, builder.build());
+            }
+        });
+
         //Spinner for user to select their songs
         shalomSongSpinner = view.findViewById(R.id.shalom_music_spinner);
         ArrayAdapter<CharSequence> sAdapter = ArrayAdapter.createFromResource(getContext(), R.array.Songs, android.R.layout.simple_spinner_item);
         sAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         shalomSongSpinner.setAdapter(sAdapter);
+
+
 
         //Seekbar progress Duration check for the song.
         runnable = new Runnable()
@@ -534,6 +569,8 @@ public class MusicFragment extends Fragment
             }
         }
     }
+
+
 
 
 }
