@@ -60,11 +60,14 @@ public class ReviewFragment extends Fragment
         return inflater.inflate(R.layout.fragment_review, container, false);
     }
 
+    //Sets Visibility to false in this fragment for music button In menu
+    //Sets Visibility to false in this fragment for power button In menu
     @Override
     public void onPrepareOptionsMenu(@NonNull Menu menu)
     {
         super.onPrepareOptionsMenu(menu);
         menu.findItem(R.id.musicBtn).setVisible(false);
+        menu.findItem(R.id.lightsPwrBtn).setVisible(false);
     }
 
     public void onViewCreated(View view, Bundle savedInstanceState) {

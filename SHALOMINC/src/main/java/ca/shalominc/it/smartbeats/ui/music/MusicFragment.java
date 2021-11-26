@@ -17,6 +17,7 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -94,6 +95,13 @@ public class MusicFragment extends Fragment
         return inflater.inflate(R.layout.fragment_music, container, false);
     }
 
+    //Sets Visibilty to false in this fragment for Music note In menu
+    @Override
+    public void onPrepareOptionsMenu(@NonNull Menu menu)
+    {
+        super.onPrepareOptionsMenu(menu);
+        menu.findItem(R.id.lightsPwrBtn).setVisible(false);
+    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
