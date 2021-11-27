@@ -82,6 +82,10 @@
         <item name="android:textSize">15sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:background">@color/salmon_pink</item>
+
+        <item name="bottomNavigationStyle">@style/Widget.MaterialComponents.BottomNavigationView.Colored</item>
+
     </style>
+
 
 </resources>
