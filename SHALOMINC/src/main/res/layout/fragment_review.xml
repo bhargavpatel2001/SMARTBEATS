@@ -90,7 +90,7 @@
         android:id="@+id/submit_review_form_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="230dp"
+        android:layout_marginStart="260dp"
         android:layout_marginTop="575dp"
         android:text="@string/submit_btn_label" />
 
@@ -99,7 +99,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="575dp"
-        android:layout_marginStart="140dp"
+        android:layout_marginStart="155dp"
         android:text="@string/read" />
 
     <TextView
