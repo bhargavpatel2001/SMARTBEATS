@@ -94,6 +94,10 @@ public class MainActivity<myFragment> extends AppCompatActivity
     {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
+        if (menu != null)
+        {
+            menu.findItem(R.id.lightsPwrBtn).setVisible(false);
+        }
         return true;
     }
 

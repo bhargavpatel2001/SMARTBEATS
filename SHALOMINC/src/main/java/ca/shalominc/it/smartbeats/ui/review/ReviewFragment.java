@@ -65,9 +65,11 @@ public class ReviewFragment extends Fragment
     @Override
     public void onPrepareOptionsMenu(@NonNull Menu menu)
     {
+        setHasOptionsMenu(true);
         super.onPrepareOptionsMenu(menu);
         menu.findItem(R.id.musicBtn).setVisible(false);
         menu.findItem(R.id.lightsPwrBtn).setVisible(false);
+        menu.findItem(R.id.bluetoothBtn).setVisible(false);
     }
 
     public void onViewCreated(View view, Bundle savedInstanceState) {

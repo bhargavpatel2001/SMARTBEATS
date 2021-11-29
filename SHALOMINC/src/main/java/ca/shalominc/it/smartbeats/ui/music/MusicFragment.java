@@ -18,6 +18,8 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -87,20 +89,18 @@ public class MusicFragment extends Fragment
     ProgressDialog PD;
     File dir;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-
-
-
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
         return inflater.inflate(R.layout.fragment_music, container, false);
     }
 
-    //Sets Visibilty to false in this fragment for Music note In menu
-    @Override
-    public void onPrepareOptionsMenu(@NonNull Menu menu)
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
     {
-        super.onPrepareOptionsMenu(menu);
-        menu.findItem(R.id.lightsPwrBtn).setVisible(false);
+        if (menu != null)
+        {
+            setHasOptionsMenu(true);
+            menu.findItem(R.id.lightsPwrBtn).setVisible(false);
+        }
     }
 
     @Override

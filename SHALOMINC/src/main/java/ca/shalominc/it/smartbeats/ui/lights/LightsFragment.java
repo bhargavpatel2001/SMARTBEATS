@@ -64,8 +64,10 @@ public class LightsFragment extends Fragment {
     @Override
     public void onPrepareOptionsMenu(@NonNull Menu menu)
     {
+        setHasOptionsMenu(true);
         super.onPrepareOptionsMenu(menu);
         menu.findItem(R.id.musicBtn).setVisible(false);
+        menu.findItem(R.id.lightsPwrBtn).setVisible(true);
     }
 
     @Override
