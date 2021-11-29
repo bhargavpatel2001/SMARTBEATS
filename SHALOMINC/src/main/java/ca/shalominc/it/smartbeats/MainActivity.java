@@ -80,7 +80,7 @@ public class MainActivity<myFragment> extends AppCompatActivity
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
-        ColorDrawable colorActionBar = new ColorDrawable(ContextCompat.getColor(this,R.color.wisteria));
+        ColorDrawable colorActionBar = new ColorDrawable(ContextCompat.getColor(this,R.color.purple_200));
 
         ActionBar actionBar;
         actionBar = getSupportActionBar();
