@@ -95,6 +95,6 @@
     <string name="downloading_riedIt">Téléchargement de Regard - Ride It …</string>
     <string name="roses">SAINt Jhn - Roses</string>
     <string name="downloading_roses">Téléchargement de SAINt Jhn - Roses …</string>
-    <string name="mp3_pre_download">TÉLÉCHARGEMENT MP3</string>
-    <string name="mp3_downloaded">TÉLÉCHARGEMENT MP3</string>
+    <string name="mp3_pre_download">TÉLÉCHARGER MP3</string>
+    <string name="mp3_downloaded">TÉLÉCHARGER MP3</string>
 </resources>
