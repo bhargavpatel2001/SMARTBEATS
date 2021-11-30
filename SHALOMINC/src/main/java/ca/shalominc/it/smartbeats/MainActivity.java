@@ -89,6 +89,7 @@ public class MainActivity<myFragment> extends AppCompatActivity
 
     }
 
+    //Creates the Menu bar
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
@@ -101,6 +102,8 @@ public class MainActivity<myFragment> extends AppCompatActivity
         return true;
     }
 
+
+    //Menu button configurations
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
@@ -167,6 +170,7 @@ public class MainActivity<myFragment> extends AppCompatActivity
 //        Toast.makeText(context, "Enabling Song Database!", Toast.LENGTH_LONG).show();
 //    }
 
+    // On and Off switch inside the menu for power
     void pwrOutput()
     {
         switch (flag)
@@ -194,6 +198,7 @@ public class MainActivity<myFragment> extends AppCompatActivity
     }
 
 
+    // Requesting user for Runtime bluetooth permissions
     private void requestBluetoothPermission()
     {
 
@@ -201,7 +206,7 @@ public class MainActivity<myFragment> extends AppCompatActivity
                     .setTitle(R.string.request_perms_alert_dialog_title)
                     .setMessage(R.string.request_perms_alert_dialog_message)
                     .setCancelable(false)
-                    .setPositiveButton(R.string.request_perms_alert_dialog_positive_btn, new DialogInterface.OnClickListener()
+                    .setPositiveButton(R.string.request_perms_alert_dialog_positive_btn, new DialogInterface.OnClickListener()                                         //Turns On the bluetooth
                     {
                         @Override
                         public void onClick(DialogInterface dialog, int which)
@@ -211,7 +216,7 @@ public class MainActivity<myFragment> extends AppCompatActivity
 
                         }
                     })
-                    .setNegativeButton(R.string.request_perms_alert_dialog_negative_btn, new DialogInterface.OnClickListener()
+                    .setNegativeButton(R.string.request_perms_alert_dialog_negative_btn, new DialogInterface.OnClickListener()                                      //Turns off the bluetooth
                     {
                         @Override
                         public void onClick(DialogInterface dialog, int which)
@@ -262,7 +267,8 @@ public class MainActivity<myFragment> extends AppCompatActivity
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
-    //OnBackKeyPressed
+
+    //If BackKey Pressed configuration
     @Override
     public void onBackPressed()
     {

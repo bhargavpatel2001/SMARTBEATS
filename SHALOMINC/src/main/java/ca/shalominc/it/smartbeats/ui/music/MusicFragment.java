@@ -19,7 +19,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -144,20 +143,6 @@ public class MusicFragment extends Fragment
         SharedPreferences shalomprefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         String decrementTV = shalomprefs.getString("TimeChanger", getString(R.string.zero));
         shalomTextViewCountDown.setText(decrementTV);
-
-        //Finding the downloads Folder
-//        dir = new File (String.valueOf(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)));
-//        if(!dir.exists())
-//        {
-//            try
-//            {
-//                dir.mkdirs();
-//            }
-//            catch (Exception e)
-//            {
-//                e.printStackTrace();
-//            }
-//        }
 
         //Seekbar progress Duration check for the song.
         runnable = new Runnable()
@@ -377,7 +362,6 @@ public class MusicFragment extends Fragment
 
             }
         });
-        // Volume Changer for music Ends here
 
         // Play button click listener
         shalomPlay.setOnClickListener(new View.OnClickListener()
@@ -399,7 +383,7 @@ public class MusicFragment extends Fragment
 
         });
 
-        // Pause button click listener
+        // Music Pause button click listener
         shalomPause.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -450,20 +434,6 @@ public class MusicFragment extends Fragment
             }
         });
 
-        //Stop button click listener
-//        shalomStop.setOnClickListener(new View.OnClickListener()
-//        {
-//            @Override
-//            public void onClick(View v)
-//            {
-//                mediaPlayer.stop();
-//
-//                mediaPlayer.seekTo(0);
-//
-//                handler.removeCallbacks(runnable);
-//            }
-//        });
-
         //SeekBar change listener
         shalomSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
         {
@@ -501,10 +471,7 @@ public class MusicFragment extends Fragment
             }
         });
 
-
-//        ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-        //Set Button
+        //Timer Set Button
         shalomButtonSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -525,7 +492,7 @@ public class MusicFragment extends Fragment
             }
         });
 
-        //Pause Button
+        //Timer Pause Button
         shalomButtonStartPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -537,7 +504,7 @@ public class MusicFragment extends Fragment
             }
         });
 
-        //Reset Button
+        //Timer reset Button
         shalomButtonReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -581,7 +548,7 @@ public class MusicFragment extends Fragment
             PD.setCancelable(false);
             PD.show();
         }
-        //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
         @Override
         protected String doInBackground(String... urlParams)
         {
@@ -596,8 +563,6 @@ public class MusicFragment extends Fragment
                                 .setAllowedOverRoaming(false)
                                 .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,
                                         DBSongName+DBSongExtension));
-
-
             }
             catch (Exception ignored)
             {
@@ -615,7 +580,7 @@ public class MusicFragment extends Fragment
         }
     }
 
-    //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ // Music Disc spinning rotating animation
     private void rotateAnimation()
     {
 
@@ -633,14 +598,13 @@ public class MusicFragment extends Fragment
                         TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(duration)));
     }
 
-//   //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
     //Setting the CountDown Timer
     private void setTime(long milliseconds) {
         shalomStartTimeInMillis = milliseconds;
         resetTimer();
     }
 
+    // Starting the CountDown Timer
     private void startTimer() {
         shalomEndTime = System.currentTimeMillis() + shalomTimeLeftInMillis;
         shalomCountDownTimer = new CountDownTimer(shalomTimeLeftInMillis, 1000) {
@@ -661,18 +625,21 @@ public class MusicFragment extends Fragment
         updateWatchInterface();
     }
 
+    // Pausing the CountDown Timer
     private void pauseTimer() {
         shalomCountDownTimer.cancel();
         shalomTimerRunning = false;
         updateWatchInterface();
     }
 
+    // Resetting the CountDown Timer
     private void resetTimer() {
         shalomTimeLeftInMillis = shalomStartTimeInMillis;
         updateCountDownText();
         updateWatchInterface();
     }
 
+    // CountDown Updates and decrements the timer
     private void updateCountDownText() {
         int hours = (int) (shalomTimeLeftInMillis / 1000) / 3600;
         int minutes = (int) ((shalomTimeLeftInMillis / 1000) % 3600) / 60;
@@ -694,7 +661,7 @@ public class MusicFragment extends Fragment
         change.apply();
     }
 
-
+    // Visibility settings for buttons
     @SuppressLint("SetTextI18n")
     private void updateWatchInterface() {
         if (shalomTimerRunning) {
@@ -720,6 +687,4 @@ public class MusicFragment extends Fragment
             }
         }
     }
-
-
 }
