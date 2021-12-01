@@ -43,7 +43,7 @@ import static android.content.ContentValues.TAG;
 
 public class ReviewFragment extends Fragment
 {
-    String modelNum = Build.MODEL, manufacturerName = Build.MANUFACTURER, ModelNo;
+    String modelNum, manufacturerName, ModelNo;
     TextView shalomModelNo,shalomRateDisp;
     EditText shalomName, shalomPhone, shalomEmail, shalomComment;
     RatingBar shalomRateUs;
@@ -203,6 +203,7 @@ public class ReviewFragment extends Fragment
                 data.put("User Name", userValue);
                 data.put("Email", userValue2);
                 data.put("Comments", userValue3);
+
 
                 Map<RatingBar, Object> data1 = new HashMap<>();
                 data.put("rateReading", rateReading);
