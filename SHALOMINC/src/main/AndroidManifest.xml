@@ -2,10 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ca.shalominc.it.smartbeats">
 
-    <uses-permission android:name="android.permission.BLUETOOTH"/>
-
+    <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
 
     <application
@@ -15,19 +13,19 @@
         android:roundIcon="@mipmap/speak_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SMARTBEATS">
+        <activity android:name=".AboutUsActivity"></activity>
         <activity
             android:name=".SplashScreenActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
