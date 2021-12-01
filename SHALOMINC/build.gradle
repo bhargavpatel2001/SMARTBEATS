@@ -31,6 +31,7 @@ android {
 
 dependencies {
 
+    implementation 'com.takisoft.fix:preference-v7:25.3.0.0'
     implementation 'com.github.yukuku:ambilwarna:2.0.1'
     implementation 'androidx.media:media:1.1.0'
     implementation 'com.github.duanhong169:colorpicker:1.1.6'
