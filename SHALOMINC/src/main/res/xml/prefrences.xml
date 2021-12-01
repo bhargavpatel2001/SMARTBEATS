@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/lavender_blush">
+
+    <PreferenceCategory
+        android:title="General">
+        <SwitchPreference
+            android:key="Theme_preference"
+            android:defaultValue="false"
+            android:title="Night mode"/>
+
+        <SwitchPreference
+            android:key="portrait_mode"
+            android:defaultValue="false"
+            android:title="Portrait mode"/>
+        <SwitchPreference
+            android:key="Theme_preference"
+            android:defaultValue="false"
+            android:title="Night mode"/>
+        <SwitchPreference
+            android:key="Theme_preference"
+            android:defaultValue="false"
+            android:title="Night mode"/>
+
+    </PreferenceCategory>
+</PreferenceScreen>
+
