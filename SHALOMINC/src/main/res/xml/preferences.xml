@@ -16,6 +16,14 @@
             android:title="Portrait mode"/>
     </PreferenceCategory>
 
+    <PreferenceCategory
+        android:title="About">
+        <Preference
+            android:key="about_us"
+            android:title="About Us"
+            />
+
+    </PreferenceCategory>
 
 
 
