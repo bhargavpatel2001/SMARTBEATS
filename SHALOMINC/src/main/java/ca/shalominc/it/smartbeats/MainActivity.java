@@ -87,6 +87,13 @@ public class MainActivity<myFragment> extends AppCompatActivity
 
         actionBar.setBackgroundDrawable(colorActionBar);
 
+
+    }
+
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
     }
 
     //Creates the Menu bar
@@ -164,12 +171,6 @@ public class MainActivity<myFragment> extends AppCompatActivity
 
     }
 
-//    void toastShow()
-//    {
-//        Context context = getApplicationContext();
-//        Toast.makeText(context, "Enabling Song Database!", Toast.LENGTH_LONG).show();
-//    }
-
     // On and Off switch inside the menu for power
     void pwrOutput()
     {
@@ -198,7 +199,7 @@ public class MainActivity<myFragment> extends AppCompatActivity
     }
 
 
-    // Requesting user for Runtime bluetooth permissions
+    // Requesting user for Bluetooth Runtime  permissions
     private void requestBluetoothPermission()
     {
 
@@ -213,6 +214,7 @@ public class MainActivity<myFragment> extends AppCompatActivity
                         {
                             requestPermissions(new String[]{Manifest.permission.BLUETOOTH}, PERMISSION_CODE);
                             requestPermissions(new String[]{Manifest.permission.BLUETOOTH_ADMIN}, PERMISSION_CODE);
+                            requestPermissions(new String[]{Manifest.permission.BLUETOOTH_CONNECT}, PERMISSION_CODE);
 
                         }
                     })
