@@ -113,7 +113,6 @@ public class MainActivity<myFragment> extends AppCompatActivity
         return true;
     }
 
-
     //Menu button configurations
     @SuppressLint("NonConstantResourceId")
     @Override

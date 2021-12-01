@@ -583,7 +583,6 @@ public class MusicFragment extends Fragment
  // Music Disc spinning rotating animation
     private void rotateAnimation()
     {
-
         rotateAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.spinimage);
         shalomVinyl.startAnimation(rotateAnimation);
 

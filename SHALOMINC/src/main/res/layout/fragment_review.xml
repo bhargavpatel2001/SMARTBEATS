@@ -40,14 +40,6 @@
         android:hint="@string/enter_your_phone_number"
         android:textAlignment="center" />
 
-    <TextView
-        android:id="@+id/shalom_model_no"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="320dp"
-        android:layout_marginStart="130dp"
-        android:hint="@string/model_no"/>
-
     <EditText
         android:id="@+id/shalom_EditText_EmailAddress"
         android:layout_width="wrap_content"
@@ -142,5 +134,12 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="150dp"
         android:layout_marginTop="700dp" />
+
+    <TextView
+        android:id="@+id/shalomReviverTV6"
+        android:layout_width="107dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="720dp" />
 
 </FrameLayout>

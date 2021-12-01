@@ -1,3 +1,5 @@
+//Bhargav Patel (N01373029) & Ripal Patel (N01354619) & Vidhi Kanhye (N01354573) & Nicholas Mohan (N01361663), Section-RNA
+
 package ca.shalominc.it.smartbeats.ui.review;
 
 import android.app.NotificationChannel;
@@ -43,14 +45,14 @@ import static android.content.ContentValues.TAG;
 
 public class ReviewFragment extends Fragment
 {
-    String modelNum = Build.MODEL, manufacturerName = Build.MANUFACTURER, ModelNo;
-    TextView shalomModelNo,shalomRateDisp;
+    String modelNum, manufacturerName, ModelNo;
+    TextView shalomRateDisp;
     EditText shalomName, shalomPhone, shalomEmail, shalomComment;
     RatingBar shalomRateUs;
     String pNumber,userValue, userValue2, userValue3, rateOverall, rateOverallTV;
     float  rateReading, amountOfStars;
     Button shalomSubmit, shalomReset, shalomRead;
-    TextView shalomReadName, shalomReadPhoneNo, shalomReadEmail, shalomReadComment, shalomReadRatings;
+    TextView shalomReadName, shalomReadPhoneNo, shalomReadEmail, shalomReadComment, shalomReadRatings, shalomReadModelNo;
     DocumentReference shalomDocRef;
 
     @Override
@@ -75,7 +77,6 @@ public class ReviewFragment extends Fragment
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
 
-        shalomModelNo = view.findViewById(R.id.shalom_model_no);                                    // Phones Model Number TextView
         shalomRateDisp = view.findViewById(R.id.shalomRateTV);                                      // Shows Rating in TextView
         shalomSubmit = view.findViewById(R.id.submit_review_form_btn);                              // Submit Button
         shalomReset = view.findViewById(R.id.reset_review_form_btn);                                // Reset Button
@@ -90,15 +91,15 @@ public class ReviewFragment extends Fragment
         shalomReadComment = view.findViewById(R.id.shalomReviverTV4);                               // Shows FireBaseStorage Comment TextView
         shalomReadRatings = view.findViewById(R.id.shalomReviverTV5);                               // Shows FireBaseStorage Ratings Textview
         shalomRead = view.findViewById(R.id.read_review_form_btn);
+        shalomReadModelNo= view.findViewById(R.id.shalomReviverTV6);
 
         FirebaseFirestore shalomData = FirebaseFirestore.getInstance();
         shalomDocRef = shalomData.collection(getString(R.string.userReview)).document(getString(R.string.sent_Review));
 
         //Gets Model Number
         ModelNo = getModelNo();
-        shalomModelNo.setText(ModelNo);
 
-        //retriving
+        //retrieving
         SharedPreferences shalomprefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 
         String Number = shalomprefs.getString(getString(R.string.phoneNUm), getString(R.string.zero));
@@ -203,9 +204,10 @@ public class ReviewFragment extends Fragment
                 data.put("User Name", userValue);
                 data.put("Email", userValue2);
                 data.put("Comments", userValue3);
+                data.put("ModelNo",ModelNo);
 
                 Map<RatingBar, Object> data1 = new HashMap<>();
-                data.put("rateReading", rateReading);
+                data.put("rateReading", rateOverallTV);
 
                 shalomDocRef.set(data).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -238,7 +240,7 @@ public class ReviewFragment extends Fragment
         });
 
 
-        //Receving data from the database
+        //Receiving data from the database
         shalomRead.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -247,17 +249,19 @@ public class ReviewFragment extends Fragment
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if (documentSnapshot.exists()) {
-                    String nameRecevier = documentSnapshot.getString(getString(R.string.user_name));
+                    String nameReceiver = documentSnapshot.getString(getString(R.string.user_name));
                     String phoneReceiver = documentSnapshot.getString(getString(R.string.phone_number));
-                    String emailRecevier = documentSnapshot.getString(getString(R.string.email));
-                    String commentsRecevier = documentSnapshot.getString(getString(R.string.cmnts));
-                    //    String ratingRecevier = documentSnapshot.getString("rateReading");
+                    String emailReceiver = documentSnapshot.getString(getString(R.string.email));
+                    String commentsReceiver = documentSnapshot.getString(getString(R.string.cmnts));
+                    String ratingReceiver = documentSnapshot.getString("rateReading");
+                    String modelNoReceiver = documentSnapshot.getString("ModelNo");
 
-                    shalomReadName.setText(nameRecevier);
-                    shalomReadPhoneNo.setText("" + phoneReceiver);
-                    shalomReadEmail.setText(emailRecevier);
-                    shalomReadComment.setText(commentsRecevier);
-                    //     shalomReadRatings.setText("" + ratingRecevier);
+                    shalomReadName.setText(nameReceiver);
+                    shalomReadPhoneNo.setText(phoneReceiver);
+                    shalomReadEmail.setText(emailReceiver);
+                    shalomReadComment.setText(commentsReceiver);
+                    shalomReadRatings.setText(ratingReceiver);
+                    shalomReadModelNo.setText(modelNoReceiver);
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
