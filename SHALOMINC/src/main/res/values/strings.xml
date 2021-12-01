@@ -1,4 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><!--Bhargav Patel (N01373029) & Ripal Patel (N01354619) & Vidhi Kanhye (N01354573) & Nicholas Mohan (N01361663), Section-RNA-->
+<?xml version="1.0" encoding="utf-8"?>
+<!--Bhargav Patel (N01373029) & Ripal Patel (N01354619) & Vidhi Kanhye (N01354573) & Nicholas Mohan (N01361663), Section-RNA-->
+
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
     <string name="app_name">SMARTBEATS</string>
     <string name="choose_color">Choose Color</string>
@@ -109,6 +111,7 @@
     <string name="downloading_roses">Downloading SAINt Jhn - Roses …</string>
     <string name="mp3_pre_download">MP3 PRE-DOWNLOAD</string>
     <string name="mp3_downloaded">MP3 DOWNLOADED</string>
+    <string name="ModelNum">ModelNum</string>
 
 
 </resources>
