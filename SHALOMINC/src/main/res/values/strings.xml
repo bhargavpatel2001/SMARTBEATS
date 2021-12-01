@@ -109,6 +109,7 @@
     <string name="downloading_roses">Downloading SAINt Jhn - Roses …</string>
     <string name="mp3_pre_download">MP3 PRE-DOWNLOAD</string>
     <string name="mp3_downloaded">MP3 DOWNLOADED</string>
+    <string name="ModelNum">ModelNum</string>
 
 
 </resources>

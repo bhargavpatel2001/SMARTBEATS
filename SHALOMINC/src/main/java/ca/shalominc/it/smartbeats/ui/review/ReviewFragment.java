@@ -4,6 +4,7 @@ package ca.shalominc.it.smartbeats.ui.review;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 
+import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -37,6 +39,7 @@ import java.util.Map;
 import ca.shalominc.it.smartbeats.R;
 
 import static android.content.ContentValues.TAG;
+import static java.lang.Thread.sleep;
 
 
 public class ReviewFragment extends Fragment
@@ -54,6 +57,7 @@ public class ReviewFragment extends Fragment
     TextView shalomReadName, shalomReadPhoneNo, shalomReadEmail, shalomReadComment, shalomReadRatings, shalomReadModelNo;
     DocumentReference shalomDocRef;
     boolean validation = false;
+    ProgressDialog PD;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -106,12 +110,25 @@ public class ReviewFragment extends Fragment
         String value1 = shalomprefs.getString(getString(R.string.userValue), getString(R.string.one));      shalomName.setText(value1);
         String value2 = shalomprefs.getString(getString(R.string.userValue2), getString(R.string.two));     shalomEmail.setText(value2);
         String value3 = shalomprefs.getString(getString(R.string.uservalue3), getString(R.string.three));   shalomComment.setText(value3);
-        float value4 = shalomprefs.getFloat(getString(R.string.rateReading), 4);                         shalomRateUs.setRating(value4);
+        float value4 = shalomprefs.getFloat(getString(R.string.rateReading), 4);  shalomRateUs.setRating(value4);
+
+
+//        validation = isEmailValid();
+//        if (!validation)
+//        {
+//            //shalomEmail.setError("ERROR");
+//            shalomSubmit.setEnabled(false);
+//        }
+//        else {
+//            shalomSubmit.setEnabled(true);
+//        }
 
         // Submit buttons functionality
-        shalomSubmit.setOnClickListener(new View.OnClickListener() {
+        shalomSubmit.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view)
+            {
 
                 pNumber = shalomPhone.getText().toString();
                 userValue = shalomName.getText().toString();
@@ -139,16 +156,17 @@ public class ReviewFragment extends Fragment
                 data.put(getString(R.string.user_name), userValue);
                 data.put(getString(R.string.email), userValue2);
                 data.put(getString(R.string.cmnts), userValue3);
-                data.put(getString(R.string.rateReading), rateReading);
+                data.put(getString(R.string.rateReading), rateOverallTV);
+                data.put(getString(R.string.ModelNum),ModelNo);
 
-                validation = isEmailValid();
-                if (!validation) {
-                    shalomEmail.setError("ERROR");
-                } else {
-                    shalomDocRef.set(data).addOnSuccessListener(new OnSuccessListener<Void>() {
+
+                    shalomDocRef.set(data).addOnSuccessListener(new OnSuccessListener<Void>()
+                    {
                         @Override
-                        public void onSuccess(Void aVoid) {
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        public void onSuccess(Void aVoid)
+                        {
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+                            {
                                 NotificationChannel channel = new NotificationChannel(getString(R.string.myNoti), getString(R.string.myNoti), NotificationManager.IMPORTANCE_DEFAULT);
                                 NotificationManager manager = getActivity().getSystemService(NotificationManager.class);
                                 manager.createNotificationChannel(channel);
@@ -165,15 +183,42 @@ public class ReviewFragment extends Fragment
                             Log.d(TAG, getString(R.string.sent_success));
                         }
                     })
-                            .addOnFailureListener(new OnFailureListener() {
+                            .addOnFailureListener(new OnFailureListener()
+                            {
                                 @Override
-                                public void onFailure(@NonNull Exception e) {
+                                public void onFailure(@NonNull Exception e)
+                                {
                                     Log.d(TAG, getString(R.string.error), e);
                                 }
                             });
-                }
+
+
+
+
+                PD = new ProgressDialog(getContext());
+                PD.setIcon(R.drawable.ic_baseline_rate_review_24);
+                PD.setTitle("Submitting Review");
+                PD.setMessage("Give us a few moments");
+                PD.setIndeterminate(false);
+                PD.setCancelable(false);
+                PD.show();
+
+                new CountDownTimer(3000, 1000) {
+
+                    public void onTick(long millisUntilFinished)
+                    {
+
+                    }
+
+                    public void onFinish()
+                    {
+                        PD.hide();
+                    }
+                }.start();
+
             }
         });
+
 
         //Notification for review!
 
@@ -206,8 +251,8 @@ public class ReviewFragment extends Fragment
                         String phoneReceiver = documentSnapshot.getString(getString(R.string.phone_number));
                         String emailReceiver = documentSnapshot.getString(getString(R.string.email));
                         String commentsReceiver = documentSnapshot.getString(getString(R.string.cmnts));
-                        String ratingReceiver = documentSnapshot.getString("rateReading");
-                        String modelNoReceiver = documentSnapshot.getString("ModelNo");
+                        String ratingReceiver = documentSnapshot.getString(getString(R.string.rateReading));
+                        String modelNoReceiver = documentSnapshot.getString(getString(R.string.ModelNum));
 
                         shalomReadName.setText(nameReceiver);
                         shalomReadPhoneNo.setText(phoneReceiver);
