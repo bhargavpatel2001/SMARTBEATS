@@ -93,7 +93,7 @@
     <string name="myNoti">My notification</string>
     <string name="review_submission">Review Submission</string>
     <string name="review_message">Thanks! Your review has been submitted successfully!</string>
-    <string name="rating">\"Rating: \"</string>
+    <string name="rating">"Rating: "</string>
 
     <string name="select_song_below">Select a Song Below</string>
     <string name="atc">ATC - All Around The World</string>
