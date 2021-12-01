@@ -3,7 +3,10 @@ package ca.shalominc.it.smartbeats.ui.settings;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -16,6 +19,21 @@ import ca.shalominc.it.smartbeats.R;
 public class SettingsFragment extends PreferenceFragmentCompat {
 
     int flag = 1;
+
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    //Sets Visibility to false in this fragment for power button In menu
+    @Override
+    public void onPrepareOptionsMenu(@NonNull Menu menu)
+    {
+        super.onPrepareOptionsMenu(menu);
+        menu.findItem(R.id.musicBtn).setVisible(false);
+        menu.findItem(R.id.lightsPwrBtn).setVisible(false);
+        menu.findItem(R.id.bluetoothBtn).setVisible(false);
+    }
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -60,22 +78,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
     }
 
-
-    @Override
-    public void onPrepareOptionsMenu(@NonNull Menu menu)
-    {
-        setHasOptionsMenu(true);
-        super.onPrepareOptionsMenu(menu);
-        menu.findItem(R.id.musicBtn).setVisible(false);
-        menu.findItem(R.id.lightsPwrBtn).setVisible(false);
-        menu.findItem(R.id.bluetoothBtn).setVisible(false);
-    }
-
-//    public View onCreateView(@NonNull LayoutInflater inflater,
-//                             ViewGroup container, Bundle savedInstanceState) {
-//
-//        return inflater.inflate(R.layout.fragment_settings, container, false);
-//    }
 
 
 }
