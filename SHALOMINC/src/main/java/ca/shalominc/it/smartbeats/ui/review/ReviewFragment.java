@@ -4,7 +4,6 @@ package ca.shalominc.it.smartbeats.ui.review;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -26,14 +25,11 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.SetOptions;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -47,13 +43,17 @@ public class ReviewFragment extends Fragment
 {
     String modelNum, manufacturerName, ModelNo;
     TextView shalomRateDisp;
-    EditText shalomName, shalomPhone, shalomEmail, shalomComment;
+    EditText shalomName;
+    EditText shalomPhone;
+    EditText shalomEmail;
+    EditText shalomComment;
     RatingBar shalomRateUs;
     String pNumber,userValue, userValue2, userValue3, rateOverall, rateOverallTV;
     float  rateReading, amountOfStars;
     Button shalomSubmit, shalomReset, shalomRead;
     TextView shalomReadName, shalomReadPhoneNo, shalomReadEmail, shalomReadComment, shalomReadRatings, shalomReadModelNo;
     DocumentReference shalomDocRef;
+    boolean validation = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -93,29 +93,20 @@ public class ReviewFragment extends Fragment
         shalomRead = view.findViewById(R.id.read_review_form_btn);
         shalomReadModelNo= view.findViewById(R.id.shalomReviverTV6);
 
+        // Setting up firestore to folder userReview file sent_Review.
         FirebaseFirestore shalomData = FirebaseFirestore.getInstance();
         shalomDocRef = shalomData.collection(getString(R.string.userReview)).document(getString(R.string.sent_Review));
 
         //Gets Model Number
         ModelNo = getModelNo();
 
-        //retrieving
+        //retrieving Shared Prefrences for all user values
         SharedPreferences shalomprefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-
-        String Number = shalomprefs.getString(getString(R.string.phoneNUm), getString(R.string.zero));
-        shalomPhone.setText(Number);
-
-        String value1 = shalomprefs.getString(getString(R.string.userValue), getString(R.string.one));
-        shalomName.setText(value1);
-
-        String value2 = shalomprefs.getString(getString(R.string.userValue2), getString(R.string.two));
-        shalomEmail.setText(value2);
-
-        String value3 = shalomprefs.getString(getString(R.string.uservalue3), getString(R.string.three));
-        shalomComment.setText(value3);
-
-        float value4 = shalomprefs.getFloat(getString(R.string.rateReading), 4);
-        shalomRateUs.setRating(value4);
+        String Number = shalomprefs.getString(getString(R.string.phoneNUm), getString(R.string.zero));      shalomPhone.setText(Number);
+        String value1 = shalomprefs.getString(getString(R.string.userValue), getString(R.string.one));      shalomName.setText(value1);
+        String value2 = shalomprefs.getString(getString(R.string.userValue2), getString(R.string.two));     shalomEmail.setText(value2);
+        String value3 = shalomprefs.getString(getString(R.string.uservalue3), getString(R.string.three));   shalomComment.setText(value3);
+        float value4 = shalomprefs.getFloat(getString(R.string.rateReading), 4);                         shalomRateUs.setRating(value4);
 
         // Submit buttons functionality
         shalomSubmit.setOnClickListener(new View.OnClickListener() {
@@ -131,7 +122,7 @@ public class ReviewFragment extends Fragment
                 rateOverallTV = getRate();
                 shalomRateDisp.setText(rateOverallTV);
 
-                //Saving the data
+                //Saving the data using Shared Prefrences
                 SharedPreferences shalomprefs = PreferenceManager.getDefaultSharedPreferences(getContext());
                 SharedPreferences.Editor change = shalomprefs.edit();
 
@@ -143,135 +134,97 @@ public class ReviewFragment extends Fragment
                 change.apply();
 
                 //Database Sender
-
                 Map<String, Object> data = new HashMap<>();
                 data.put(getString(R.string.phone_number), pNumber);
                 data.put(getString(R.string.user_name), userValue);
                 data.put(getString(R.string.email), userValue2);
                 data.put(getString(R.string.cmnts), userValue3);
-
-                Map<RatingBar, Object> data1 = new HashMap<>();
                 data.put(getString(R.string.rateReading), rateReading);
 
-                shalomDocRef.set(data).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d(TAG, getString(R.string.sent_success));
-                    }
-                })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.d(TAG, getString(R.string.error), e);
-                            }
-                        });
-            }
-        });
-
-        //Notification for review!
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(getString(R.string.myNoti), getString(R.string.myNoti), NotificationManager.IMPORTANCE_DEFAULT);
-            NotificationManager manager = getActivity().getSystemService(NotificationManager.class);
-            manager.createNotificationChannel(channel);
-        }
-
-        shalomSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                pNumber = shalomPhone.getText().toString();
-                userValue = shalomName.getText().toString();
-                userValue2 = shalomEmail.getText().toString();
-                userValue3 = shalomComment.getText().toString();
-                amountOfStars = shalomRateUs.getRating();
-                rateReading = amountOfStars;
-                rateOverallTV = getRate();
-                shalomRateDisp.setText(rateOverallTV);
-
-                //Saving the data
-                SharedPreferences shalomprefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-                SharedPreferences.Editor change = shalomprefs.edit();
-
-                change.putString("pNumber", pNumber);
-                change.putString("userValue", userValue);
-                change.putString("userValue2", userValue2);
-                change.putString("userValue3", userValue3);
-                change.putFloat("rateReading", rateReading);
-                change.apply();
-
-                //Database Sender
-                Map<String, Object> data = new HashMap<>();
-                data.put("Phone Number", pNumber);
-                data.put("User Name", userValue);
-                data.put("Email", userValue2);
-                data.put("Comments", userValue3);
-                data.put("ModelNo",ModelNo);
-
-                Map<RatingBar, Object> data1 = new HashMap<>();
-                data.put("rateReading", rateOverallTV);
-
-                shalomDocRef.set(data).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d(TAG, "Succesfully sent!");
-                    }
-                })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.d(TAG, "Error Failed", e);
-                            }
-                        });
-
-                if (shalomName.getText().toString().equals("") || shalomComment.getText().toString().equals("") || shalomEmail.getText().toString().equals("")
-                        || shalomPhone.length() == 0) {
-                    Toast.makeText(getContext(), R.string.field_not_empty, Toast.LENGTH_SHORT).show();
+                validation = isEmailValid();
+                if (!validation) {
+                    shalomEmail.setError("ERROR");
                 } else {
+                    shalomDocRef.set(data).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                NotificationChannel channel = new NotificationChannel(getString(R.string.myNoti), getString(R.string.myNoti), NotificationManager.IMPORTANCE_DEFAULT);
+                                NotificationManager manager = getActivity().getSystemService(NotificationManager.class);
+                                manager.createNotificationChannel(channel);
 
-                    NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), getString(R.string.myNoti));
-                    builder.setContentTitle(getString(R.string.review_submission));
-                    builder.setContentText(getString(R.string.review_message));
-                    builder.setSmallIcon(R.drawable.ic_baseline_chat_24);
-                    builder.setAutoCancel(true);
+                                NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), getString(R.string.myNoti));
+                                builder.setContentTitle(getString(R.string.review_submission));
+                                builder.setContentText(getString(R.string.review_message));
+                                builder.setSmallIcon(R.drawable.ic_baseline_chat_24);
+                                builder.setAutoCancel(true);
 
-                    NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getContext());
-                    notificationManagerCompat.notify(1, builder.build());
+                                NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getContext());
+                                notificationManagerCompat.notify(1, builder.build());
+                            }
+                            Log.d(TAG, getString(R.string.sent_success));
+                        }
+                    })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.d(TAG, getString(R.string.error), e);
+                                }
+                            });
                 }
             }
         });
 
+        //Notification for review!
+
+
+//        shalomSubmit.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                if (shalomName.getText().toString().equals("") || shalomComment.getText().toString().equals("") || shalomEmail.getText().toString().equals("")
+//                        || shalomPhone.length() == 0) {
+//                    Toast.makeText(getContext(), R.string.field_not_empty, Toast.LENGTH_SHORT).show();
+//                } else {
+//
+//
+//                }
+//            }
+//        });
 
         //Receiving data from the database
         shalomRead.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-        shalomDocRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if (documentSnapshot.exists()) {
-                    String nameReceiver = documentSnapshot.getString(getString(R.string.user_name));
-                    String phoneReceiver = documentSnapshot.getString(getString(R.string.phone_number));
-                    String emailReceiver = documentSnapshot.getString(getString(R.string.email));
-                    String commentsReceiver = documentSnapshot.getString(getString(R.string.cmnts));
-                    String ratingReceiver = documentSnapshot.getString("rateReading");
-                    String modelNoReceiver = documentSnapshot.getString("ModelNo");
+             shalomDocRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
 
-                    shalomReadName.setText(nameReceiver);
-                    shalomReadPhoneNo.setText(phoneReceiver);
-                    shalomReadEmail.setText(emailReceiver);
-                    shalomReadComment.setText(commentsReceiver);
-                    shalomReadRatings.setText(ratingReceiver);
-                    shalomReadModelNo.setText(modelNoReceiver);
+                    if (documentSnapshot.exists()) {
+                        String nameReceiver = documentSnapshot.getString(getString(R.string.user_name));
+                        String phoneReceiver = documentSnapshot.getString(getString(R.string.phone_number));
+                        String emailReceiver = documentSnapshot.getString(getString(R.string.email));
+                        String commentsReceiver = documentSnapshot.getString(getString(R.string.cmnts));
+                        String ratingReceiver = documentSnapshot.getString("rateReading");
+                        String modelNoReceiver = documentSnapshot.getString("ModelNo");
+
+                        shalomReadName.setText(nameReceiver);
+                        shalomReadPhoneNo.setText(phoneReceiver);
+                        shalomReadEmail.setText(emailReceiver);
+                        shalomReadComment.setText(commentsReceiver);
+                        shalomReadRatings.setText(ratingReceiver);
+                        shalomReadModelNo.setText(modelNoReceiver);
+                    }
                 }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d(TAG, getString(R.string.error), e);
-            }
-        });
-            }
-        });
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.d(TAG, getString(R.string.error), e);
+                }
+            });
+                }
+            });
 
         // Reset button's functionality
         shalomReset.setOnClickListener(new View.OnClickListener() {
@@ -284,6 +237,21 @@ public class ReviewFragment extends Fragment
                 shalomRateUs.setRating(0);
             }
         });
+    }
+
+    public boolean isEmailValid() {
+
+        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+        String email = shalomEmail.getText().toString().trim();
+        if (email.matches(emailPattern) && email.length() > 3)
+        {
+           return true;
+        }
+        else
+        {
+            shalomEmail.setError("Invalid Email! Must have more then 3 words");
+            return false;
+        }
     }
 
     public String getRate()

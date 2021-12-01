@@ -31,9 +31,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         setPreferencesFromResource(R.xml.prefrences, rootKey);
 
     }
-
-//    public View onCreateView(@NonNull LayoutInflater inflater,
-//                             ViewGroup container, Bundle savedInstanceState) {
+//
+//        public View onCreateView(@NonNull LayoutInflater inflater,
+//                                 ViewGroup container, Bundle savedInstanceState) {
 //
 //        return inflater.inflate(R.layout.fragment_settings, container, false);
 //    }
