@@ -13,7 +13,9 @@
         android:roundIcon="@mipmap/speak_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SMARTBEATS">
-        <activity android:name=".PrivacyPolicyActivity"></activity>
+        <activity android:name=".PrivacyPolicyActivity"
+            android:label="Privacy Policy">
+        </activity>
         <activity android:name=".AboutUsActivity" />
         <activity
             android:name=".SplashScreenActivity"
