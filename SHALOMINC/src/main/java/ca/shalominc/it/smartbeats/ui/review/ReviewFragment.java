@@ -89,13 +89,13 @@ public class ReviewFragment extends Fragment
         shalomEmail = view.findViewById(R.id.shalom_EditText_EmailAddress);                         // UserEmail EditText
         shalomComment = view.findViewById(R.id.shalom_EditText_Comment);                            // UserComment Edittext
         shalomRateUs = view.findViewById(R.id.shalom_ratingBar);                                    // UserRating RatingBar
-        shalomReadName = view.findViewById(R.id.shalomReviverTV);                                   // Shows FireBaseStorage Name TextView
-        shalomReadPhoneNo = view.findViewById(R.id.shalomReviverTV2);                               // Shows FireBaseStorage PhoneNumber TextView
-        shalomReadEmail = view.findViewById(R.id.shalomReviverTV3);                                 // Shows FireBaseStorage Email TextView
-        shalomReadComment = view.findViewById(R.id.shalomReviverTV4);                               // Shows FireBaseStorage Comment TextView
-        shalomReadRatings = view.findViewById(R.id.shalomReviverTV5);                               // Shows FireBaseStorage Ratings Textview
+//        shalomReadName = view.findViewById(R.id.shalomReviverTV);                                   // Shows FireBaseStorage Name TextView
+//        shalomReadPhoneNo = view.findViewById(R.id.shalomReviverTV2);                               // Shows FireBaseStorage PhoneNumber TextView
+//        shalomReadEmail = view.findViewById(R.id.shalomReviverTV3);                                 // Shows FireBaseStorage Email TextView
+//        shalomReadComment = view.findViewById(R.id.shalomReviverTV4);                               // Shows FireBaseStorage Comment TextView
+//        shalomReadRatings = view.findViewById(R.id.shalomReviverTV5);                               // Shows FireBaseStorage Ratings Textview
         shalomRead = view.findViewById(R.id.read_review_form_btn);
-        shalomReadModelNo= view.findViewById(R.id.shalomReviverTV6);
+//        shalomReadModelNo= view.findViewById(R.id.shalomReviverTV6);
 
         // Setting up firestore to folder userReview file sent_Review.
         FirebaseFirestore shalomData = FirebaseFirestore.getInstance();
@@ -237,39 +237,39 @@ public class ReviewFragment extends Fragment
 //            }
 //        });
 
-        //Receiving data from the database
-        shalomRead.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-             shalomDocRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                @Override
-                public void onSuccess(DocumentSnapshot documentSnapshot) {
-
-                    if (documentSnapshot.exists()) {
-                        String nameReceiver = documentSnapshot.getString(getString(R.string.user_name));
-                        String phoneReceiver = documentSnapshot.getString(getString(R.string.phone_number));
-                        String emailReceiver = documentSnapshot.getString(getString(R.string.email));
-                        String commentsReceiver = documentSnapshot.getString(getString(R.string.cmnts));
-                        String ratingReceiver = documentSnapshot.getString(getString(R.string.rateReading));
-                        String modelNoReceiver = documentSnapshot.getString(getString(R.string.ModelNum));
-
-                        shalomReadName.setText(nameReceiver);
-                        shalomReadPhoneNo.setText(phoneReceiver);
-                        shalomReadEmail.setText(emailReceiver);
-                        shalomReadComment.setText(commentsReceiver);
-                        shalomReadRatings.setText(ratingReceiver);
-                        shalomReadModelNo.setText(modelNoReceiver);
-                    }
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Log.d(TAG, getString(R.string.error), e);
-                }
-            });
-                }
-            });
+//        //Receiving data from the database
+//        shalomRead.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//             shalomDocRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//                @Override
+//                public void onSuccess(DocumentSnapshot documentSnapshot) {
+//
+//                    if (documentSnapshot.exists()) {
+//                        String nameReceiver = documentSnapshot.getString(getString(R.string.user_name));
+//                        String phoneReceiver = documentSnapshot.getString(getString(R.string.phone_number));
+//                        String emailReceiver = documentSnapshot.getString(getString(R.string.email));
+//                        String commentsReceiver = documentSnapshot.getString(getString(R.string.cmnts));
+//                        String ratingReceiver = documentSnapshot.getString(getString(R.string.rateReading));
+//                        String modelNoReceiver = documentSnapshot.getString(getString(R.string.ModelNum));
+//
+//                        shalomReadName.setText(nameReceiver);
+//                        shalomReadPhoneNo.setText(phoneReceiver);
+//                        shalomReadEmail.setText(emailReceiver);
+//                        shalomReadComment.setText(commentsReceiver);
+//                        shalomReadRatings.setText(ratingReceiver);
+//                        shalomReadModelNo.setText(modelNoReceiver);
+//                    }
+//                }
+//            }).addOnFailureListener(new OnFailureListener() {
+//                @Override
+//                public void onFailure(@NonNull Exception e) {
+//                    Log.d(TAG, getString(R.string.error), e);
+//                }
+//            });
+//                }
+//            });
 
         // Reset button's functionality
         shalomReset.setOnClickListener(new View.OnClickListener() {
