@@ -22,6 +22,12 @@
             android:key="about_us"
             android:title="About Us"
             />
+        <Preference
+            android:key="help_and_support"
+            android:summary="Email us if you have any queries"
+            android:title="Help and Support"
+            />
+
 
     </PreferenceCategory>
 
