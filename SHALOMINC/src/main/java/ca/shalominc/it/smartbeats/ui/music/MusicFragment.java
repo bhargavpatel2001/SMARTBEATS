@@ -173,7 +173,7 @@ public class MusicFragment extends Fragment
                         .build()
                 );
 
-        rotateAnimation();  // Calling function rotateAnimation();
+
 
         //Setting Audio Stream / Default Track
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
@@ -377,6 +377,7 @@ public class MusicFragment extends Fragment
 
                 mediaPlayer.start();
 
+                startRotateAnimation(); // Calling function rotateAnimation();
 
                     shalomSeekBar.setMax(mediaPlayer.getDuration());
 
@@ -395,6 +396,8 @@ public class MusicFragment extends Fragment
                 shalomPlay.setVisibility(View.VISIBLE);
 
                 mediaPlayer.pause();
+
+                endRotateAnimation();
 
                 handler.removeCallbacks(runnable);
 
@@ -583,11 +586,18 @@ public class MusicFragment extends Fragment
     }
 
  // Music Disc spinning rotating animation
-    private void rotateAnimation()
+    private void startRotateAnimation()
     {
         rotateAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.spinimage);
         shalomVinyl.startAnimation(rotateAnimation);
 
+    }
+
+    // Music Disc spinning rotating animation
+    private void endRotateAnimation()
+    {
+        rotateAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.spinimage);
+        shalomVinyl.clearAnimation();
     }
 
 
