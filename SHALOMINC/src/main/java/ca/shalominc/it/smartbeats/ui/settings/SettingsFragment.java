@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,7 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
 import ca.shalominc.it.smartbeats.AboutUsActivity;
+import ca.shalominc.it.smartbeats.PrivacyPolicyActivity;
 import ca.shalominc.it.smartbeats.R;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
@@ -83,6 +85,18 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             public boolean onPreferenceClick(Preference preference) {
                 Intent intent;
                 intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/gmail/about/"));
+                startActivity(intent);
+
+                return false;
+            }
+        });
+
+        Preference myPrefPrivacyPolicy = (Preference)findPreference("privacy_policy");
+        myPrefPrivacyPolicy.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                Intent intent;
+                intent = new Intent(getContext(), PrivacyPolicyActivity.class);
                 startActivity(intent);
 
                 return false;

@@ -27,6 +27,9 @@
             android:key="help_and_support"
             android:summary="Email: shalominc.smartbeats@gmail.com"
             android:title="Help and Support" />
+        <Preference
+            android:title="Privacy Policy"
+            android:key="privacy_policy"/>
 
 
     </PreferenceCategory>

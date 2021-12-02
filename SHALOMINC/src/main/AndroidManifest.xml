@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--Bhargav Patel (N01373029) & Ripal Patel (N01354619) & Vidhi Kanhye (N01354573) & Nicholas Mohan (N01361663), Section-RNA-->
-
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ca.shalominc.it.smartbeats">
 
@@ -15,7 +13,8 @@
         android:roundIcon="@mipmap/speak_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SMARTBEATS">
-        <activity android:name=".AboutUsActivity"></activity>
+        <activity android:name=".PrivacyPolicyActivity"></activity>
+        <activity android:name=".AboutUsActivity" />
         <activity
             android:name=".SplashScreenActivity"
             android:theme="@style/SplashTheme">
