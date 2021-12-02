@@ -22,11 +22,11 @@
             android:key="about_us"
             android:title="About Us"
             />
-        <Preference
+        <EditTextPreference
+            android:defaultValue="shalominc.smartbeats@gmail.com"
             android:key="help_and_support"
-            android:summary="Email us if you have any queries"
-            android:title="Help and Support"
-            />
+            android:summary="Email: shalominc.smartbeats@gmail.com"
+            android:title="Help and Support" />
 
 
     </PreferenceCategory>

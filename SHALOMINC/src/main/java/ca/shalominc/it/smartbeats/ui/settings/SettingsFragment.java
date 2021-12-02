@@ -2,6 +2,7 @@ package ca.shalominc.it.smartbeats.ui.settings;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -39,8 +40,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.preferences, rootKey);
 
-        Preference myPref = (Preference)findPreference("portrait_switch");
-        myPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+        Preference myPrefportraitmode = (Preference)findPreference("portrait_switch");
+        myPrefportraitmode.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
 
@@ -70,6 +71,18 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             public boolean onPreferenceClick(Preference preference) {
                 Intent intent;
                 intent = new Intent(getContext(), AboutUsActivity.class);
+                startActivity(intent);
+
+                return false;
+            }
+        });
+
+        Preference myPrefHelpAndSupport = (Preference)findPreference("help_and_support");
+        myPrefHelpAndSupport.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                Intent intent;
+                intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/gmail/about/"));
                 startActivity(intent);
 
                 return false;
