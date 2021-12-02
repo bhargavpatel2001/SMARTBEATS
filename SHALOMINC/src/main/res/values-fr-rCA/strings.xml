@@ -6,7 +6,7 @@
     <string name="chosen_color">La couleur de votre choix est:</string>
     <string name="set_color">Appliquez la couleur</string>
     <string name="light_settings">Parametres pour lumiere</string>
-    <string name="music_settings">Parametres pour musique</string>
+    <string name="show_settings">Parametres pour musique</string>
     <string name="change_background">Changer la couleur de fond</string>
     <string name="portrait_mode">Verrouiller en Mode Portrait</string>
     <string name="adjust_bright">Regler la luminosite:</string>

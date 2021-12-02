@@ -2,6 +2,7 @@ package ca.shalominc.it.smartbeats.ui.settings;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -27,6 +28,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
     }
+
 
     //Sets Visibility to false in this fragment for power button In menu
     @Override

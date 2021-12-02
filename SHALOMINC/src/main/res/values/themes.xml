@@ -91,4 +91,9 @@
     </style>
 
 
+    <style name="PreferencesTheme">
+        <item name="android:background">@color/lilac</item>
+    </style>
+
+
 </resources>

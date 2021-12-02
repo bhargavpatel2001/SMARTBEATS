@@ -27,8 +27,6 @@ public class PrivacyPolicyActivity extends AppCompatActivity {
 
         webView.getSettings().setBuiltInZoomControls(true);
         webView.getSettings().setDisplayZoomControls(false);
-
-
     }
 }
 
