@@ -143,6 +143,11 @@ public class LightsFragment extends Fragment {
                                     @Override
                                     public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors)
                                     {
+                                        int r = (selectedColor >> 16) & 0xff;
+                                        int g = (selectedColor >> 8) & 0xff;
+                                        int b = (selectedColor >> 0) & 0xff;
+                                        //log.d("rgb","r [" + r + "] - g [" + g + "] - b [" + b + "]");
+                                        sendColor(r,g,b);
 
                                     }
                                 })
@@ -169,6 +174,8 @@ public class LightsFragment extends Fragment {
                     }
                 });
     }
+
+    private void sendColor(int r, int g, int b){}
 
     // Function for Providing images to spinner
     private void initList(){
