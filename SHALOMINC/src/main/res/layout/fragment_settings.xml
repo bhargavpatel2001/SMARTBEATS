@@ -13,14 +13,13 @@
         android:id="@+id/shalom_show_settings"
         android:layout_width="210dp"
         android:layout_height="60dp"
-        android:layout_marginTop="264dp"
         android:text="@string/show_settings"
-        app:layout_constraintBottom_toTopOf="@+id/shalom_button2"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.542"
+        app:layout_constraintHorizontal_bias="0.582"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.771" />
+        app:layout_constraintVertical_bias="0.426" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

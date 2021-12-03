@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -24,10 +25,19 @@ import ca.shalominc.it.smartbeats.R;
 public class SettingsFragment extends PreferenceFragmentCompat {
 
     int flag = 1;
+    Button shalomShowSettings;
 
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
+
+//        shalomShowSettings = view.findViewById(R.id.shalom_show_settings);
+//        shalomShowSettings.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });
 
     }
 
