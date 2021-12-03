@@ -317,13 +317,10 @@ public class MusicFragment extends Fragment
 
                         mediaPlayer.reset();
 
-                        try
-                        {
+                        try {
                             mediaPlayer.setDataSource(DBSongUrlChoice);
                             mediaPlayer.prepare();
-                        }
-                        catch (IOException e)
-                        {
+                        } catch (IOException e) {
                             e.printStackTrace();
                         }
 
@@ -334,8 +331,7 @@ public class MusicFragment extends Fragment
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> adapterView)
-            {
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
         });
@@ -343,35 +339,29 @@ public class MusicFragment extends Fragment
         // Spinner Item selector ENDS HERE
 
         // Volume changer for music
-        shalomVolume.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
-        {
+        shalomVolume.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
-            {
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 ShalomAM.setStreamVolume(AudioManager.STREAM_MUSIC, progress, 0);
 
             }
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar)
-            {
+            public void onStartTrackingTouch(SeekBar seekBar) {
 
             }
 
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar)
-            {
+            public void onStopTrackingTouch(SeekBar seekBar) {
 
             }
         });
 
         // Play button click listener
-        shalomPlay.setOnClickListener(new View.OnClickListener()
-        {
+        shalomPlay.setOnClickListener(new View.OnClickListener() {
 
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 shalomPlay.setVisibility(View.GONE);
                 shalomPause.setVisibility(View.VISIBLE);
 
@@ -379,16 +369,15 @@ public class MusicFragment extends Fragment
 
                 startRotateAnimation(); // Calling function rotateAnimation();
 
-                    shalomSeekBar.setMax(mediaPlayer.getDuration());
+                shalomSeekBar.setMax(mediaPlayer.getDuration());
 
-                    handler.postDelayed(runnable, 0);
+                handler.postDelayed(runnable, 0);
             }
 
         });
 
         // Music Pause button click listener
-        shalomPause.setOnClickListener(new View.OnClickListener()
-        {
+        shalomPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 shalomPause.setVisibility(View.GONE);
@@ -405,11 +394,9 @@ public class MusicFragment extends Fragment
         });
 
         //FastForward button click Listener
-        shalomFastForward.setOnClickListener(new View.OnClickListener()
-        {
+        shalomFastForward.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 int currentPosition = mediaPlayer.getCurrentPosition();
 
                 int duration = mediaPlayer.getDuration();
@@ -425,8 +412,7 @@ public class MusicFragment extends Fragment
         });
 
         //Rewind button click listener
-        shalomRew.setOnClickListener(new View.OnClickListener()
-        {
+        shalomRew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int currentPosition = mediaPlayer.getCurrentPosition();
@@ -440,11 +426,9 @@ public class MusicFragment extends Fragment
         });
 
         //SeekBar change listener
-        shalomSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
-        {
+        shalomSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
-            {
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if (fromUser) {
                     mediaPlayer.seekTo(progress);
                 }
@@ -452,24 +436,20 @@ public class MusicFragment extends Fragment
             }
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar)
-            {
+            public void onStartTrackingTouch(SeekBar seekBar) {
 
             }
 
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar)
-            {
+            public void onStopTrackingTouch(SeekBar seekBar) {
 
             }
         });
 
         //Pause and play visibility
-        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener()
-        {
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
-            public void onCompletion(MediaPlayer mp)
-            {
+            public void onCompletion(MediaPlayer mp) {
                 shalomPause.setVisibility(View.GONE);
                 shalomPlay.setVisibility(View.VISIBLE);
                 //mediaPlayer.seekTo(0);
@@ -482,13 +462,13 @@ public class MusicFragment extends Fragment
             public void onClick(View v) {
                 String input = shalomEditTextInput.getText().toString();
                 if (input.length() == 0) {
-                    Toast.makeText(getContext(),R.string.field_not_empty, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.field_not_empty, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 long millisInput = Long.parseLong(input) * 60000;
                 if (millisInput == 0) {
-                    Toast.makeText(getContext(),R.string.enter_positive_number, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.enter_positive_number, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -518,6 +498,41 @@ public class MusicFragment extends Fragment
 
         });
     }
+
+    //JUnit4 Test Cases
+    public String Url1() {
+        if (DBSongUrl.equals("https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/BLR%20-%20Taj.mp3?alt=media&token=e3aacbca-33a4-4368-ad0a-7ba49f2f6692")) {
+            return DBSongUrl;
+        }
+        return "Incorrect URL";
+    }
+
+    public String Music2() {
+        if (DBSongName.equals(getString(R.string.dynoro))) {
+            return DBSongName;
+        }
+        return "Incorrect Music";
+    }
+    public String Music3() {
+        if (DBSongName.equals(getString(R.string.meduza))) {
+            return DBSongName;
+        }
+        return "Incorrect Music";
+    }
+    public String Music4() {
+        if (DBSongName.equals(getString(R.string.rideIt))) {
+            return DBSongName;
+        }
+        return "Incorrect Music";
+    }
+    public String Music5() {
+        if (DBSongName.equals(getString(R.string.roses))) {
+            return DBSongName;
+        }
+        return "Incorrect Music";
+    }
+
+
 
     // Asycn Task for Downloading music to Downloads folder
     private class DownloadMP3 extends AsyncTask<String, Integer, String>
@@ -629,7 +644,6 @@ public class MusicFragment extends Fragment
             public void onFinish() {
                 shalomTimerRunning = false;
                 updateWatchInterface();
-                mediaPlayer.stop();
             }
         }.start();
 

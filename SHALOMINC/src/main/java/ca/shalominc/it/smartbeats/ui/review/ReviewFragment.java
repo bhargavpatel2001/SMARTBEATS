@@ -54,7 +54,6 @@ public class ReviewFragment extends Fragment
     String pNumber,userValue, userValue2, userValue3, rateOverall, rateOverallTV;
     float  rateReading, amountOfStars;
     Button shalomSubmit, shalomReset, shalomRead;
-    TextView shalomReadName, shalomReadPhoneNo, shalomReadEmail, shalomReadComment, shalomReadRatings, shalomReadModelNo;
     DocumentReference shalomDocRef;
     boolean validation = false;
     ProgressDialog PD;
@@ -89,46 +88,22 @@ public class ReviewFragment extends Fragment
         shalomEmail = view.findViewById(R.id.shalom_EditText_EmailAddress);                         // UserEmail EditText
         shalomComment = view.findViewById(R.id.shalom_EditText_Comment);                            // UserComment Edittext
         shalomRateUs = view.findViewById(R.id.shalom_ratingBar);                                    // UserRating RatingBar
-//        shalomReadName = view.findViewById(R.id.shalomReviverTV);                                   // Shows FireBaseStorage Name TextView
-//        shalomReadPhoneNo = view.findViewById(R.id.shalomReviverTV2);                               // Shows FireBaseStorage PhoneNumber TextView
-//        shalomReadEmail = view.findViewById(R.id.shalomReviverTV3);                                 // Shows FireBaseStorage Email TextView
-//        shalomReadComment = view.findViewById(R.id.shalomReviverTV4);                               // Shows FireBaseStorage Comment TextView
-//        shalomReadRatings = view.findViewById(R.id.shalomReviverTV5);                               // Shows FireBaseStorage Ratings Textview
         shalomRead = view.findViewById(R.id.read_review_form_btn);
-//        shalomReadModelNo= view.findViewById(R.id.shalomReviverTV6);
 
         // Setting up firestore to folder userReview file sent_Review.
-        FirebaseFirestore shalomData = FirebaseFirestore.getInstance();
-        shalomDocRef = shalomData.collection(getString(R.string.userReview)).document(getString(R.string.sent_Review));
+        createDataBase();
 
         //Gets Model Number
         ModelNo = getModelNo();
 
         //retrieving Shared Prefrences for all user values
-        SharedPreferences shalomprefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-        String Number = shalomprefs.getString(getString(R.string.phoneNUm), getString(R.string.zero));      shalomPhone.setText(Number);
-        String value1 = shalomprefs.getString(getString(R.string.userValue), getString(R.string.one));      shalomName.setText(value1);
-        String value2 = shalomprefs.getString(getString(R.string.userValue2), getString(R.string.two));     shalomEmail.setText(value2);
-        String value3 = shalomprefs.getString(getString(R.string.uservalue3), getString(R.string.three));   shalomComment.setText(value3);
-        float value4 = shalomprefs.getFloat(getString(R.string.rateReading), 4);  shalomRateUs.setRating(value4);
-
-
-//        validation = isEmailValid();
-//        if (!validation)
-//        {
-//            //shalomEmail.setError("ERROR");
-//            shalomSubmit.setEnabled(false);
-//        }
-//        else {
-//            shalomSubmit.setEnabled(true);
-//        }
+        saveSetPref();
 
         // Submit buttons functionality
         shalomSubmit.setOnClickListener(new View.OnClickListener()
         {
             @Override
-            public void onClick(View view)
-            {
+            public void onClick(View view) {
 
                 pNumber = shalomPhone.getText().toString();
                 userValue = shalomName.getText().toString();
@@ -140,136 +115,33 @@ public class ReviewFragment extends Fragment
                 shalomRateDisp.setText(rateOverallTV);
 
                 //Saving the data using Shared Prefrences
-                SharedPreferences shalomprefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-                SharedPreferences.Editor change = shalomprefs.edit();
-
-                change.putString(getString(R.string.phoneNUm), pNumber);
-                change.putString(getString(R.string.userValue), userValue);
-                change.putString(getString(R.string.userValue2), userValue2);
-                change.putString(getString(R.string.uservalue3), userValue3);
-                change.putFloat(getString(R.string.rateReading), rateReading);
-                change.apply();
+                createSetPref();
 
                 //Database Sender
-                Map<String, Object> data = new HashMap<>();
-                data.put(getString(R.string.phone_number), pNumber);
-                data.put(getString(R.string.user_name), userValue);
-                data.put(getString(R.string.email), userValue2);
-                data.put(getString(R.string.cmnts), userValue3);
-                data.put(getString(R.string.rateReading), rateOverallTV);
-                data.put(getString(R.string.ModelNum),ModelNo);
+                dataBaseSender();
 
+                    // Action can be performed only when email and other parameters are present.
 
-                    shalomDocRef.set(data).addOnSuccessListener(new OnSuccessListener<Void>()
-                    {
-                        @Override
-                        public void onSuccess(Void aVoid)
-                        {
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-                            {
-                                NotificationChannel channel = new NotificationChannel(getString(R.string.myNoti), getString(R.string.myNoti), NotificationManager.IMPORTANCE_DEFAULT);
-                                NotificationManager manager = getActivity().getSystemService(NotificationManager.class);
-                                manager.createNotificationChannel(channel);
+                    PD = new ProgressDialog(getContext());
+                    PD.setIcon(R.drawable.ic_baseline_rate_review_24);
+                    PD.setTitle("Checking Review");
+                    PD.setMessage("Give us a few moments");
+                    PD.setIndeterminate(false);
+                    PD.setCancelable(false);
+                    PD.show();
 
-                                NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), getString(R.string.myNoti));
-                                builder.setContentTitle(getString(R.string.review_submission));
-                                builder.setContentText(getString(R.string.review_message));
-                                builder.setSmallIcon(R.drawable.ic_baseline_chat_24);
-                                builder.setAutoCancel(true);
+                    new CountDownTimer(2000, 1000) {
+                        public void onTick(long millisUntilFinished) {
 
-                                NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getContext());
-                                notificationManagerCompat.notify(1, builder.build());
-                            }
-                            Log.d(TAG, getString(R.string.sent_success));
                         }
-                    })
-                            .addOnFailureListener(new OnFailureListener()
-                            {
-                                @Override
-                                public void onFailure(@NonNull Exception e)
-                                {
-                                    Log.d(TAG, getString(R.string.error), e);
-                                }
-                            });
 
+                        public void onFinish() {
+                            PD.hide();
+                        }
+                    }.start();
+                }
 
-
-
-                PD = new ProgressDialog(getContext());
-                PD.setIcon(R.drawable.ic_baseline_rate_review_24);
-                PD.setTitle("Submitting Review");
-                PD.setMessage("Give us a few moments");
-                PD.setIndeterminate(false);
-                PD.setCancelable(false);
-                PD.show();
-
-                new CountDownTimer(2000, 1000) {
-
-                    public void onTick(long millisUntilFinished)
-                    {
-
-                    }
-
-                    public void onFinish()
-                    {
-                        PD.hide();
-                    }
-                }.start();
-
-            }
         });
-
-
-        //Notification for review!
-
-
-//        shalomSubmit.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                if (shalomName.getText().toString().equals("") || shalomComment.getText().toString().equals("") || shalomEmail.getText().toString().equals("")
-//                        || shalomPhone.length() == 0) {
-//                    Toast.makeText(getContext(), R.string.field_not_empty, Toast.LENGTH_SHORT).show();
-//                } else {
-//
-//
-//                }
-//            }
-//        });
-
-//        //Receiving data from the database
-//        shalomRead.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//             shalomDocRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-//                @Override
-//                public void onSuccess(DocumentSnapshot documentSnapshot) {
-//
-//                    if (documentSnapshot.exists()) {
-//                        String nameReceiver = documentSnapshot.getString(getString(R.string.user_name));
-//                        String phoneReceiver = documentSnapshot.getString(getString(R.string.phone_number));
-//                        String emailReceiver = documentSnapshot.getString(getString(R.string.email));
-//                        String commentsReceiver = documentSnapshot.getString(getString(R.string.cmnts));
-//                        String ratingReceiver = documentSnapshot.getString(getString(R.string.rateReading));
-//                        String modelNoReceiver = documentSnapshot.getString(getString(R.string.ModelNum));
-//
-//                        shalomReadName.setText(nameReceiver);
-//                        shalomReadPhoneNo.setText(phoneReceiver);
-//                        shalomReadEmail.setText(emailReceiver);
-//                        shalomReadComment.setText(commentsReceiver);
-//                        shalomReadRatings.setText(ratingReceiver);
-//                        shalomReadModelNo.setText(modelNoReceiver);
-//                    }
-//                }
-//            }).addOnFailureListener(new OnFailureListener() {
-//                @Override
-//                public void onFailure(@NonNull Exception e) {
-//                    Log.d(TAG, getString(R.string.error), e);
-//                }
-//            });
-//                }
-//            });
 
         // Reset button's functionality
         shalomReset.setOnClickListener(new View.OnClickListener() {
@@ -288,28 +160,144 @@ public class ReviewFragment extends Fragment
 
         String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
         String email = shalomEmail.getText().toString().trim();
-        if (email.matches(emailPattern) && email.length() > 3)
+        if (email.matches(emailPattern) && email.length() != 0)
         {
            return true;
         }
         else
         {
-            shalomEmail.setError("Invalid Email! Must have more then 3 words");
+
+            shalomEmail.setError("Invalid Email!");
             return false;
         }
     }
 
-    public String getRate()
-    {
+    public boolean isNameValid() {
+        String name = shalomName.getText().toString().trim();
+        if ((name.length() != 0))
+        {
+            return true;
+        }
+        else
+        {
+            shalomName.setError("Invalid Name! Field Empty");
+            return false;
+        }
+    }
+
+    public boolean isCommentValid() {
+
+        String comment = shalomComment.getText().toString().trim();
+        if (comment.length() != 0)
+        {
+            return true;
+        }
+
+        else
+        {
+            shalomComment.setError("Invalid Comment! Empty Field");
+            return false;
+        }
+    }
+
+    public boolean isPhoneNoValid() {
+
+        String phoneNo = shalomPhone.getText().toString().trim();
+        if (phoneNo.length() == 10)
+        {
+            return true;
+        }
+        else
+        {
+            shalomPhone.setError("Invalid Phone Number");
+            return false;
+        }
+    }
+
+    public String getRate() {
         float starsSelected = shalomRateUs.getRating();
         int  totalStars = shalomRateUs.getNumStars();
         return rateOverall = getString(R.string.rating)+starsSelected+"/"+totalStars;
     }
-    public String getModelNo()
-    {
+
+    public String getModelNo() {
         manufacturerName = Build.MANUFACTURER;
         modelNum = Build.MODEL;
 
         return modelNum.toUpperCase();
+    }
+
+    public void saveSetPref(){
+        SharedPreferences shalomprefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        String Number = shalomprefs.getString(getString(R.string.phoneNUm), getString(R.string.zero));      shalomPhone.setText(Number);
+        String value1 = shalomprefs.getString(getString(R.string.userValue), getString(R.string.one));      shalomName.setText(value1);
+        String value2 = shalomprefs.getString(getString(R.string.userValue2), getString(R.string.two));     shalomEmail.setText(value2);
+        String value3 = shalomprefs.getString(getString(R.string.uservalue3), getString(R.string.three));   shalomComment.setText(value3);
+        float value4 = shalomprefs.getFloat(getString(R.string.rateReading), 4);  shalomRateUs.setRating(value4);
+    }
+
+    public void createSetPref(){
+        SharedPreferences shalomprefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        SharedPreferences.Editor change = shalomprefs.edit();
+
+        change.putString(getString(R.string.phoneNUm), pNumber);
+        change.putString(getString(R.string.userValue), userValue);
+        change.putString(getString(R.string.userValue2), userValue2);
+        change.putString(getString(R.string.uservalue3), userValue3);
+        change.putFloat(getString(R.string.rateReading), rateReading);
+        change.apply();
+    }
+
+    public void createDataBase(){
+        FirebaseFirestore shalomData = FirebaseFirestore.getInstance();
+        shalomDocRef = shalomData.collection(getString(R.string.userReview)).document(getString(R.string.sent_Review));
+    }
+
+    public void dataBaseSender(){
+        Map<String, Object> data = new HashMap<>();
+        data.put(getString(R.string.phone_number), pNumber);
+        data.put(getString(R.string.user_name), userValue);
+        data.put(getString(R.string.email), userValue2);
+        data.put(getString(R.string.cmnts), userValue3);
+        data.put(getString(R.string.rateReading), rateOverallTV);
+        data.put(getString(R.string.ModelNum),ModelNo);
+
+        shalomDocRef.set(data).addOnSuccessListener(new OnSuccessListener<Void>()
+        {
+            @Override
+            public void onSuccess(Void aVoid)
+            {
+                    createNotificaion();
+            }
+        })
+                .addOnFailureListener(new OnFailureListener()
+                {
+                    @Override
+                    public void onFailure(@NonNull Exception e)
+                    {
+                        Log.d(TAG, getString(R.string.error), e);
+                    }
+                });
+    }
+
+    public void createNotificaion() {
+        if (ReviewFragment.this.isEmailValid() && ReviewFragment.this.isNameValid() && ReviewFragment.this.isPhoneNoValid() && ReviewFragment.this.isCommentValid()) {
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+                NotificationChannel channel = new NotificationChannel(getString(R.string.myNoti), getString(R.string.myNoti), NotificationManager.IMPORTANCE_DEFAULT);
+                NotificationManager manager = getActivity().getSystemService(NotificationManager.class);
+                manager.createNotificationChannel(channel);
+
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), getString(R.string.myNoti));
+                builder.setContentTitle(getString(R.string.review_submission));
+                builder.setContentText(getString(R.string.review_message));
+                builder.setSmallIcon(R.drawable.ic_baseline_chat_24);
+                builder.setAutoCancel(true);
+
+                NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getContext());
+                notificationManagerCompat.notify(1, builder.build());
+            }
+        }
     }
 }
