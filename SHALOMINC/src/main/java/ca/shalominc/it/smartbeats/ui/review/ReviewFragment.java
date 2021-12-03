@@ -2,10 +2,12 @@
 
 package ca.shalominc.it.smartbeats.ui.review;
 
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -36,6 +38,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
+import ca.shalominc.it.smartbeats.Notifi;
 import ca.shalominc.it.smartbeats.R;
 
 import static android.content.ContentValues.TAG;
@@ -44,6 +47,7 @@ import static java.lang.Thread.sleep;
 
 public class ReviewFragment extends Fragment
 {
+
     String modelNum, manufacturerName, ModelNo;
     TextView shalomRateDisp;
     EditText shalomName;
@@ -57,10 +61,12 @@ public class ReviewFragment extends Fragment
     DocumentReference shalomDocRef;
     boolean validation = false;
     ProgressDialog PD;
+    NotificationManagerCompat notificationManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
+        notificationManager = NotificationManagerCompat.from(getContext());
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_review, container, false);
     }
@@ -117,14 +123,11 @@ public class ReviewFragment extends Fragment
                 //Saving the data using Shared Prefrences
                 createSetPref();
 
-                //Database Sender
-                dataBaseSender();
-
                     // Action can be performed only when email and other parameters are present.
 
                     PD = new ProgressDialog(getContext());
                     PD.setIcon(R.drawable.ic_baseline_rate_review_24);
-                    PD.setTitle("Checking Review");
+                    PD.setTitle("Evaluating Your Review");
                     PD.setMessage("Give us a few moments");
                     PD.setIndeterminate(false);
                     PD.setCancelable(false);
@@ -141,6 +144,19 @@ public class ReviewFragment extends Fragment
                             PD.hide();
                         }
                     }.start();
+
+                new CountDownTimer(3000, 1000) {
+                    public void onTick(long millisUntilFinished)
+                    {
+
+                    }
+
+                    public void onFinish()
+                    {
+                        //Database Sender
+                        dataBaseSender();
+                    }
+                }.start();
                 }
 
         });
@@ -287,15 +303,12 @@ public class ReviewFragment extends Fragment
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
-                NotificationChannel channel = new NotificationChannel(getString(R.string.myNoti), getString(R.string.myNoti), NotificationManager.IMPORTANCE_DEFAULT);
-                NotificationManager manager = getActivity().getSystemService(NotificationManager.class);
-                manager.createNotificationChannel(channel);
-
-                NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), getString(R.string.myNoti));
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), Notifi.CHANNEL_1_ID);
+                builder.setSmallIcon(R.drawable.ic_baseline_chat_24);
                 builder.setContentTitle(getString(R.string.review_submission));
                 builder.setContentText(getString(R.string.review_message));
-                builder.setSmallIcon(R.drawable.ic_baseline_chat_24);
-                builder.setAutoCancel(true);
+                builder.setPriority(NotificationCompat.PRIORITY_HIGH);
+                builder.setCategory(NotificationCompat.CATEGORY_MESSAGE);
 
                 NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getContext());
                 notificationManagerCompat.notify(1, builder.build());
