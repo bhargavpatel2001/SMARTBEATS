@@ -131,11 +131,13 @@ public class ReviewFragment extends Fragment
                     PD.show();
 
                     new CountDownTimer(2000, 1000) {
-                        public void onTick(long millisUntilFinished) {
+                        public void onTick(long millisUntilFinished)
+                        {
 
                         }
 
-                        public void onFinish() {
+                        public void onFinish()
+                        {
                             PD.hide();
                         }
                     }.start();

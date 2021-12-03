@@ -215,7 +215,18 @@ public class MusicFragment extends Fragment
                         PDTextChanger = getString(R.string.downloading_atc);
                         PDChoice = 1;
 
-                        downloadMP3.execute();
+                        new CountDownTimer(2000, 1000)
+                        {
+                            public void onTick(long millisUntilFinished)
+                            {
+
+                            }
+
+                            public void onFinish()
+                            {
+                                downloadMP3.execute();
+                            }
+                        }.start();
 
                         mediaPlayer.reset();
 
@@ -241,7 +252,18 @@ public class MusicFragment extends Fragment
                         PDTextChanger = getString(R.string.downloading_dynoro);
                         PDChoice = 2;
 
-                        downloadMP3.execute();
+                        new CountDownTimer(2000, 1000)
+                        {
+                            public void onTick(long millisUntilFinished)
+                            {
+
+                            }
+
+                            public void onFinish()
+                            {
+                                downloadMP3.execute();
+                            }
+                        }.start();
 
                         mediaPlayer.reset();
 
@@ -265,7 +287,18 @@ public class MusicFragment extends Fragment
                         PDTextChanger = getString(R.string.downloading_meduza);
                         PDChoice = 3;
 
-                        downloadMP3.execute();
+                        new CountDownTimer(2000, 1000)
+                        {
+                            public void onTick(long millisUntilFinished)
+                            {
+
+                            }
+
+                            public void onFinish()
+                            {
+                                downloadMP3.execute();
+                            }
+                        }.start();
 
                         mediaPlayer.reset();
 
@@ -289,7 +322,18 @@ public class MusicFragment extends Fragment
                         PDTextChanger = getString(R.string.downloading_riedIt);
                         PDChoice = 4;
 
-                        downloadMP3.execute();
+                        new CountDownTimer(2000, 1000)
+                        {
+                            public void onTick(long millisUntilFinished)
+                            {
+
+                            }
+
+                            public void onFinish()
+                            {
+                                downloadMP3.execute();
+                            }
+                        }.start();
 
                         mediaPlayer.reset();
 
@@ -313,7 +357,18 @@ public class MusicFragment extends Fragment
                         PDTextChanger = getString(R.string.downloading_roses);
                         PDChoice = 5;
 
-                        downloadMP3.execute();
+                        new CountDownTimer(2000, 1000)
+                        {
+                            public void onTick(long millisUntilFinished)
+                            {
+
+                            }
+
+                            public void onFinish()
+                            {
+                                downloadMP3.execute();
+                            }
+                        }.start();
 
                         mediaPlayer.reset();
 
@@ -534,7 +589,7 @@ public class MusicFragment extends Fragment
 
 
 
-    // Asycn Task for Downloading music to Downloads folder
+    // Async Task for Downloading music to Downloads folder
     private class DownloadMP3 extends AsyncTask<String, Integer, String>
     {
         @Override
@@ -581,12 +636,14 @@ public class MusicFragment extends Fragment
                                 .setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI |
                                         DownloadManager.Request.NETWORK_MOBILE)
                                 .setAllowedOverRoaming(false)
+                                .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
+                                .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
                                 .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,
                                         DBSongName+DBSongExtension));
             }
             catch (Exception ignored)
             {
-                PD.hide();
+
             }
             return null;
         }
@@ -595,8 +652,18 @@ public class MusicFragment extends Fragment
         protected void onPostExecute(String s)
         {
             super.onPostExecute(s);
-            Log.w(getString(R.string.mp3_downloaded),getString(R.string.two) + s);
-            PD.hide();
+            new CountDownTimer(2000, 1000) {
+                public void onTick(long millisUntilFinished)
+                {
+
+                }
+
+                public void onFinish()
+                {
+                    Log.w(getString(R.string.mp3_downloaded),getString(R.string.two) + s);
+                    PD.hide();
+                }
+            }.start();
         }
     }
 
