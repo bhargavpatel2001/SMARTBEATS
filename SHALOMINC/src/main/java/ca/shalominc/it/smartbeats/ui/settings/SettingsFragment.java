@@ -1,3 +1,4 @@
+//Bhargav Patel (N01373029) & Ripal Patel (N01354619) & Vidhi Kanhye (N01354573) & Nicholas Mohan (N01361663), Section-RNA
 package ca.shalominc.it.smartbeats.ui.settings;
 
 import android.content.Intent;
@@ -27,8 +28,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
-    }
 
+    }
 
     //Sets Visibility to false in this fragment for power button In menu
     @Override

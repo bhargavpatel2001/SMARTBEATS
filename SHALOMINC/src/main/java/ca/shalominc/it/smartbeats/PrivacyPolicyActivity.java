@@ -1,3 +1,4 @@
+//Bhargav Patel (N01373029) & Ripal Patel (N01354619) & Vidhi Kanhye (N01354573) & Nicholas Mohan (N01361663), Section-RNA
 package ca.shalominc.it.smartbeats;
 
 import androidx.appcompat.app.AppCompatActivity;
