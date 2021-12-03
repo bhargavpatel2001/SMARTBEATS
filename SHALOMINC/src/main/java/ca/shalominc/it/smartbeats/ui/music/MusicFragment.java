@@ -629,6 +629,7 @@ public class MusicFragment extends Fragment
             public void onFinish() {
                 shalomTimerRunning = false;
                 updateWatchInterface();
+                mediaPlayer.stop();
             }
         }.start();
 
