@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/lilac"
     android:gravity="center"
     tools:context=".ui.review.ReviewFragment">
@@ -71,7 +72,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="80dp"
-        android:layout_marginTop="380dp" />
+        android:layout_marginTop="380dp"
+        android:progressTint="@color/purple_200"
+        android:progressBackgroundTint="@color/wisteria"/>
 
     <Button
         android:id="@+id/reset_review_form_btn"
@@ -144,5 +147,16 @@
 <!--        android:layout_height="wrap_content"-->
 <!--        android:layout_marginLeft="150dp"-->
 <!--        android:layout_marginTop="620dp" />-->
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/shalom_floatingbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="32dp"
+        android:backgroundTint="@color/purple_200"
+        android:elevation="10dp"
+        android:src="@drawable/email_support"
+        app:backgroundTint="#00FFFFFF" />
 
 </FrameLayout>
