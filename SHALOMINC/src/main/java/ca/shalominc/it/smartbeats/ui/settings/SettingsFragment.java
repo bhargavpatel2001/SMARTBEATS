@@ -91,7 +91,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 return false;
             }
         });
-
+/*
         Preference myPrefHelpAndSupport = (Preference)findPreference("help_and_support");
         myPrefHelpAndSupport.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
@@ -103,6 +103,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 return false;
             }
         });
+
+ */
 
         Preference myPrefPrivacyPolicy = (Preference)findPreference("privacy_policy");
         myPrefPrivacyPolicy.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {

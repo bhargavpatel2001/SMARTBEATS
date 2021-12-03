@@ -6,8 +6,10 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -31,6 +33,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -59,6 +62,7 @@ public class ReviewFragment extends Fragment
     float  rateReading, amountOfStars;
     Button shalomSubmit, shalomReset, shalomRead;
     DocumentReference shalomDocRef;
+    FloatingActionButton shalomFAB;
     boolean validation = false;
     ProgressDialog PD;
     NotificationManagerCompat notificationManager;
@@ -95,6 +99,7 @@ public class ReviewFragment extends Fragment
         shalomComment = view.findViewById(R.id.shalom_EditText_Comment);                            // UserComment Edittext
         shalomRateUs = view.findViewById(R.id.shalom_ratingBar);                                    // UserRating RatingBar
         shalomRead = view.findViewById(R.id.read_review_form_btn);
+        shalomFAB = view.findViewById(R.id.shalom_floatingbutton);                                  //Floating Point Button
 
         // Setting up firestore to folder userReview file sent_Review.
         createDataBase();
@@ -170,6 +175,16 @@ public class ReviewFragment extends Fragment
                 shalomEmail.setText("");
                 shalomComment.setText("");
                 shalomRateUs.setRating(0);
+            }
+        });
+
+
+        shalomFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent;
+                intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/gmail/about/"));
+                startActivity(intent);
             }
         });
     }
