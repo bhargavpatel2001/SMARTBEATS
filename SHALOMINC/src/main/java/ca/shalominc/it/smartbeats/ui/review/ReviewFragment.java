@@ -40,6 +40,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import ca.shalominc.it.smartbeats.Notifi;
 import ca.shalominc.it.smartbeats.R;
@@ -201,6 +203,20 @@ public class ReviewFragment extends Fragment
         {
 
             shalomEmail.setError("Invalid Email!");
+            return false;
+        }
+    }
+
+    public boolean isEmailTestCase(String email) {
+
+        Pattern emailPattern = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+");
+        Matcher matcher = emailPattern.matcher(email);
+        if (matcher.matches())
+        {
+            return true;
+        }
+        else
+        {
             return false;
         }
     }
