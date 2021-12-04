@@ -73,8 +73,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="80dp"
         android:layout_marginTop="380dp"
+        android:foregroundTint="@color/purple_200"
+        android:indeterminateTint="@color/purple_200"
+        android:progressBackgroundTint="@color/wisteria"
         android:progressTint="@color/purple_200"
-        android:progressBackgroundTint="@color/wisteria"/>
+        android:rating="3.5"
+        android:secondaryProgressTint="@color/light_orchid" />
 
     <Button
         android:id="@+id/reset_review_form_btn"

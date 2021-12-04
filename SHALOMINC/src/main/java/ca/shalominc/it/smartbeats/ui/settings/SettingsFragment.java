@@ -56,6 +56,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         setPreferencesFromResource(R.xml.preferences, rootKey);
 
         Preference myPrefportraitmode = (Preference)findPreference("portrait_switch");
+
+
         myPrefportraitmode.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {

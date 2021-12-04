@@ -178,7 +178,7 @@ public class ReviewFragment extends Fragment
             }
         });
 
-
+        //For the FAB
         shalomFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

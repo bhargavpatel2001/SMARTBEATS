@@ -1,29 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--Bhargav Patel (N01373029) & Ripal Patel (N01354619) & Vidhi Kanhye (N01354573) & Nicholas Mohan (N01361663), Section-RNA-->
-<PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:theme="@style/PreferencesTheme">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/lilac"
+    android:backgroundTint="@color/lilac"
+    android:foregroundTint="@color/lilac">
 
-    <PreferenceCategory
-        android:title="General">
+    <PreferenceCategory android:title="General">
         <SwitchPreference
+            android:defaultValue="false"
             android:key="Theme_preference"
-            android:defaultValue="false"
-            android:title="Night mode"/>
+            android:title="Night mode" />
 
         <SwitchPreference
-            android:key="portrait_switch"
             android:defaultValue="false"
-            android:title="Portrait mode"/>
+            android:key="portrait_switch"
+            android:title="Portrait mode" />
     </PreferenceCategory>
 
-    <PreferenceCategory
-        android:title="About">
+    <PreferenceCategory android:title="About">
         <Preference
             android:key="about_us"
-            android:title="About Us"
-            />
-<!--
+            android:title="About Us" />
+        <!--
         <EditTextPreference
             android:defaultValue="shalominc.smartbeats@gmail.com"
             android:key="help_and_support"
@@ -31,8 +29,8 @@
             android:title="Help and Support" />
             -->
         <Preference
-            android:title="Privacy Policy"
-            android:key="privacy_policy"/>
+            android:key="privacy_policy"
+            android:title="Privacy Policy" />
 
 
     </PreferenceCategory>
