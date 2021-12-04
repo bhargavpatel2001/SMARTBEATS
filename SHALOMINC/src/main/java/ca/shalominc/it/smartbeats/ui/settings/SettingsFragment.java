@@ -130,14 +130,11 @@ public class SettingsFragment extends Fragment {
         shalomFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 Intent Email = new Intent(Intent.ACTION_SEND);
                 Email.setType("text/email");
                 Email.putExtra(Intent.EXTRA_EMAIL,
                         new String[]{"shalominc.smartbeats@gmail.com"});
-                Email.putExtra(Intent.EXTRA_SUBJECT,
-                        "Add your Subject");
+                Email.putExtra(Intent.EXTRA_TEXT, "Dear SmartBeats," + "");
                 startActivity(Intent.createChooser(Email, "Send Feedback:"));
             }
         });
