@@ -3,6 +3,7 @@
 package ca.shalominc.it.smartbeats.ui.lights;
 
 import android.app.Activity;
+import android.bluetooth.BluetoothAdapter;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -197,13 +198,14 @@ public class LightsFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
 
-                        shalomTV.setTextColor(shalomDefault);
                         sendColor(r,g,b);
                     }
                 });
     }
 //Function to send the data to Firestore
     private void sendColor(int r, int g, int b){
+
+        BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
         //Creating a HashMap to send the info of the selected color and mode
         HashMap<String,Object> hashMap = new HashMap<>();
@@ -213,21 +215,28 @@ public class LightsFragment extends Fragment {
         hashMap.put("mode",clickedModeName);
         hashMap.put("brightness",brightness);
 
-        FirebaseFirestore.getInstance().collection("user_lights")
-                .document("rgb_controller_values")
-                .set(hashMap)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Toast.makeText(getContext(),"Success",Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getContext(),"Didn't Work",Toast.LENGTH_SHORT).show();
-                    }
-                });
+        if(bluetoothAdapter.isEnabled()) {
+
+            FirebaseFirestore.getInstance().collection("user_lights")
+                    .document("rgb_controller_values")
+                    .set(hashMap)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            shalomTV.setTextColor(shalomDefault);
+                            Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getContext(), "Didn't Work", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        } else
+        {
+            Toast.makeText(getContext(),"Please turn on Bluetooth",Toast.LENGTH_SHORT).show();
+        }
 
     }
 
