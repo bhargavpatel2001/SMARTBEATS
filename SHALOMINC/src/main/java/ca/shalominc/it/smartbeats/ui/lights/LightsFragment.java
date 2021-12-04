@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.graphics.Color;
+import android.widget.Toast;
 
 import ca.shalominc.it.smartbeats.ModeAdapter;
 import ca.shalominc.it.smartbeats.ModeItem;
@@ -33,8 +34,12 @@ import androidx.fragment.app.Fragment;
 import com.flask.colorpicker.OnColorSelectedListener;
 import com.flask.colorpicker.builder.ColorPickerClickListener;
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import ca.shalominc.it.smartbeats.R;
 import top.defaults.colorpicker.ColorPickerView;
@@ -174,8 +179,33 @@ public class LightsFragment extends Fragment {
                     }
                 });
     }
+//Function to send the data to Firestore
+    private void sendColor(int r, int g, int b){
 
-    private void sendColor(int r, int g, int b){}
+        //Creating a HashMap to send the info of the selected color and mode
+        HashMap<String,Object> hashMap = new HashMap<>();
+        hashMap.put("r",r);
+        hashMap.put("g",g);
+        hashMap.put("b",b);
+        hashMap.put("mode",clickedModeName);
+
+        FirebaseFirestore.getInstance().collection("user_lights")
+                .document("rgb_controller_values")
+                .set(hashMap)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Toast.makeText(getContext(),"Success",Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getContext(),"Didn't Work",Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+    }
 
     // Function for Providing images to spinner
     private void initList(){
