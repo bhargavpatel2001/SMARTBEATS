@@ -37,4 +37,8 @@ public class ReviewFragmentTest {
         public void isEmailTestCase3() throws Exception {
             assertFalse(RF.isEmailTestCase("Alice1234@gmail"));
         }
+        @Test
+        public void isPhoneTestCase() throws Exception {
+            assertTrue(RF.isPhoneTestCase("6479755009"));
+        }
 }

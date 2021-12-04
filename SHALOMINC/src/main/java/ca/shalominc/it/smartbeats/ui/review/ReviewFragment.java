@@ -191,6 +191,34 @@ public class ReviewFragment extends Fragment
         });
     }
 
+    public boolean isEmailTestCase(String email) {
+
+        Pattern emailPattern = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+");
+        Matcher matcher = emailPattern.matcher(email);
+        if (matcher.matches())
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public boolean isPhoneTestCase(String email) {
+
+        Pattern phoneNoPattern = Pattern.compile("[0123456789]+");
+        Matcher matcher = phoneNoPattern.matcher(email);
+        if (matcher.matches() && email.length() == 10)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public boolean isEmailValid() {
 
         String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
@@ -203,20 +231,6 @@ public class ReviewFragment extends Fragment
         {
 
             shalomEmail.setError("Invalid Email!");
-            return false;
-        }
-    }
-
-    public boolean isEmailTestCase(String email) {
-
-        Pattern emailPattern = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+");
-        Matcher matcher = emailPattern.matcher(email);
-        if (matcher.matches())
-        {
-            return true;
-        }
-        else
-        {
             return false;
         }
     }
