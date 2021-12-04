@@ -25,4 +25,16 @@ public class ReviewFragmentTest {
         public void isEmailTestCase() throws Exception {
             assertTrue(RF.isEmailTestCase("Bob1234@gmail.com"));
         }
+        @Test
+        public void isEmailTestCase1() throws Exception {
+            assertFalse(RF.isEmailTestCase("Alice1234"));
+        }
+        @Test
+        public void isEmailTestCase2() throws Exception {
+            assertFalse(RF.isEmailTestCase("Alice1234@"));
+        }
+        @Test
+        public void isEmailTestCase3() throws Exception {
+            assertFalse(RF.isEmailTestCase("Alice1234@gmail"));
+        }
 }
