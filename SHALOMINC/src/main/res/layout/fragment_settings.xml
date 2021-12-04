@@ -9,10 +9,12 @@
         android:id="@+id/about_us_btn"
         android:layout_width="match_parent"
         android:layout_height="64dp"
+        android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="-2dp"
-        android:layout_marginBottom="412dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="-4dp"
+        android:layout_marginBottom="355dp"
         android:backgroundTint="@color/white"
         android:text="About Us"
         android:textAlignment="textStart"
@@ -24,12 +26,14 @@
         android:layout_height="64dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="-2dp"
-        android:layout_marginBottom="343dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="-1dp"
+        android:layout_marginBottom="285dp"
         android:backgroundTint="@color/white"
         android:text="Privacy Policy"
         android:textAlignment="textStart"
         android:textColor="@color/black" />
+
 
     <TextView
         android:id="@+id/shalom_general_tv"
@@ -37,11 +41,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="298dp"
-        android:layout_marginBottom="693dp"
+        android:layout_marginEnd="318dp"
+        android:layout_marginBottom="618dp"
         android:text="General"
         tools:textColor="@android:color/holo_blue_light" />
-
 
     <TextView
         android:id="@+id/shalom_about_us_tv"
@@ -49,30 +52,34 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="293dp"
-        android:layout_marginBottom="490dp"
+        android:layout_marginEnd="308dp"
+        android:layout_marginBottom="443dp"
         android:text="About Us"
         android:textColor="@android:color/holo_blue_light" />
 
     <Switch
         android:id="@+id/shalom_night_mode_switch"
-        android:layout_width="390dp"
-        android:layout_height="55dp"
+        android:layout_width="407dp"
+        android:layout_height="58dp"
+        android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="7dp"
-        android:layout_marginBottom="603dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="540dp"
         android:text="Night Mode"
         tools:ignore="UseSwitchCompatOrMaterialXml" />
 
     <Switch
         android:id="@+id/shalom_portrait_switch"
-        android:layout_width="390dp"
-        android:layout_height="55dp"
+        android:layout_width="406dp"
+        android:layout_height="62dp"
+        android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="7dp"
-        android:layout_marginBottom="536dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="477dp"
         android:text="Portrait Mode"
         tools:ignore="UseSwitchCompatOrMaterialXml" />
 
@@ -86,8 +93,8 @@
         android:layout_gravity="bottom|right"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="66dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginEnd="65dp"
+        android:layout_marginBottom="85dp"
         android:backgroundTint="@color/purple_200"
         android:elevation="10dp"
         android:src="@drawable/email_support" />
