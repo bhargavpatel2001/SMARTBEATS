@@ -13,7 +13,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/speak_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.SMARTBEATS">
+        android:theme="@style/SMARTBEATS">
         <activity android:name=".PrivacyPolicyActivity"
             android:label="Privacy Policy">
         </activity>
