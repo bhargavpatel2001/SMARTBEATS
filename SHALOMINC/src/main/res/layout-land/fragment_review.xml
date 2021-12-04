@@ -136,5 +136,22 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.548" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/shalom_floatingbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="32dp"
+        android:backgroundTint="@color/purple_200"
+        android:elevation="10dp"
+        android:src="@drawable/email_support"
+        app:backgroundTint="#00FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.976"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.752" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

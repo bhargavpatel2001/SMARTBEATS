@@ -98,7 +98,7 @@ public class ReviewFragment extends Fragment
         shalomEmail = view.findViewById(R.id.shalom_EditText_EmailAddress);                         // UserEmail EditText
         shalomComment = view.findViewById(R.id.shalom_EditText_Comment);                            // UserComment Edittext
         shalomRateUs = view.findViewById(R.id.shalom_ratingBar);                                    // UserRating RatingBar
-        shalomRead = view.findViewById(R.id.read_review_form_btn);
+        //shalomRead = view.findViewById(R.id.read_review_form_btn);
         shalomFAB = view.findViewById(R.id.shalom_floatingbutton);                                  //Floating Point Button
 
         // Setting up firestore to folder userReview file sent_Review.
