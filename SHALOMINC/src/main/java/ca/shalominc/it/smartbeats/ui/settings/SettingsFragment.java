@@ -51,6 +51,12 @@ public class SettingsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
     {
 
+        if(AppCompatDelegate.getDefaultNightMode()==AppCompatDelegate.MODE_NIGHT_YES)
+        {
+            getActivity().setTheme(R.style.SMARTBEATS_dark);
+        } else {
+            getActivity().setTheme(R.style.SMARTBEATS);
+        }
         super.onViewCreated(view, savedInstanceState);
 
         setHasOptionsMenu(true);
