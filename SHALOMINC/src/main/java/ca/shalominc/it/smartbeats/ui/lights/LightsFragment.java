@@ -224,18 +224,18 @@ public class LightsFragment extends Fragment {
                         @Override
                         public void onSuccess(Void unused) {
                             shalomTV.setTextColor(shalomDefault);
-                            Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(),R.string.successMsg, Toast.LENGTH_SHORT).show();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(getContext(), "Didn't Work", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(),R.string.FireStoreOff, Toast.LENGTH_SHORT).show();
                         }
                     });
         } else
         {
-            Toast.makeText(getContext(),"Please turn on Bluetooth",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(),R.string.bluetoothOn,Toast.LENGTH_SHORT).show();
         }
 
     }

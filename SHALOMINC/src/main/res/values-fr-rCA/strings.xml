@@ -97,4 +97,8 @@
     <string name="downloading_roses">Téléchargement de SAINt Jhn - Roses …</string>
     <string name="mp3_pre_download">TÉLÉCHARGER MP3</string>
     <string name="mp3_downloaded">TÉLÉCHARGER MP3</string>
+    <string name="FireStoreOff">Impossible de connecter</string>
+    <string name="successMsg">Succès</string>
+    <string name="ModelNum">ModelNum</string>
+    <string name="bluetoothOn">Veuillez activer le Bluetooth</string>
 </resources>

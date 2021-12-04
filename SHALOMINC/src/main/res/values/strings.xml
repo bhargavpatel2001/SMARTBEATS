@@ -111,6 +111,9 @@
     <string name="mp3_pre_download">MP3 PRE-DOWNLOAD</string>
     <string name="mp3_downloaded">MP3 DOWNLOADED</string>
     <string name="ModelNum">ModelNum</string>
+    <string name="bluetoothOn">Please turn on Bluetooth</string>
+    <string name="FireStoreOff">Unable to connect to database</string>
+    <string name="successMsg">Success</string>
 
 
 </resources>
