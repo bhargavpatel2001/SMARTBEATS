@@ -12,55 +12,84 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.fragment.app.Fragment;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import ca.shalominc.it.smartbeats.AboutUsActivity;
 import ca.shalominc.it.smartbeats.PrivacyPolicyActivity;
 import ca.shalominc.it.smartbeats.R;
 
-public class SettingsFragment extends PreferenceFragmentCompat {
+public class SettingsFragment extends Fragment {
+//extends PreferenceFragmentCompat {
 
     int flag = 1;
     Button shalomShowSettings;
+    Button aboutUSBTN, privacyPolicyBTN;
+    Switch nightMode, portraitLock;
+    FloatingActionButton shalomFAB;
 
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_settings, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
+    {
+
         super.onViewCreated(view, savedInstanceState);
+
         setHasOptionsMenu(true);
 
-//        shalomShowSettings = view.findViewById(R.id.shalom_show_settings);
-//        shalomShowSettings.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
+        aboutUSBTN = view.findViewById(R.id.about_us_btn);
+        privacyPolicyBTN = view.findViewById(R.id.shalom_privacy_policy_btn);
+        nightMode = view.findViewById(R.id.shalom_night_mode_switch);
+        portraitLock = view.findViewById(R.id.shalom_portrait_switch);
+        shalomFAB = view.findViewById(R.id.shalom_floatingbutton);                                  //Floating Point Button
 
-    }
-
-    //Sets Visibility to false in this fragment for power button In menu
-    @Override
-    public void onPrepareOptionsMenu(@NonNull Menu menu)
-    {
-        super.onPrepareOptionsMenu(menu);
-        menu.findItem(R.id.musicBtn).setVisible(false);
-        menu.findItem(R.id.lightsPwrBtn).setVisible(false);
-        menu.findItem(R.id.bluetoothBtn).setVisible(false);
-    }
-
-    @Override
-    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-        setPreferencesFromResource(R.xml.preferences, rootKey);
-
-        Preference myPrefportraitmode = (Preference)findPreference("portrait_switch");
-
-
-        myPrefportraitmode.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+        aboutUSBTN.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onPreferenceClick(Preference preference) {
+            public void onClick(View v) {
+                Intent intent;
+                intent = new Intent(getContext(), AboutUsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        privacyPolicyBTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent;
+                intent = new Intent(getContext(), PrivacyPolicyActivity.class);
+                startActivity(intent);
+
+            }
+        });
+
+        nightMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+
+            }
+        });
+
+        portraitLock.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
                 switch (flag)
                 {
@@ -78,50 +107,29 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
                         break;
                 }
-                return true;
             }
         });
 
-        Preference myPrefaboutUs = (Preference)findPreference("about_us");
-        myPrefaboutUs.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+        //For the FAB
+        shalomFAB.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onPreferenceClick(Preference preference) {
-                Intent intent;
-                intent = new Intent(getContext(), AboutUsActivity.class);
-                startActivity(intent);
-
-                return false;
-            }
-        });
-/*
-        Preference myPrefHelpAndSupport = (Preference)findPreference("help_and_support");
-        myPrefHelpAndSupport.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
+            public void onClick(View v) {
                 Intent intent;
                 intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/gmail/about/"));
                 startActivity(intent);
-
-                return false;
-            }
-        });
-
- */
-
-        Preference myPrefPrivacyPolicy = (Preference)findPreference("privacy_policy");
-        myPrefPrivacyPolicy.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                Intent intent;
-                intent = new Intent(getContext(), PrivacyPolicyActivity.class);
-                startActivity(intent);
-
-                return false;
             }
         });
 
     }
 
-
+    //Sets Visibility to false in this fragment for power button In menu
+    @Override
+    public void onPrepareOptionsMenu(@NonNull Menu menu)
+    {
+        super.onPrepareOptionsMenu(menu);
+        menu.findItem(R.id.musicBtn).setVisible(false);
+        menu.findItem(R.id.lightsPwrBtn).setVisible(false);
+        menu.findItem(R.id.bluetoothBtn).setVisible(false);
+    }
 
 }

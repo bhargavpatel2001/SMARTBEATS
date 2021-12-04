@@ -62,7 +62,6 @@ public class ReviewFragment extends Fragment
     float  rateReading, amountOfStars;
     Button shalomSubmit, shalomReset, shalomRead;
     DocumentReference shalomDocRef;
-    FloatingActionButton shalomFAB;
     boolean validation = false;
     ProgressDialog PD;
     NotificationManagerCompat notificationManager;
@@ -99,7 +98,7 @@ public class ReviewFragment extends Fragment
         shalomComment = view.findViewById(R.id.shalom_EditText_Comment);                            // UserComment Edittext
         shalomRateUs = view.findViewById(R.id.shalom_ratingBar);                                    // UserRating RatingBar
         //shalomRead = view.findViewById(R.id.read_review_form_btn);
-        shalomFAB = view.findViewById(R.id.shalom_floatingbutton);                                  //Floating Point Button
+
 
         // Setting up firestore to folder userReview file sent_Review.
         createDataBase();
@@ -175,16 +174,6 @@ public class ReviewFragment extends Fragment
                 shalomEmail.setText("");
                 shalomComment.setText("");
                 shalomRateUs.setRating(0);
-            }
-        });
-
-        //For the FAB
-        shalomFAB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent;
-                intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/gmail/about/"));
-                startActivity(intent);
             }
         });
     }
