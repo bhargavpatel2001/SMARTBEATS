@@ -11,15 +11,15 @@
     tools:context=".ui.review.ReviewFragment">
 
 
-<!--    <TextView-->
-<!--        android:id="@+id/shalom_review_fragment_tv"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="30dp"-->
-<!--        android:layout_marginTop="40dp"-->
-<!--        android:text="@string/review_page"-->
-<!--        android:textAlignment="center"-->
-<!--        android:textStyle="bold"-->
-<!--        android:theme="@style/large_title_text" />-->
+    <TextView
+        android:id="@+id/shalom_review_fragment_tv"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/review_page"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:theme="@style/large_title_text" />
 
     <EditText
         android:id="@+id/shalom_EditText_PersonName"
@@ -96,13 +96,6 @@
         android:layout_marginTop="460dp"
         android:text="@string/submit_btn_label" />
 
-<!--    <Button-->
-<!--        android:id="@+id/read_review_form_btn"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="460dp"-->
-<!--        android:layout_marginStart="155dp"-->
-<!--        android:text="@string/read" />-->
 
     <TextView
         android:id="@+id/shalomRateTV"
@@ -111,46 +104,6 @@
         android:layout_marginLeft="130dp"
         android:layout_marginTop="350dp" />
 
-<!--    <TextView-->
-<!--        android:id="@+id/shalomReviverTV"-->
-<!--        android:layout_width="107dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginLeft="150dp"-->
-<!--        android:layout_marginTop="520dp" />-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/shalomReviverTV2"-->
-<!--        android:layout_width="107dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginLeft="150dp"-->
-<!--        android:layout_marginTop="540dp" />-->
-<!--    <TextView-->
-<!--        android:id="@+id/shalomReviverTV3"-->
-<!--        android:layout_width="107dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginLeft="150dp"-->
-<!--        android:layout_marginTop="560dp" />-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/shalomReviverTV4"-->
-<!--        android:layout_width="107dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginLeft="150dp"-->
-<!--        android:layout_marginTop="580dp" />-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/shalomReviverTV5"-->
-<!--        android:layout_width="107dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginLeft="150dp"-->
-<!--        android:layout_marginTop="600dp" />-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/shalomReviverTV6"-->
-<!--        android:layout_width="107dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginLeft="150dp"-->
-<!--        android:layout_marginTop="620dp" />-->
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/shalom_floatingbutton"
