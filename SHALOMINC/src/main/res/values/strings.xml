@@ -4,7 +4,7 @@
     <string name="app_name">SMARTBEATS</string>
     <string name="choose_color">Choose Color</string>
     <string name="chosen_color">Your chosen color is:</string>
-    <string name="set_color">Set Color</string>
+    <string name="set_color">Set</string>
     <string name="light_settings">Light Settings</string>
     <string name="show_settings">show Settings</string>
     <string name="change_background">Change background Color</string>

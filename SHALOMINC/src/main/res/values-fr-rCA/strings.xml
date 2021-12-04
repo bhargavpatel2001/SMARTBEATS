@@ -4,7 +4,7 @@
     <string name="app_name">SMARTBEATS</string>
     <string name="choose_color">Choisissez la Couleur</string>
     <string name="chosen_color">La couleur de votre choix est:</string>
-    <string name="set_color">Appliquez la couleur</string>
+    <string name="set_color">Appliquez changement</string>
     <string name="light_settings">Parametres pour lumiere</string>
     <string name="show_settings">Parametres pour musique</string>
     <string name="change_background">Changer la couleur de fond</string>

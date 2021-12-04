@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.graphics.Color;
@@ -60,7 +61,10 @@ public class LightsFragment extends Fragment {
 
     private Spinner spinnerMode;
 
+    private SeekBar shalomSeekbar;
+
     String clickedModeName = "";
+    int r,g,b,brightness;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -95,6 +99,9 @@ public class LightsFragment extends Fragment {
         spinnerMode = view.findViewById(R.id.shalom_spinner);                                       //Light mode Spinner
         mAdapter = new ModeAdapter(getContext(),mModeList);
         spinnerMode.setAdapter(mAdapter);
+
+        //Brightness Seekbar
+        shalomSeekbar = view.findViewById(R.id.shalom_seekBar);
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
         int spinnerValue = sharedPref.getInt("userChoiceSpinner",-1);
@@ -148,11 +155,9 @@ public class LightsFragment extends Fragment {
                                     @Override
                                     public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors)
                                     {
-                                        int r = (selectedColor >> 16) & 0xff;
-                                        int g = (selectedColor >> 8) & 0xff;
-                                        int b = (selectedColor >> 0) & 0xff;
-                                        //log.d("rgb","r [" + r + "] - g [" + g + "] - b [" + b + "]");
-                                        sendColor(r,g,b);
+                                         r = (selectedColor >> 16) & 0xff;
+                                         g = (selectedColor >> 8) & 0xff;
+                                         b = (selectedColor >> 0) & 0xff;
 
                                     }
                                 })
@@ -170,12 +175,30 @@ public class LightsFragment extends Fragment {
                 });
 
 
+        shalomSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                brightness = progress;
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
         //Color Set Button.
         shalomColorBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
                         shalomTV.setTextColor(shalomDefault);
+                        sendColor(r,g,b);
                     }
                 });
     }
@@ -188,6 +211,7 @@ public class LightsFragment extends Fragment {
         hashMap.put("g",g);
         hashMap.put("b",b);
         hashMap.put("mode",clickedModeName);
+        hashMap.put("brightness",brightness);
 
         FirebaseFirestore.getInstance().collection("user_lights")
                 .document("rgb_controller_values")
