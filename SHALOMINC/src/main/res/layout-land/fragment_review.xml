@@ -102,6 +102,7 @@
         android:indeterminateTint="@color/purple_200"
         android:progressBackgroundTint="@color/wisteria"
         android:progressTint="@color/purple_200"
+        android:secondaryProgressTint="@color/light_orchid"
         android:rating="3.5"/>
 
     <Button
