@@ -41,4 +41,16 @@ public class ReviewFragmentTest {
         public void isPhoneTestCase() throws Exception {
             assertTrue(RF.isPhoneTestCase("6479755009"));
         }
+        @Test
+        public void isPhoneTestCase2() throws Exception {
+            assertFalse(RF.isPhoneTestCase("123bob123"));
+        }
+        @Test
+        public void isPhoneTestCase3() throws Exception {
+            assertFalse(RF.isPhoneTestCase("69"));
+        }
+        @Test
+        public void isPhoneTestCase4() throws Exception {
+            assertFalse(RF.isPhoneTestCase("669963900910"));
+        }
 }
