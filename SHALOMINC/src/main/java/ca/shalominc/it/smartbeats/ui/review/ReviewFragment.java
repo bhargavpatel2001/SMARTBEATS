@@ -281,10 +281,10 @@ public class ReviewFragment extends Fragment
 
     public void saveSetPref(){
         SharedPreferences shalomprefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-        String Number = shalomprefs.getString(getString(R.string.phoneNUm),"");      shalomPhone.setText(Number);
-        String value1 = shalomprefs.getString(getString(R.string.userValue),"");      shalomName.setText(value1);
-        String value2 = shalomprefs.getString(getString(R.string.userValue2), "");     shalomEmail.setText(value2);
-        String value3 = shalomprefs.getString(getString(R.string.uservalue3), "");   shalomComment.setText(value3);
+        String Number = shalomprefs.getString(getString(R.string.phoneNUm),"4169671111");      shalomPhone.setText(Number);
+        String value1 = shalomprefs.getString(getString(R.string.userValue),"Alice");      shalomName.setText(value1);
+        String value2 = shalomprefs.getString(getString(R.string.userValue2), "bob@alice.ca");     shalomEmail.setText(value2);
+        String value3 = shalomprefs.getString(getString(R.string.uservalue3), "App Rocks!");   shalomComment.setText(value3);
         float value4 = shalomprefs.getFloat(getString(R.string.rateReading), 4);  shalomRateUs.setRating(value4);
     }
 
