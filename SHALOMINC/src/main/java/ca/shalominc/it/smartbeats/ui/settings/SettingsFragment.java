@@ -35,7 +35,6 @@ public class SettingsFragment extends Fragment {
 //extends PreferenceFragmentCompat {
 
     int flag = 1;
-    Button shalomShowSettings;
     Button aboutUSBTN, privacyPolicyBTN;
     Switch nightMode, portraitLock;
     FloatingActionButton shalomFAB;

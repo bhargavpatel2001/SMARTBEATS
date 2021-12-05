@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="SMARTBEATS_dark" parent="Theme.MaterialComponents.Light.Dialog">
+    <style name="SMARTBEATS_dark" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_200</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -15,6 +15,7 @@
 
         <item name="android:textColor">@color/black</item>
         <item name="android:colorButtonNormal">@color/white</item>
+
 
         <item name="bottomNavigationStyle">@style/Widget.MaterialComponents.BottomNavigationView.Colored</item>
 
@@ -31,30 +32,6 @@
         <item name="colorAccent">@color/purple_500</item>
         <item name="android:statusBarColor">#131212</item>
 
-    </style>
-    <!--Fragment 1 style-->
-    <style name="HomeFragment" >
-        <item name="android:background">@color/grape</item>
-        <item name="android:textSize">40sp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textAlignment">center</item>
-        <item name="android:textColor">@color/black</item>
-    </style>
-
-    <!--Fragment 2 style-->
-    <style name="DownloadFragment">
-        <item name="android:background">@color/salmon_pink</item>
-        <item name="android:textColor">@color/black</item>
-
-    </style>
-
-    <!--Fragment 3 style-->
-    <style name="WebServiceFragment" >
-        <item name="android:background">@color/yellow_orange</item>
-        <item name="android:textSize">30sp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textAlignment">center</item>
-        <item name="android:textColor">@color/black</item>
     </style>
 
     <!-- SMALL FONT SIZE -->
