@@ -30,6 +30,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -181,9 +182,12 @@ public class MainActivity<myFragment> extends AppCompatActivity
         {
             case 1:
 
-                Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),
-                        R.string.snackbar_pwr_btn_on, Snackbar.LENGTH_LONG);
+                Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), R.string.snackbar_pwr_btn_on, Snackbar.LENGTH_LONG);
+                snackbar.setTextColor(getResources().getColor(R.color.black));
+                snackbar.setBackgroundTint(getResources().getColor(R.color.purple_200));
+                snackbar.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE);
                 snackbar.show();
+
 
                 flag++;
 
@@ -191,8 +195,10 @@ public class MainActivity<myFragment> extends AppCompatActivity
 
             case 2:
 
-                snackbar = Snackbar.make(findViewById(android.R.id.content),
-                        R.string.snackbar_pwr_btn_off, Snackbar.LENGTH_LONG);
+                snackbar = Snackbar.make(findViewById(android.R.id.content), R.string.snackbar_pwr_btn_off, Snackbar.LENGTH_LONG);
+                snackbar.setTextColor(getResources().getColor(R.color.black));
+                snackbar.setBackgroundTint(getResources().getColor(R.color.purple_200));
+                snackbar.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE);
                 snackbar.show();
 
                 flag=1;

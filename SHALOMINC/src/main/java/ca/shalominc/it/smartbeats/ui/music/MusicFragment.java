@@ -39,6 +39,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Locale;
@@ -52,7 +55,7 @@ public class MusicFragment extends Fragment
     MediaPlayer mediaPlayer;
     TextView shalomPosition, shalomDuration;
     SeekBar shalomSeekBar;
-    ImageView shalomRew, shalomPlay, shalomPause, shalomFastForward, shalomStop;
+    ImageView shalomRew, shalomPlay, shalomPause, shalomFastForward;
     ImageView shalomVinyl;
     Animation rotateAnimation;
     Handler handler = new Handler();
@@ -67,7 +70,7 @@ public class MusicFragment extends Fragment
     String spinnerString;
 
     //Song selector
-    String DBSongUrl, DBSongUrlChoice, DBSongName, DBSongExtension, PDTextChanger;
+    String DBSongUrl, DBSongUrlChoice, DBSongName, DBSongExtension, TextChanger;
 
 
 
@@ -85,10 +88,6 @@ public class MusicFragment extends Fragment
     private DownloadManager mgr = null;
     private long lastDownload;
 
-    //Async
-    int PDChoice;
-    ProgressDialog PD;
-    File dir;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
@@ -119,7 +118,6 @@ public class MusicFragment extends Fragment
         shalomPause = view.findViewById(R.id.bt_pause);                                             // Pause Button ImageView
         shalomFastForward = view.findViewById(R.id.bt_ff);                                          // Fast Forward Button ImageView
         shalomVinyl = view.findViewById(R.id.shalom_IV);                                            // Disc Display Rotating ImageView
-        //shalomStop = view.findViewById(R.id.bt_stop);
 
         //Adjust Volumes.
         shalomVolume = view.findViewById(R.id.shalom_volume);                                       // Volume Seekbar
@@ -190,6 +188,7 @@ public class MusicFragment extends Fragment
         }
 
         // Spinner Item selector
+        // Refactored code where it would download songs and play it from the stream so now it prompts a snackbar, downloads song and enables user to still stream the track.
         shalomSongSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
         {
             @Override
@@ -212,8 +211,13 @@ public class MusicFragment extends Fragment
                         DBSongUrlChoice = "https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/ATC%20-%20All%20Around%20The%20World.mp3?alt=media&token=41077a29-12e9-4371-b8a0-af1c7179a0d4";
                         DBSongName = getString(R.string.atc);
                         DBSongExtension = getString(R.string.mp3);
-                        PDTextChanger = getString(R.string.downloading_atc);
-                        PDChoice = 1;
+                        TextChanger = getString(R.string.downloading_atc);
+
+                        Snackbar snackbarSongOneIM = Snackbar.make(getView(), TextChanger, Snackbar.LENGTH_LONG);
+                        snackbarSongOneIM.setTextColor(getResources().getColor(R.color.black));
+                        snackbarSongOneIM.setBackgroundTint(getResources().getColor(R.color.purple_200));
+                        snackbarSongOneIM.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE);
+                        snackbarSongOneIM.show();
 
                         new CountDownTimer(2000, 1000)
                         {
@@ -225,6 +229,23 @@ public class MusicFragment extends Fragment
                             public void onFinish()
                             {
                                 downloadMP3.execute();
+                            }
+                        }.start();
+
+                        new CountDownTimer(2000, 1000)
+                        {
+                            public void onTick(long millisUntilFinished)
+                            {
+
+                            }
+
+                            public void onFinish()
+                            {
+                                Snackbar snackbarSongOneC = Snackbar.make(getView(), "Download Complete", Snackbar.LENGTH_LONG);
+                                snackbarSongOneC.setTextColor(getResources().getColor(R.color.black));
+                                snackbarSongOneC.setBackgroundTint(getResources().getColor(R.color.purple_200));
+                                snackbarSongOneC.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE);
+                                snackbarSongOneC.show();
                             }
                         }.start();
 
@@ -249,8 +270,13 @@ public class MusicFragment extends Fragment
                         DBSongUrlChoice = "https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/Dynoro%20-%20In%20My%20Mind.mp3?alt=media&token=8600afad-31fb-4f7f-97b4-92e2968ff851";
                         DBSongName = getString(R.string.dynoro);
                         DBSongExtension = getString(R.string.mp3);
-                        PDTextChanger = getString(R.string.downloading_dynoro);
-                        PDChoice = 2;
+                        TextChanger = getString(R.string.downloading_dynoro);
+
+                        Snackbar snackbarSongTwoIM = Snackbar.make(getView(), TextChanger, Snackbar.LENGTH_LONG);
+                        snackbarSongTwoIM.setTextColor(getResources().getColor(R.color.black));
+                        snackbarSongTwoIM.setBackgroundTint(getResources().getColor(R.color.purple_200));
+                        snackbarSongTwoIM.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE);
+                        snackbarSongTwoIM.show();
 
                         new CountDownTimer(2000, 1000)
                         {
@@ -262,6 +288,23 @@ public class MusicFragment extends Fragment
                             public void onFinish()
                             {
                                 downloadMP3.execute();
+                            }
+                        }.start();
+
+                        new CountDownTimer(2000, 1000)
+                        {
+                            public void onTick(long millisUntilFinished)
+                            {
+
+                            }
+
+                            public void onFinish()
+                            {
+                                Snackbar snackbarSongTwoC = Snackbar.make(getView(), "Download Complete", Snackbar.LENGTH_LONG);
+                                snackbarSongTwoC.setTextColor(getResources().getColor(R.color.black));
+                                snackbarSongTwoC.setBackgroundTint(getResources().getColor(R.color.purple_200));
+                                snackbarSongTwoC.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE);
+                                snackbarSongTwoC.show();
                             }
                         }.start();
 
@@ -284,8 +327,13 @@ public class MusicFragment extends Fragment
                         DBSongUrlChoice = "https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/MEDUZA%20-%20Lose%20Control.mp3?alt=media&token=92253d10-47c6-455b-897b-14bec7e1b923";
                         DBSongName = getString(R.string.meduza);
                         DBSongExtension = getString(R.string.mp3);
-                        PDTextChanger = getString(R.string.downloading_meduza);
-                        PDChoice = 3;
+                        TextChanger = getString(R.string.downloading_meduza);
+
+                        Snackbar snackbarSongThreeIM = Snackbar.make(getView(), TextChanger, Snackbar.LENGTH_LONG);
+                        snackbarSongThreeIM.setTextColor(getResources().getColor(R.color.black));
+                        snackbarSongThreeIM.setBackgroundTint(getResources().getColor(R.color.purple_200));
+                        snackbarSongThreeIM.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE);
+                        snackbarSongThreeIM.show();
 
                         new CountDownTimer(2000, 1000)
                         {
@@ -297,6 +345,23 @@ public class MusicFragment extends Fragment
                             public void onFinish()
                             {
                                 downloadMP3.execute();
+                            }
+                        }.start();
+
+                        new CountDownTimer(2000, 1000)
+                        {
+                            public void onTick(long millisUntilFinished)
+                            {
+
+                            }
+
+                            public void onFinish()
+                            {
+                                Snackbar snackbarSongThreeC = Snackbar.make(getView(), "Download Complete", Snackbar.LENGTH_LONG);
+                                snackbarSongThreeC.setTextColor(getResources().getColor(R.color.black));
+                                snackbarSongThreeC.setBackgroundTint(getResources().getColor(R.color.purple_200));
+                                snackbarSongThreeC.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE);
+                                snackbarSongThreeC.show();
                             }
                         }.start();
 
@@ -319,8 +384,13 @@ public class MusicFragment extends Fragment
                         DBSongUrlChoice = "https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/Regard%20-%20Ride%20It.mp3?alt=media&token=d52d0d1e-1152-4b64-9cfc-0def83505f00";
                         DBSongName = getString(R.string.rideIt);
                         DBSongExtension = getString(R.string.mp3);
-                        PDTextChanger = getString(R.string.downloading_riedIt);
-                        PDChoice = 4;
+                        TextChanger = getString(R.string.downloading_riedIt);
+
+                        Snackbar snackbarSongFourIM = Snackbar.make(getView(), TextChanger, Snackbar.LENGTH_LONG);
+                        snackbarSongFourIM.setTextColor(getResources().getColor(R.color.black));
+                        snackbarSongFourIM.setBackgroundTint(getResources().getColor(R.color.purple_200));
+                        snackbarSongFourIM.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE);
+                        snackbarSongFourIM.show();
 
                         new CountDownTimer(2000, 1000)
                         {
@@ -332,6 +402,23 @@ public class MusicFragment extends Fragment
                             public void onFinish()
                             {
                                 downloadMP3.execute();
+                            }
+                        }.start();
+
+                        new CountDownTimer(2000, 1000)
+                        {
+                            public void onTick(long millisUntilFinished)
+                            {
+
+                            }
+
+                            public void onFinish()
+                            {
+                                Snackbar snackbarSongFourC = Snackbar.make(getView(), "Download Complete", Snackbar.LENGTH_LONG);
+                                snackbarSongFourC.setTextColor(getResources().getColor(R.color.black));
+                                snackbarSongFourC.setBackgroundTint(getResources().getColor(R.color.purple_200));
+                                snackbarSongFourC.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE);
+                                snackbarSongFourC.show();
                             }
                         }.start();
 
@@ -354,8 +441,13 @@ public class MusicFragment extends Fragment
                         DBSongUrlChoice = "https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/SAINt%20Jhn%20-%20Roses.mp3?alt=media&token=d077c318-e028-4ee1-a043-bc896c49dacb";
                         DBSongName = getString(R.string.roses);
                         DBSongExtension = getString(R.string.mp3);
-                        PDTextChanger = getString(R.string.downloading_roses);
-                        PDChoice = 5;
+                        TextChanger = getString(R.string.downloading_roses);
+
+                        Snackbar snackbarSongFiveIM = Snackbar.make(getView(), TextChanger, Snackbar.LENGTH_LONG);
+                        snackbarSongFiveIM.setTextColor(getResources().getColor(R.color.black));
+                        snackbarSongFiveIM.setBackgroundTint(getResources().getColor(R.color.purple_200));
+                        snackbarSongFiveIM.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE);
+                        snackbarSongFiveIM.show();
 
                         new CountDownTimer(2000, 1000)
                         {
@@ -367,6 +459,23 @@ public class MusicFragment extends Fragment
                             public void onFinish()
                             {
                                 downloadMP3.execute();
+                            }
+                        }.start();
+
+                        new CountDownTimer(2000, 1000)
+                        {
+                            public void onTick(long millisUntilFinished)
+                            {
+
+                            }
+
+                            public void onFinish()
+                            {
+                                Snackbar snackbarSongFiveC = Snackbar.make(getView(), "Download Complete", Snackbar.LENGTH_LONG);
+                                snackbarSongFiveC.setTextColor(getResources().getColor(R.color.black));
+                                snackbarSongFiveC.setBackgroundTint(getResources().getColor(R.color.purple_200));
+                                snackbarSongFiveC.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE);
+                                snackbarSongFiveC.show();
                             }
                         }.start();
 
@@ -597,31 +706,6 @@ public class MusicFragment extends Fragment
         {
             super.onPreExecute();
             Log.w(getString(R.string.mp3_pre_download),getString(R.string.one));
-            PD = new ProgressDialog(getContext());
-            if(PDChoice == 1)
-            {
-                PD.setIcon(R.drawable.music_icon_foreground);
-            }
-            else if (PDChoice == 2)
-            {
-                PD.setIcon(R.drawable.music_icon_foreground);
-            }
-            else if (PDChoice == 3)
-            {
-                PD.setIcon(R.drawable.music_icon_foreground);
-            }
-            else if (PDChoice == 4)
-            {
-                PD.setIcon(R.drawable.music_icon_foreground);
-            }
-            else if(PDChoice == 5)
-            {
-                PD.setIcon(R.drawable.music_icon_foreground);
-            }
-            PD.setTitle(PDTextChanger);
-            PD.setIndeterminate(false);
-            PD.setCancelable(false);
-            PD.show();
         }
 
         @Override
@@ -661,7 +745,6 @@ public class MusicFragment extends Fragment
                 public void onFinish()
                 {
                     Log.w(getString(R.string.mp3_downloaded),getString(R.string.two) + s);
-                    PD.hide();
                 }
             }.start();
         }
