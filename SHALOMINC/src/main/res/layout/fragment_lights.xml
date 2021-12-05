@@ -79,7 +79,8 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.691" />
+        app:layout_constraintVertical_bias="0.691"
+        android:enabled="false"/>
 
     <SeekBar
         android:id="@+id/shalom_seekBar"
