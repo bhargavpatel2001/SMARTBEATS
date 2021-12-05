@@ -21,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -41,6 +42,9 @@ public class MainActivity extends AppCompatActivity
 {
 
     private int PERMISSION_CODE = 1;
+
+    private Button setColorBtn;
+
     WifiManager wifiManager;
     int flag = 1;
     Boolean visibleFrag = false;
@@ -185,9 +189,13 @@ public class MainActivity extends AppCompatActivity
     // On and Off switch inside the menu for power
     void pwrOutput()
     {
-       switch (flag)
-       {
-          case 1:
+        BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        setColorBtn = (Button) findViewById(R.id.shalom_set_color_btn);
+
+        if(bluetoothAdapter.isEnabled()) {
+
+            switch (flag) {
+                case 1:
 
                     Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), R.string.snackbar_pwr_btn_on, Snackbar.LENGTH_LONG);
                     snackbar.setTextColor(getResources().getColor(R.color.black));
@@ -195,12 +203,13 @@ public class MainActivity extends AppCompatActivity
                     snackbar.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE);
                     snackbar.show();
 
+                    setColorBtn.setEnabled(true);
 
-                flag++;
+                    flag++;
 
-                break;
+                    break;
 
-            case 2:
+                case 2:
 
                     snackbar = Snackbar.make(findViewById(android.R.id.content), R.string.snackbar_pwr_btn_off, Snackbar.LENGTH_LONG);
                     snackbar.setTextColor(getResources().getColor(R.color.black));
@@ -208,10 +217,16 @@ public class MainActivity extends AppCompatActivity
                     snackbar.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE);
                     snackbar.show();
 
+                    setColorBtn.setEnabled(false);
+
                     flag = 1;
 
                     break;
+            }
+        } else{
+            Toast.makeText(getApplicationContext(), "THIS BISH IS OFF", Toast.LENGTH_LONG).show();
         }
+
     }
 
     // Requesting user for Bluetooth Runtime  permissions
@@ -281,14 +296,7 @@ public class MainActivity extends AppCompatActivity
                 }
 
             }
-            else
-            {
-                Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), R.string.deny_permission_snackbar_message, Snackbar.LENGTH_LONG);
-                snackbar.setTextColor(getResources().getColor(R.color.black));
-                snackbar.setBackgroundTint(getResources().getColor(R.color.purple_200));
-                snackbar.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE);
-                snackbar.show();
-            }
+
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
