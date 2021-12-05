@@ -190,7 +190,7 @@ public class MainActivity extends AppCompatActivity
     void pwrOutput()
     {
         BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        setColorBtn = (Button) findViewById(R.id.shalom_set_color_btn);
+        setColorBtn = (Button) findViewById(R.id.shalom_color_set_btn);
 
         if(bluetoothAdapter.isEnabled()) {
 

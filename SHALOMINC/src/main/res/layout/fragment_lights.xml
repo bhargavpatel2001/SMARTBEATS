@@ -12,7 +12,7 @@
     tools:context=".ui.lights.LightsFragment">
 
     <TextView
-        android:id="@+id/shalom_heading"
+        android:id="@+id/shalom_color_heading_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -27,7 +27,7 @@
         app:layout_constraintVertical_bias="0.082" />
 
     <Button
-        android:id="@+id/shalom_pick_color_btn"
+        android:id="@+id/shalom_color_choose_btn"
         android:layout_width="134dp"
         android:layout_height="59dp"
         android:layout_gravity="center"
@@ -40,7 +40,7 @@
         app:layout_constraintVertical_bias="0.293" />
 
     <TextView
-        android:id="@+id/shalomTextView"
+        android:id="@+id/shalom_color_selected_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -55,7 +55,7 @@
         app:layout_constraintVertical_bias="0.205" />
 
     <View
-        android:id="@+id/shalom_preview_color"
+        android:id="@+id/shalom_color_preview_view"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_gravity="center"
@@ -64,12 +64,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/shalomTextView"
+        app:layout_constraintStart_toEndOf="@+id/shalom_color_selected_tv"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.196" />
 
     <Button
-        android:id="@+id/shalom_set_color_btn"
+        android:id="@+id/shalom_color_set_btn"
         android:layout_width="134dp"
         android:layout_height="59dp"
         android:layout_gravity="center"
@@ -83,7 +83,7 @@
         android:enabled="false"/>
 
     <SeekBar
-        android:id="@+id/shalom_seekBar"
+        android:id="@+id/shalom_color_brightness_seekBar"
         android:layout_width="220dp"
         android:layout_height="24dp"
         android:background="@color/lilac"
@@ -100,7 +100,7 @@
         app:layout_constraintVertical_bias="0.434" />
 
     <TextView
-        android:id="@+id/shalom_textView1"
+        android:id="@+id/shalom_color_adjust_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/adjust_bright"
@@ -112,7 +112,7 @@
         app:layout_constraintVertical_bias="0.373" />
 
     <Spinner
-        android:id="@+id/shalom_spinner"
+        android:id="@+id/shalom_color_lights_spinner"
         android:layout_width="395dp"
         android:layout_height="99dp"
         android:layout_marginStart="8dp"
@@ -122,7 +122,7 @@
         app:layout_constraintVertical_bias="0.579" />
 
     <TextView
-        android:id="@+id/shalom_TV1"
+        android:id="@+id/shalom_color_lightmode_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/select_mode"
@@ -132,16 +132,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.487" />
-<!--
-    <ImageView
-        android:id="@+id/shalom_IV2"
-        android:layout_width="262dp"
-        android:layout_height="200dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.436"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.749" />
--->
+
 </androidx.constraintlayout.widget.ConstraintLayout>

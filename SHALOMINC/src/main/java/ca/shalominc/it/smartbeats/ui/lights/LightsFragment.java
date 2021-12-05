@@ -2,23 +2,17 @@
 
 package ca.shalominc.it.smartbeats.ui.lights;
 
-import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -27,7 +21,6 @@ import android.widget.Toast;
 
 import ca.shalominc.it.smartbeats.ModeAdapter;
 import ca.shalominc.it.smartbeats.ModeItem;
-import top.defaults.colorpicker.ColorPickerPopup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -44,27 +37,27 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import ca.shalominc.it.smartbeats.R;
-import top.defaults.colorpicker.ColorPickerView;
 
 public class LightsFragment extends Fragment {
 
-    private TextView shalomTV;
+    private TextView shalomHeadingTV;
 
-    private Button shalomColorBtn, shalomColorPBtn;
+    private Button shalomSetBtn, shalomChooseColorBtn;
 
-    private View shalomPreview;
+    private View shalomPreView;
 
     private int shalomDefault;
 
     private ArrayList<ModeItem> mModeList;
 
-    private ModeAdapter mAdapter;
+    private ModeAdapter shalomAdapter;
 
-    private Spinner spinnerMode;
+    private Spinner shalomLightsSpinner;
 
     private SeekBar shalomSeekbar;
 
     String clickedModeName = "";
+
     int r,g,b,brightness;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -89,35 +82,35 @@ public class LightsFragment extends Fragment {
 
         initList();
 
-        shalomTV = view.findViewById(R.id.shalom_heading);                                          //Heading SMARTBEATS Text View
-
-        shalomColorPBtn = view.findViewById(R.id.shalom_pick_color_btn);                            //Color Picker Button
-        shalomColorBtn = view.findViewById(R.id.shalom_set_color_btn);                              //Color Set Button
-
-        shalomPreview = view.findViewById(R.id.shalom_preview_color);                               //Shows Pre view
+        shalomHeadingTV = view.findViewById(R.id.shalom_color_heading_tv);                          //Heading SMARTBEATS Text View
+        shalomChooseColorBtn = view.findViewById(R.id.shalom_color_choose_btn);                     //Color Picker Button
+        shalomSetBtn = view.findViewById(R.id.shalom_color_set_btn);                                //Color Set Button
+        shalomPreView = view.findViewById(R.id.shalom_color_preview_view);                          //Shows Pre view
 
         //Spinner Code For Light Mode
-        spinnerMode = view.findViewById(R.id.shalom_spinner);                                       //Light mode Spinner
-        mAdapter = new ModeAdapter(getContext(),mModeList);
-        spinnerMode.setAdapter(mAdapter);
+        shalomLightsSpinner = view.findViewById(R.id.shalom_color_lights_spinner);                   //Light mode Spinner
+
+        shalomAdapter = new ModeAdapter(getContext(),mModeList);
+        shalomLightsSpinner.setAdapter(shalomAdapter);
 
         //Brightness Seekbar
-        shalomSeekbar = view.findViewById(R.id.shalom_seekBar);
+        shalomSeekbar = view.findViewById(R.id.shalom_color_brightness_seekBar);                                     //Brightness SeekBar
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
         int spinnerValue = sharedPref.getInt("userChoiceSpinner",-1);
         if (spinnerValue != -1){
-            spinnerMode.setSelection(spinnerValue);
+            shalomLightsSpinner.setSelection(spinnerValue);
         }
-        spinnerMode.setSelection(spinnerValue);
+        shalomLightsSpinner.setSelection(spinnerValue);
 
-        spinnerMode.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        // Spinner Items Selections Configuration
+        shalomLightsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 ModeItem clickedItem = (ModeItem) parent.getItemAtPosition(position);
                 clickedModeName = clickedItem.getModeName();
 
-                int userChoice = spinnerMode.getSelectedItemPosition();
+                int userChoice = shalomLightsSpinner.getSelectedItemPosition();
                 SharedPreferences.Editor prefEditor = sharedPref.edit();
                 prefEditor.putInt("userChoiceSpinner", userChoice);
                 prefEditor.apply();
@@ -131,51 +124,14 @@ public class LightsFragment extends Fragment {
         shalomDefault = 0;
 
         //Color Picker button
-        shalomColorPBtn.setOnClickListener(new View.OnClickListener()
-                {
-                    @Override
-                    public void onClick(final View v)
-                    {
-                        ColorPickerDialogBuilder
-                                .with(getActivity(),R.style.ColourPickerDialogTheme)
-                                .setTitle(getString(R.string.colour_picker_dialog_title))
-                                .initialColor(Color.RED)
-                                .density(12)
-                                .setOnColorSelectedListener(new OnColorSelectedListener()
-                                {
-                                    @Override
-                                    public void onColorSelected(int selectedColor)
-                                    {
-                                        shalomDefault = selectedColor;
+        shalomChooseColorBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                createColorPicker();
+            }
+        });
 
-                                        shalomPreview.setBackgroundColor(shalomDefault);
-                                    }
-                                })
-                                .setPositiveButton(getString(R.string.colour_picker_dialog_ok_btn), new ColorPickerClickListener()
-                                {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors)
-                                    {
-                                         r = (selectedColor >> 16) & 0xff;
-                                         g = (selectedColor >> 8) & 0xff;
-                                         b = (selectedColor >> 0) & 0xff;
-
-                                    }
-                                })
-                                .setNegativeButton(getString(R.string.colour_picker_dialog_cancel_btn), new DialogInterface.OnClickListener()
-                                {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which)
-                                    {
-
-                                    }
-                                })
-                                .build()
-                                .show();
-                    }
-                });
-
-
+        //Value sender for brightness to the database
         shalomSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -194,7 +150,7 @@ public class LightsFragment extends Fragment {
         });
 
         //Color Set Button.
-        shalomColorBtn.setOnClickListener(new View.OnClickListener() {
+        shalomSetBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
@@ -202,9 +158,10 @@ public class LightsFragment extends Fragment {
                     }
                 });
     }
-//Function to send the data to Firestore
+    //Function to send the data to Firestore
     private void sendColor(int r, int g, int b){
 
+        //Calling BluetoothAdapter
         BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
         //Creating a HashMap to send the info of the selected color and mode
@@ -223,7 +180,7 @@ public class LightsFragment extends Fragment {
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
-                            shalomTV.setTextColor(shalomDefault);
+                            shalomHeadingTV.setTextColor(shalomDefault);
                             Toast.makeText(getContext(),R.string.successMsg, Toast.LENGTH_SHORT).show();
                         }
                     })
@@ -238,6 +195,46 @@ public class LightsFragment extends Fragment {
             Toast.makeText(getContext(),R.string.bluetoothOn,Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    //Creating Color Picker and sending color value to database;
+    public void createColorPicker(){
+        ColorPickerDialogBuilder
+                .with(getActivity(),R.style.ColourPickerDialogTheme)
+                .setTitle(getString(R.string.colour_picker_dialog_title))
+                .initialColor(Color.RED)
+                .density(12)
+                .setOnColorSelectedListener(new OnColorSelectedListener()
+                {
+                    @Override
+                    public void onColorSelected(int selectedColor)
+                    {
+                        shalomDefault = selectedColor;
+
+                        shalomPreView.setBackgroundColor(shalomDefault);
+                    }
+                })
+                .setPositiveButton(getString(R.string.colour_picker_dialog_ok_btn), new ColorPickerClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors)
+                    {
+                        r = (selectedColor >> 16) & 0xff;
+                        g = (selectedColor >> 8) & 0xff;
+                        b = (selectedColor >> 0) & 0xff;
+
+                    }
+                })
+                .setNegativeButton(getString(R.string.colour_picker_dialog_cancel_btn), new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+
+                    }
+                })
+                .build()
+                .show();
     }
 
     // Function for Providing images to spinner

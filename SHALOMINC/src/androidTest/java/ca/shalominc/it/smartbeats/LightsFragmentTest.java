@@ -71,7 +71,7 @@ public class LightsFragmentTest {
         actionMenuItemView2.perform(click());
 
         ViewInteraction materialButton = onView(
-                allOf(withId(R.id.shalom_pick_color_btn), withText("Choose Color"),
+                allOf(withId(R.id.shalom_color_choose_btn), withText("Choose Color"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.nav_host_fragment),
@@ -90,7 +90,7 @@ public class LightsFragmentTest {
         materialButton2.perform(scrollTo(), click());
 
         ViewInteraction appCompatSpinner = onView(
-                allOf(withId(R.id.shalom_spinner),
+                allOf(withId(R.id.shalom_color_lights_spinner),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.nav_host_fragment),
@@ -107,7 +107,7 @@ public class LightsFragmentTest {
         relativeLayout.perform(click());
 
         ViewInteraction materialButton3 = onView(
-                allOf(withId(R.id.shalom_set_color_btn), withText("Set"),
+                allOf(withId(R.id.shalom_color_set_btn), withText("Set"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.nav_host_fragment),
