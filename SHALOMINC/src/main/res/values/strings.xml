@@ -114,6 +114,8 @@
     <string name="bluetoothOn">Please turn on Bluetooth</string>
     <string name="FireStoreOff">Unable to connect to database</string>
     <string name="successMsg">Success</string>
+    <string name="must_be_in_music_fragment_label">Must Be In Music Fragment!</string>
+    <string name="must_enable_an_internet_connection">Must Enable a Internet Connection</string>
 
 
 </resources>

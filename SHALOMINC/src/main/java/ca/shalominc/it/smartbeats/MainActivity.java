@@ -10,57 +10,38 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FileDownloadTask;
-import com.google.firebase.storage.StorageReference;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
 
-import ca.shalominc.it.smartbeats.ui.music.MusicFragment;
-import ca.shalominc.it.smartbeats.ui.settings.SettingsFragment;
-
-public class MainActivity<myFragment> extends AppCompatActivity
+public class MainActivity extends AppCompatActivity
 {
 
     private int PERMISSION_CODE = 1;
+    WifiManager wifiManager;
     int flag = 1;
     Boolean visibleFrag = false;
 
@@ -89,16 +70,9 @@ public class MainActivity<myFragment> extends AppCompatActivity
 
         ActionBar actionBar;
         actionBar = getSupportActionBar();
-
         actionBar.setBackgroundDrawable(colorActionBar);
 
 
-    }
-
-    @Override
-    protected void onStart()
-    {
-        super.onStart();
     }
 
     //Creates the Menu bar
@@ -112,6 +86,23 @@ public class MainActivity<myFragment> extends AppCompatActivity
             menu.findItem(R.id.lightsPwrBtn).setVisible(false);
         }
         return true;
+    }
+
+    public boolean isConnected()
+    {
+        boolean connected = false;
+        try
+        {
+            ConnectivityManager cm = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo nInfo = cm.getActiveNetworkInfo();
+            connected = nInfo != null && nInfo.isAvailable() && nInfo.isConnected();
+            return connected;
+        }
+        catch (Exception e)
+        {
+            Log.e("Connectivity Exception", e.getMessage());
+        }
+        return connected;
     }
 
     //Menu button configurations
@@ -136,22 +127,31 @@ public class MainActivity<myFragment> extends AppCompatActivity
 
             case R.id.musicBtn:
 
-                if (visibleFrag == true)
-                {
-                    Toast.makeText(getApplicationContext(), "Must Be In Music Fragment!", Toast.LENGTH_LONG).show();
-                }
-                else
+                //Refactored code to check if user has internet connection enabled in order to display list of songs that can be downloaded.
+                if(isConnected())
                 {
 
-                    if (musicSpinner.getVisibility() != View.VISIBLE)
+                    if (visibleFrag)
                     {
-                        musicSpinner.setVisibility(View.VISIBLE);
+                        Toast.makeText(getApplicationContext(), getString(R.string.must_be_in_music_fragment_label), Toast.LENGTH_LONG).show();
                     }
                     else
                     {
-                        musicSpinner.setVisibility(View.INVISIBLE);
-                    }
 
+                        if (musicSpinner.getVisibility() != View.VISIBLE)
+                        {
+                            musicSpinner.setVisibility(View.VISIBLE);
+                        }
+                        else
+                        {
+                            musicSpinner.setVisibility(View.INVISIBLE);
+                        }
+
+                    }
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(), getString(R.string.must_enable_an_internet_connection), Toast.LENGTH_LONG).show();
                 }
 
                 break;
@@ -207,7 +207,6 @@ public class MainActivity<myFragment> extends AppCompatActivity
         }
     }
 
-
     // Requesting user for Bluetooth Runtime  permissions
     private void requestBluetoothPermission()
     {
@@ -221,6 +220,12 @@ public class MainActivity<myFragment> extends AppCompatActivity
                         @Override
                         public void onClick(DialogInterface dialog, int which)
                         {
+                            Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), R.string.bluetooth_enabled_snackbar_message, Snackbar.LENGTH_LONG);
+                            snackbar.setTextColor(getResources().getColor(R.color.black));
+                            snackbar.setBackgroundTint(getResources().getColor(R.color.purple_200));
+                            snackbar.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE);
+                            snackbar.show();
+
                             requestPermissions(new String[]{Manifest.permission.BLUETOOTH}, PERMISSION_CODE);
                             requestPermissions(new String[]{Manifest.permission.BLUETOOTH_ADMIN}, PERMISSION_CODE);
                             requestPermissions(new String[]{Manifest.permission.BLUETOOTH_CONNECT}, PERMISSION_CODE);
@@ -233,6 +238,9 @@ public class MainActivity<myFragment> extends AppCompatActivity
                         public void onClick(DialogInterface dialog, int which)
                         {
                             Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), R.string.request_perms_deny_snackbar_message, Snackbar.LENGTH_LONG);
+                            snackbar.setTextColor(getResources().getColor(R.color.black));
+                            snackbar.setBackgroundTint(getResources().getColor(R.color.purple_200));
+                            snackbar.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE);
                             snackbar.show();
 
                             BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -255,9 +263,6 @@ public class MainActivity<myFragment> extends AppCompatActivity
         {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
             {
-                Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),
-                        R.string.bluetooth_enabled_snackbar_message, Snackbar.LENGTH_LONG);
-                snackbar.show();
 
                 BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
                 if (!mBluetoothAdapter.isEnabled())
@@ -272,6 +277,9 @@ public class MainActivity<myFragment> extends AppCompatActivity
             else
             {
                 Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), R.string.deny_permission_snackbar_message, Snackbar.LENGTH_LONG);
+                snackbar.setTextColor(getResources().getColor(R.color.black));
+                snackbar.setBackgroundTint(getResources().getColor(R.color.purple_200));
+                snackbar.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE);
                 snackbar.show();
             }
         }
