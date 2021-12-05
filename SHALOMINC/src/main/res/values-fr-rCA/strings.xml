@@ -101,4 +101,6 @@
     <string name="successMsg">Succès</string>
     <string name="ModelNum">ModelNum</string>
     <string name="bluetoothOn">Veuillez activer le Bluetooth</string>
+    <string name="must_be_in_music_fragment_label">Doit etre dans fragment Musique!</string>
+    <string name="must_enable_an_internet_connection">Activez la Connection Internet</string>
 </resources>

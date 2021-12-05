@@ -233,8 +233,8 @@ public class MainActivity extends AppCompatActivity
     private void requestBluetoothPermission()
     {
 
-            new AlertDialog.Builder(this)
-                    .setTitle(R.string.request_perms_alert_dialog_title)
+            AlertDialog.Builder builder = new  AlertDialog.Builder(this);
+                    builder.setTitle(R.string.request_perms_alert_dialog_title)
                     .setMessage(R.string.request_perms_alert_dialog_message)
                     .setCancelable(false)
                     .setPositiveButton(R.string.request_perms_alert_dialog_positive_btn, new DialogInterface.OnClickListener()                                         //Turns On the bluetooth
@@ -275,7 +275,6 @@ public class MainActivity extends AppCompatActivity
                         }
                     })
                     .create().show();
-
     }
 
     @Override
