@@ -18,8 +18,7 @@
         android:layout_marginBottom="357dp"
         android:backgroundTint="@color/purple_200"
         android:text="About Us"
-        android:textAlignment="textStart"
-        android:textColor="@color/black" />
+        android:textAlignment="textStart" />
 
     <Button
         android:id="@+id/shalom_privacy_policy_btn"
@@ -32,8 +31,7 @@
         android:layout_marginBottom="285dp"
         android:backgroundTint="@color/purple_200"
         android:text="Privacy Policy"
-        android:textAlignment="textStart"
-        android:textColor="@color/black" />
+        android:textAlignment="textStart" />
 
 
     <TextView

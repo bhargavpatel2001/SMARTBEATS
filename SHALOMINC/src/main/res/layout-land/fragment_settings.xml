@@ -16,8 +16,7 @@
         android:layout_marginBottom="133dp"
         android:backgroundTint="@color/purple_200"
         android:text="About Us"
-        android:textAlignment="textStart"
-        android:textColor="@color/black" />
+        android:textAlignment="textStart" />
 
     <Button
         android:id="@+id/shalom_privacy_policy_btn"
@@ -29,8 +28,7 @@
         android:layout_marginBottom="81dp"
         android:backgroundTint="@color/purple_200"
         android:text="Privacy Policy"
-        android:textAlignment="textStart"
-        android:textColor="@color/black" />
+        android:textAlignment="textStart" />
 
     <TextView
         android:id="@+id/shalom_about_us_tv"
@@ -67,6 +65,7 @@
         android:layout_marginEnd="58dp"
         android:layout_marginBottom="253dp"
         android:text="Night Mode"
+        android:textColor="@color/white"
         android:thumbTint="@color/grape"
         tools:ignore="UseSwitchCompatOrMaterialXml" />
 
@@ -79,6 +78,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginEnd="58dp"
         android:layout_marginBottom="210dp"
+        android:textColor="@color/white"
         android:text="Portrait Mode"
         android:thumbTint="@color/grape"
         tools:ignore="UseSwitchCompatOrMaterialXml" />
