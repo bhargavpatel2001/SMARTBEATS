@@ -103,7 +103,7 @@ public class LightsFragmentTest {
                 .inAdapterView(childAtPosition(
                         withClassName(is("android.widget.PopupWindow$PopupBackgroundView")),
                         0))
-                .atPosition(5);
+                .atPosition(1);
         relativeLayout.perform(click());
 
         ViewInteraction materialButton3 = onView(

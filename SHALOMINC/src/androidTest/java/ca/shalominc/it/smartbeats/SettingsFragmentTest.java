@@ -37,6 +37,7 @@ public class SettingsFragmentTest {
 
     @Test
     public void SettingsFragmentTest() {
+
         ViewInteraction bottomNavigationItemView = onView(
                 allOf(withId(R.id.navigation_settings), withContentDescription("Settings"),
                         childAtPosition(
@@ -66,6 +67,20 @@ public class SettingsFragmentTest {
                                 4),
                         isDisplayed()));
         switch_2.perform(click());
+    }
+
+
+    @Test
+    public void portraitMode(){
+        ViewInteraction bottomNavigationItemView = onView(
+                allOf(withId(R.id.navigation_settings), withContentDescription("Settings"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.nav_view),
+                                        0),
+                                2),
+                        isDisplayed()));
+        bottomNavigationItemView.perform(click());
 
         ViewInteraction switch_3 = onView(
                 allOf(withId(R.id.shalom_portrait_switch), withText("Portrait Mode"),
@@ -86,6 +101,20 @@ public class SettingsFragmentTest {
                                 5),
                         isDisplayed()));
         switch_4.perform(click());
+    }
+
+    @Test
+    public void aboutUs(){
+
+        ViewInteraction bottomNavigationItemView = onView(
+                allOf(withId(R.id.navigation_settings), withContentDescription("Settings"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.nav_view),
+                                        0),
+                                2),
+                        isDisplayed()));
+        bottomNavigationItemView.perform(click());
 
         ViewInteraction materialButton = onView(
                 allOf(withId(R.id.about_us_btn), withText("About Us"),
@@ -98,6 +127,18 @@ public class SettingsFragmentTest {
         materialButton.perform(click());
 
         pressBack();
+    }
+
+    public void privacyPolicy(){
+        ViewInteraction bottomNavigationItemView = onView(
+                allOf(withId(R.id.navigation_settings), withContentDescription("Settings"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.nav_view),
+                                        0),
+                                2),
+                        isDisplayed()));
+        bottomNavigationItemView.perform(click());
 
         ViewInteraction materialButton2 = onView(
                 allOf(withId(R.id.shalom_privacy_policy_btn), withText("Privacy Policy"),
