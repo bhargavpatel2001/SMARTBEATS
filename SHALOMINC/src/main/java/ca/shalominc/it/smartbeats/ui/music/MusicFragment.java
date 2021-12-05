@@ -162,7 +162,6 @@ public class MusicFragment extends Fragment
         String sDuration = convertFormat(duration);
         shalomDuration.setText(sDuration);
 
-
         //Setting up Media Player
         mediaPlayer.setAudioAttributes
                 (new AudioAttributes
@@ -171,21 +170,10 @@ public class MusicFragment extends Fragment
                         .build()
                 );
 
-
-
         //Setting Audio Stream / Default Track
-        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        DBSongUrl = "https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/BLR%20-%20Taj.mp3?alt=media&token=e3aacbca-33a4-4368-ad0a-7ba49f2f6692";
-        try
-        {
-            mediaPlayer.setDataSource(DBSongUrl);
-            mediaPlayer.prepare();
+        mediaPlayer = MediaPlayer.create(getContext(),R.raw.taj);
 
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
+
 
         // Spinner Item selector
         // Refactored code where it would download songs and play it from the stream so now it prompts a snackbar, downloads song and enables user to still stream the track.
@@ -597,6 +585,7 @@ public class MusicFragment extends Fragment
                     mediaPlayer.seekTo(progress);
                 }
                 shalomPosition.setText(convertFormat(mediaPlayer.getCurrentPosition()));
+                shalomDuration.setText(convertFormat(mediaPlayer.getDuration()));
             }
 
             @Override
