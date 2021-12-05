@@ -160,6 +160,13 @@ public class MainActivity extends AppCompatActivity
 
                 pwrOutput();
 
+                if(flag == 1){
+                    item.setIcon(R.drawable.poweroff);
+                }
+                if(flag == 2){
+                    item.setIcon(R.drawable.poweron);
+                }
+
                 break;
 
             case R.id.bluetoothBtn:
@@ -178,15 +185,15 @@ public class MainActivity extends AppCompatActivity
     // On and Off switch inside the menu for power
     void pwrOutput()
     {
-        switch (flag)
-        {
-            case 1:
+       switch (flag)
+       {
+          case 1:
 
-                Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), R.string.snackbar_pwr_btn_on, Snackbar.LENGTH_LONG);
-                snackbar.setTextColor(getResources().getColor(R.color.black));
-                snackbar.setBackgroundTint(getResources().getColor(R.color.purple_200));
-                snackbar.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE);
-                snackbar.show();
+                    Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), R.string.snackbar_pwr_btn_on, Snackbar.LENGTH_LONG);
+                    snackbar.setTextColor(getResources().getColor(R.color.black));
+                    snackbar.setBackgroundTint(getResources().getColor(R.color.purple_200));
+                    snackbar.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE);
+                    snackbar.show();
 
 
                 flag++;
@@ -195,15 +202,15 @@ public class MainActivity extends AppCompatActivity
 
             case 2:
 
-                snackbar = Snackbar.make(findViewById(android.R.id.content), R.string.snackbar_pwr_btn_off, Snackbar.LENGTH_LONG);
-                snackbar.setTextColor(getResources().getColor(R.color.black));
-                snackbar.setBackgroundTint(getResources().getColor(R.color.purple_200));
-                snackbar.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE);
-                snackbar.show();
+                    snackbar = Snackbar.make(findViewById(android.R.id.content), R.string.snackbar_pwr_btn_off, Snackbar.LENGTH_LONG);
+                    snackbar.setTextColor(getResources().getColor(R.color.black));
+                    snackbar.setBackgroundTint(getResources().getColor(R.color.purple_200));
+                    snackbar.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE);
+                    snackbar.show();
 
-                flag=1;
+                    flag = 1;
 
-                break;
+                    break;
         }
     }
 

@@ -20,7 +20,7 @@
         android:id="@+id/lightsPwrBtn"
         app:showAsAction="always"
         android:title="@string/menu_bar_lights_pwr_btn_title"
-        android:icon="@drawable/on_off_icon_foreground">
+        android:icon="@drawable/poweroff">
     </item>
 
     <item
