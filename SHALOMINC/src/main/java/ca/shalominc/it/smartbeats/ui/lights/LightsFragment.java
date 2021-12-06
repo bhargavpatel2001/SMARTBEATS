@@ -38,6 +38,7 @@ import java.util.HashMap;
 
 import ca.shalominc.it.smartbeats.R;
 
+// Refactored the whole fragment into methods/functionality to make it more readable
 public class LightsFragment extends Fragment {
 
     private TextView shalomHeadingTV;
@@ -54,7 +55,7 @@ public class LightsFragment extends Fragment {
 
     private Spinner shalomLightsSpinner;
 
-    private SeekBar shalomSeekbar;
+    private SeekBar shalomBrightnessSeekbar;
 
     String clickedModeName = "";
 
@@ -94,7 +95,7 @@ public class LightsFragment extends Fragment {
         shalomLightsSpinner.setAdapter(shalomAdapter);
 
         //Brightness Seekbar
-        shalomSeekbar = view.findViewById(R.id.shalom_color_brightness_seekBar);                                     //Brightness SeekBar
+        shalomBrightnessSeekbar = view.findViewById(R.id.shalom_color_brightness_seekBar);                                     //Brightness SeekBar
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
         int spinnerValue = sharedPref.getInt("userChoiceSpinner",-1);
@@ -132,7 +133,7 @@ public class LightsFragment extends Fragment {
         });
 
         //Value sender for brightness to the database
-        shalomSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        shalomBrightnessSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 brightness = progress;

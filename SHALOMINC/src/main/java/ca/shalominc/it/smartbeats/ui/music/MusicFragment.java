@@ -47,28 +47,29 @@ import java.util.concurrent.TimeUnit;
 
 import ca.shalominc.it.smartbeats.R;
 
+// Refactored the whole fragment into methods/functionality to make it more readable
 public class MusicFragment extends Fragment
 {
     //Media Player
     MediaPlayer shalomMediaPlayer;
-    TextView shalomPosition, shalomDuration;
-    SeekBar shalomSeekBar;
-    ImageView shalomRew, shalomPlay, shalomPause, shalomFastForward;
-    ImageView shalomVinyl;
+    TextView shalomMediaStartTimerTV, shalomMediaEndTimerTV;
+    SeekBar shalomMediaSeekBar;
+    ImageView shalomRewindIvBtn, shalomPlayIvBtn, shalomPauseIvBtn, shalomFastForwardIvBtn;
+    ImageView shalomMusicDiscIV;
     Animation rotateAnimation;
-    Handler handler = new Handler();
-    Runnable runnable;
+    Handler shalomHandler = new Handler();
+    Runnable shalomRunnable;
 
     //Audio Manager
     AudioManager ShalomAM;
-    SeekBar shalomVolume;
+    SeekBar shalomVolumeSeekbar;
 
     //Spinner for user to select songs.
     Spinner shalomSongSpinner;
     String spinnerString;
 
     //Song selector
-    String DBSongUrl, DBSongUrlChoice, DBSongName, DBSongExtension, TextChanger;
+    String DBSongUrlChoice, DBSongName, DBSongExtension, TextChanger;
 
 
 
@@ -84,7 +85,6 @@ public class MusicFragment extends Fragment
     long shalomTimeLeftInMillis;
     long shalomEndTime;
     private DownloadManager mgr = null;
-    private long lastDownload;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -109,22 +109,22 @@ public class MusicFragment extends Fragment
 
         //Media Player and the options
         shalomMediaPlayer = new MediaPlayer();                                                            // Creates New MediaPlayer
-        shalomPosition = view.findViewById(R.id.shalom_music_startimer_tv);                                      // Increment Counter TextView
-        shalomDuration = view.findViewById(R.id.shalom_music_endtimer_tv);                             // Decrement Counter TextView
-        shalomSeekBar = view.findViewById(R.id.shalom_music_player_seekbar);                                     // Music Seekbar
-        shalomRew = view.findViewById(R.id.shalom_music_rewind_ivbtn);                                          // Rewind Button ImageView
-        shalomPlay = view.findViewById(R.id.shalom_music_play_ivbtn);                                               // Play Button ImageView
-        shalomPause = view.findViewById(R.id.bt_pause);                                             // Pause Button ImageView
-        shalomFastForward = view.findViewById(R.id.bt_ff);                                          // Fast Forward Button ImageView
-        shalomVinyl = view.findViewById(R.id.shalom_music_disc_iv);                                            // Disc Display Rotating ImageView
+        shalomMediaStartTimerTV = view.findViewById(R.id.shalom_music_startimer_tv);                                      // Increment Counter TextView
+        shalomMediaEndTimerTV = view.findViewById(R.id.shalom_music_endtimer_tv);                             // Decrement Counter TextView
+        shalomMediaSeekBar = view.findViewById(R.id.shalom_music_player_seekbar);                                     // Music Seekbar
+        shalomRewindIvBtn = view.findViewById(R.id.shalom_music_rewind_ivbtn);                                          // Rewind Button ImageView
+        shalomPlayIvBtn = view.findViewById(R.id.shalom_music_play_ivbtn);                                               // Play Button ImageView
+        shalomPauseIvBtn = view.findViewById(R.id.shalom_music_pause_ivbtn);                                             // Pause Button ImageView
+        shalomFastForwardIvBtn = view.findViewById(R.id.shalom_music_fastforward_ivbtn);                                          // Fast Forward Button ImageView
+        shalomMusicDiscIV = view.findViewById(R.id.shalom_music_disc_iv);                                            // Disc Display Rotating ImageView
 
         //Adjust Volumes.
-        shalomVolume = view.findViewById(R.id.shalom_music_volume_seekbar);                                       // Volume Seekbar
+        shalomVolumeSeekbar = view.findViewById(R.id.shalom_music_volume_seekbar);                                       // Volume Seekbar
         ShalomAM = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);            // Audio Manager
         int maxVol = ShalomAM.getStreamMaxVolume(ShalomAM.STREAM_MUSIC);
         int curVol = ShalomAM.getStreamVolume(ShalomAM.STREAM_MUSIC);
-        shalomVolume.setMax(maxVol);
-        shalomVolume.setProgress(curVol);
+        shalomVolumeSeekbar.setMax(maxVol);
+        shalomVolumeSeekbar.setProgress(curVol);
 
         // Timer Count down
         shalomEditTextInput = view.findViewById(R.id.shalom_music_minutes_et);                       // User Input for EditText
@@ -139,346 +139,28 @@ public class MusicFragment extends Fragment
         sAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         shalomSongSpinner.setAdapter(sAdapter);
 
+        // Setting the starting value for the timer to 00:00
         SharedPreferences shalomprefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-        String decrementTV = shalomprefs.getString("TimeChanger", getString(R.string.zero));
+        String decrementTV = shalomprefs.getString("TimeChanger", "00:00");
         shalomTextViewCountDown.setText(decrementTV);
-
-        //Seekbar progress Duration check for the song.
-        runnable = new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                shalomSeekBar.setProgress(shalomMediaPlayer.getCurrentPosition());
-
-                handler.postDelayed(this, 500);
-
-            }
-        };
 
         // Counter for the start text and end text of the music duration.
         int duration = shalomMediaPlayer.getDuration();
         String sDuration = convertFormat(duration);
-        shalomDuration.setText(sDuration);
+        shalomMediaEndTimerTV.setText(sDuration);
 
-        //Setting up Media Player
-        shalomMediaPlayer.setAudioAttributes
-                (new AudioAttributes
-                        .Builder()
-                        .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-                        .build()
-                );
+        // Calling function setUpMediaPlayer();
+        setUpMediaPlayer();
 
-        //Setting Audio Stream / Default Track
-        shalomMediaPlayer = MediaPlayer.create(getContext(),R.raw.taj);
-
+        //Setting button to invisible
         shalomButtonStartPause.setVisibility(View.INVISIBLE);
 
         // Spinner Item selector
-        // Refactored code where it would download songs and play it from the stream so now it prompts a snackbar, downloads song and enables user to still stream the track.
-        shalomSongSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-        {
+        shalomSongSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l)
             {
-                spinnerString = shalomSongSpinner.getItemAtPosition(position).toString();
-                Context context = getContext();
-                MusicFragment.DownloadMP3 downloadMP3 = new MusicFragment.DownloadMP3();
-                switch (spinnerString)
-                {
-                    case "Select Your Song":
-
-                        Toast.makeText(context,R.string.select_song_below, Toast.LENGTH_LONG).show();
-
-                        break;
-
-                    case "ATC - All Around The World":
-                        Toast.makeText(context,R.string.atc, Toast.LENGTH_LONG).show();
-
-                        DBSongUrlChoice = "https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/ATC%20-%20All%20Around%20The%20World.mp3?alt=media&token=41077a29-12e9-4371-b8a0-af1c7179a0d4";
-                        DBSongName = getString(R.string.atc);
-                        DBSongExtension = getString(R.string.mp3);
-                        TextChanger = getString(R.string.downloading_atc);
-
-                        Snackbar snackbarSongOneIM = Snackbar.make(getView(), TextChanger, Snackbar.LENGTH_LONG);
-                        snackbarSongOneIM.setTextColor(getResources().getColor(R.color.black));
-                        snackbarSongOneIM.setBackgroundTint(getResources().getColor(R.color.purple_200));
-                        snackbarSongOneIM.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE);
-                        snackbarSongOneIM.show();
-
-                        new CountDownTimer(2000, 1000)
-                        {
-                            public void onTick(long millisUntilFinished)
-                            {
-
-                            }
-
-                            public void onFinish()
-                            {
-                                downloadMP3.execute();
-                            }
-                        }.start();
-
-                        new CountDownTimer(2000, 1000)
-                        {
-                            public void onTick(long millisUntilFinished)
-                            {
-
-                            }
-
-                            public void onFinish()
-                            {
-                                Snackbar snackbarSongOneC = Snackbar.make(getView(), "Download Complete", Snackbar.LENGTH_LONG);
-                                snackbarSongOneC.setTextColor(getResources().getColor(R.color.black));
-                                snackbarSongOneC.setBackgroundTint(getResources().getColor(R.color.purple_200));
-                                snackbarSongOneC.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE);
-                                snackbarSongOneC.show();
-                            }
-                        }.start();
-
-                        shalomMediaPlayer.reset();
-
-                        try
-                        {
-                            shalomMediaPlayer.setDataSource(DBSongUrlChoice);
-                            shalomMediaPlayer.prepare();
-                        }
-                        catch (IOException e)
-                        {
-                            e.printStackTrace();
-                        }
-
-
-                        break;
-
-                    case "Dynoro - In My Mind":
-
-                        Toast.makeText(context,R.string.dynoro, Toast.LENGTH_LONG).show();
-                        DBSongUrlChoice = "https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/Dynoro%20-%20In%20My%20Mind.mp3?alt=media&token=8600afad-31fb-4f7f-97b4-92e2968ff851";
-                        DBSongName = getString(R.string.dynoro);
-                        DBSongExtension = getString(R.string.mp3);
-                        TextChanger = getString(R.string.downloading_dynoro);
-
-                        Snackbar snackbarSongTwoIM = Snackbar.make(getView(), TextChanger, Snackbar.LENGTH_LONG);
-                        snackbarSongTwoIM.setTextColor(getResources().getColor(R.color.black));
-                        snackbarSongTwoIM.setBackgroundTint(getResources().getColor(R.color.purple_200));
-                        snackbarSongTwoIM.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE);
-                        snackbarSongTwoIM.show();
-
-                        new CountDownTimer(2000, 1000)
-                        {
-                            public void onTick(long millisUntilFinished)
-                            {
-
-                            }
-
-                            public void onFinish()
-                            {
-                                downloadMP3.execute();
-                            }
-                        }.start();
-
-                        new CountDownTimer(2000, 1000)
-                        {
-                            public void onTick(long millisUntilFinished)
-                            {
-
-                            }
-
-                            public void onFinish()
-                            {
-                                Snackbar snackbarSongTwoC = Snackbar.make(getView(), "Download Complete", Snackbar.LENGTH_LONG);
-                                snackbarSongTwoC.setTextColor(getResources().getColor(R.color.black));
-                                snackbarSongTwoC.setBackgroundTint(getResources().getColor(R.color.purple_200));
-                                snackbarSongTwoC.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE);
-                                snackbarSongTwoC.show();
-                            }
-                        }.start();
-
-                        shalomMediaPlayer.reset();
-
-                        try
-                        {
-                            shalomMediaPlayer.setDataSource(DBSongUrlChoice);
-                            shalomMediaPlayer.prepare();
-                        }
-                        catch (IOException e)
-                        {
-                            e.printStackTrace();
-                        }
-
-                        break;
-
-                    case "MEDUZA - Lose Control":
-                        Toast.makeText(context,R.string.meduza, Toast.LENGTH_LONG).show();
-                        DBSongUrlChoice = "https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/MEDUZA%20-%20Lose%20Control.mp3?alt=media&token=92253d10-47c6-455b-897b-14bec7e1b923";
-                        DBSongName = getString(R.string.meduza);
-                        DBSongExtension = getString(R.string.mp3);
-                        TextChanger = getString(R.string.downloading_meduza);
-
-                        Snackbar snackbarSongThreeIM = Snackbar.make(getView(), TextChanger, Snackbar.LENGTH_LONG);
-                        snackbarSongThreeIM.setTextColor(getResources().getColor(R.color.black));
-                        snackbarSongThreeIM.setBackgroundTint(getResources().getColor(R.color.purple_200));
-                        snackbarSongThreeIM.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE);
-                        snackbarSongThreeIM.show();
-
-                        new CountDownTimer(2000, 1000)
-                        {
-                            public void onTick(long millisUntilFinished)
-                            {
-
-                            }
-
-                            public void onFinish()
-                            {
-                                downloadMP3.execute();
-                            }
-                        }.start();
-
-                        new CountDownTimer(2000, 1000)
-                        {
-                            public void onTick(long millisUntilFinished)
-                            {
-
-                            }
-
-                            public void onFinish()
-                            {
-                                Snackbar snackbarSongThreeC = Snackbar.make(getView(), "Download Complete", Snackbar.LENGTH_LONG);
-                                snackbarSongThreeC.setTextColor(getResources().getColor(R.color.black));
-                                snackbarSongThreeC.setBackgroundTint(getResources().getColor(R.color.purple_200));
-                                snackbarSongThreeC.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE);
-                                snackbarSongThreeC.show();
-                            }
-                        }.start();
-
-                        shalomMediaPlayer.reset();
-
-                        try
-                        {
-                            shalomMediaPlayer.setDataSource(DBSongUrlChoice);
-                            shalomMediaPlayer.prepare();
-                        }
-                        catch (IOException e)
-                        {
-                            e.printStackTrace();
-                        }
-
-                        break;
-
-                    case "Regard - Ride It":
-                        Toast.makeText(context,R.string.rideIt, Toast.LENGTH_LONG).show();
-                        DBSongUrlChoice = "https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/Regard%20-%20Ride%20It.mp3?alt=media&token=d52d0d1e-1152-4b64-9cfc-0def83505f00";
-                        DBSongName = getString(R.string.rideIt);
-                        DBSongExtension = getString(R.string.mp3);
-                        TextChanger = getString(R.string.downloading_riedIt);
-
-                        Snackbar snackbarSongFourIM = Snackbar.make(getView(), TextChanger, Snackbar.LENGTH_LONG);
-                        snackbarSongFourIM.setTextColor(getResources().getColor(R.color.black));
-                        snackbarSongFourIM.setBackgroundTint(getResources().getColor(R.color.purple_200));
-                        snackbarSongFourIM.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE);
-                        snackbarSongFourIM.show();
-
-                        new CountDownTimer(2000, 1000)
-                        {
-                            public void onTick(long millisUntilFinished)
-                            {
-
-                            }
-
-                            public void onFinish()
-                            {
-                                downloadMP3.execute();
-                            }
-                        }.start();
-
-                        new CountDownTimer(2000, 1000)
-                        {
-                            public void onTick(long millisUntilFinished)
-                            {
-
-                            }
-
-                            public void onFinish()
-                            {
-                                Snackbar snackbarSongFourC = Snackbar.make(getView(), "Download Complete", Snackbar.LENGTH_LONG);
-                                snackbarSongFourC.setTextColor(getResources().getColor(R.color.black));
-                                snackbarSongFourC.setBackgroundTint(getResources().getColor(R.color.purple_200));
-                                snackbarSongFourC.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE);
-                                snackbarSongFourC.show();
-                            }
-                        }.start();
-
-                        shalomMediaPlayer.reset();
-
-                        try
-                        {
-                            shalomMediaPlayer.setDataSource(DBSongUrlChoice);
-                            shalomMediaPlayer.prepare();
-                        }
-                        catch (IOException e)
-                        {
-                            e.printStackTrace();
-                        }
-
-                        break;
-
-                    case "SAINt Jhn - Roses":
-                        Toast.makeText(context,R.string.roses, Toast.LENGTH_LONG).show();
-                        DBSongUrlChoice = "https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/SAINt%20Jhn%20-%20Roses.mp3?alt=media&token=d077c318-e028-4ee1-a043-bc896c49dacb";
-                        DBSongName = getString(R.string.roses);
-                        DBSongExtension = getString(R.string.mp3);
-                        TextChanger = getString(R.string.downloading_roses);
-
-                        Snackbar snackbarSongFiveIM = Snackbar.make(getView(), TextChanger, Snackbar.LENGTH_LONG);
-                        snackbarSongFiveIM.setTextColor(getResources().getColor(R.color.black));
-                        snackbarSongFiveIM.setBackgroundTint(getResources().getColor(R.color.purple_200));
-                        snackbarSongFiveIM.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE);
-                        snackbarSongFiveIM.show();
-
-                        new CountDownTimer(2000, 1000)
-                        {
-                            public void onTick(long millisUntilFinished)
-                            {
-
-                            }
-
-                            public void onFinish()
-                            {
-                                downloadMP3.execute();
-                            }
-                        }.start();
-
-                        new CountDownTimer(2000, 1000)
-                        {
-                            public void onTick(long millisUntilFinished)
-                            {
-
-                            }
-
-                            public void onFinish()
-                            {
-                                Snackbar snackbarSongFiveC = Snackbar.make(getView(), "Download Complete", Snackbar.LENGTH_LONG);
-                                snackbarSongFiveC.setTextColor(getResources().getColor(R.color.black));
-                                snackbarSongFiveC.setBackgroundTint(getResources().getColor(R.color.purple_200));
-                                snackbarSongFiveC.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE);
-                                snackbarSongFiveC.show();
-                            }
-                        }.start();
-
-                        shalomMediaPlayer.reset();
-
-                        try {
-                            shalomMediaPlayer.setDataSource(DBSongUrlChoice);
-                            shalomMediaPlayer.prepare();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
-                        break;
-
-                }
-
+                createMediaPlayerCases(position);
             }
 
             @Override
@@ -487,65 +169,57 @@ public class MusicFragment extends Fragment
             }
         });
 
-        // Spinner Item selector ENDS HERE
-
         // Volume changer for music
-        shalomVolume.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        shalomVolumeSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 ShalomAM.setStreamVolume(AudioManager.STREAM_MUSIC, progress, 0);
-
             }
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
+            public void onStartTrackingTouch(SeekBar seekBar) { }
 
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
+            public void onStopTrackingTouch(SeekBar seekBar) { }
         });
 
         // Play button click listener
-        shalomPlay.setOnClickListener(new View.OnClickListener() {
+        shalomPlayIvBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                shalomPlay.setVisibility(View.GONE);
-                shalomPause.setVisibility(View.VISIBLE);
+                shalomPlayIvBtn.setVisibility(View.GONE);
+                shalomPauseIvBtn.setVisibility(View.VISIBLE);
 
                 shalomMediaPlayer.start();
 
-                startRotateAnimation(); // Calling function rotateAnimation();
+                // Calling function rotateAnimation();
+                startRotateAnimation();
 
-                shalomSeekBar.setMax(shalomMediaPlayer.getDuration());
-
-                handler.postDelayed(runnable, 0);
+                shalomMediaSeekBar.setMax(shalomMediaPlayer.getDuration());
+                shalomHandler.postDelayed(shalomRunnable, 0);
             }
 
         });
 
         // Music Pause button click listener
-        shalomPause.setOnClickListener(new View.OnClickListener() {
+        shalomPauseIvBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                shalomPause.setVisibility(View.GONE);
-
-                shalomPlay.setVisibility(View.VISIBLE);
+                shalomPauseIvBtn.setVisibility(View.GONE);
+                shalomPlayIvBtn.setVisibility(View.VISIBLE);
 
                 shalomMediaPlayer.pause();
 
+                // Calling function endRotateAnimation();
                 endRotateAnimation();
 
-                handler.removeCallbacks(runnable);
-
+                shalomHandler.removeCallbacks(shalomRunnable);
             }
         });
 
         //FastForward button click Listener
-        shalomFastForward.setOnClickListener(new View.OnClickListener() {
+        shalomFastForwardIvBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int currentPosition = shalomMediaPlayer.getCurrentPosition();
@@ -554,7 +228,7 @@ public class MusicFragment extends Fragment
 
                 if (shalomMediaPlayer.isPlaying() && duration != currentPosition) {
                     currentPosition = currentPosition + 5000;
-                    shalomPosition.setText(convertFormat(currentPosition));
+                    shalomMediaStartTimerTV.setText(convertFormat(currentPosition));
                     shalomMediaPlayer.seekTo(currentPosition);
 
                 }
@@ -563,13 +237,13 @@ public class MusicFragment extends Fragment
         });
 
         //Rewind button click listener
-        shalomRew.setOnClickListener(new View.OnClickListener() {
+        shalomRewindIvBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int currentPosition = shalomMediaPlayer.getCurrentPosition();
                 if (shalomMediaPlayer.isPlaying() && currentPosition > 5000) {
                     currentPosition = currentPosition - 5000;
-                    shalomPosition.setText(convertFormat(currentPosition));
+                    shalomMediaStartTimerTV.setText(convertFormat(currentPosition));
                     shalomMediaPlayer.seekTo(currentPosition);
 
                 }
@@ -577,34 +251,28 @@ public class MusicFragment extends Fragment
         });
 
         //SeekBar change listener
-        shalomSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        shalomMediaSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if (fromUser) {
                     shalomMediaPlayer.seekTo(progress);
                 }
-                shalomPosition.setText(convertFormat(shalomMediaPlayer.getCurrentPosition()));
-                shalomDuration.setText(convertFormat(shalomMediaPlayer.getDuration()));
+                shalomMediaStartTimerTV.setText(convertFormat(shalomMediaPlayer.getCurrentPosition()));
+                shalomMediaEndTimerTV.setText(convertFormat(shalomMediaPlayer.getDuration()));
             }
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
+            public void onStartTrackingTouch(SeekBar seekBar) { }
 
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
+            public void onStopTrackingTouch(SeekBar seekBar) { }});
 
         //Pause and play visibility
         shalomMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                shalomPause.setVisibility(View.GONE);
-                shalomPlay.setVisibility(View.VISIBLE);
-                //shalomMediaPlayer.seekTo(0);
+                shalomPauseIvBtn.setVisibility(View.GONE);
+                shalomPlayIvBtn.setVisibility(View.VISIBLE);
             }
         });
 
@@ -618,7 +286,8 @@ public class MusicFragment extends Fragment
                     return;
                 }
 
-                long millisInput = Long.parseLong(input) * 60000;
+                long millisInput = Long.parseLong(input) * 60000;  // Changes user Input to Minutes
+
                 if (millisInput == 0) {
                     Toast.makeText(getContext(), R.string.enter_positive_number, Toast.LENGTH_SHORT).show();
                     return;
@@ -629,7 +298,7 @@ public class MusicFragment extends Fragment
             }
         });
 
-        //Timer Pause Button
+        //Timer Start Pause Button
         shalomButtonStartPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -652,8 +321,7 @@ public class MusicFragment extends Fragment
     }
 
     // Async Task for Downloading music to Downloads folder
-    private class DownloadMP3 extends AsyncTask<String, Integer, String>
-    {
+    private class DownloadMP3 extends AsyncTask<String, Integer, String> {
         @Override
         protected void onPreExecute()
         {
@@ -668,7 +336,6 @@ public class MusicFragment extends Fragment
             {
                 Uri uri=Uri.parse(DBSongUrlChoice);
                 mgr = (DownloadManager) getActivity().getSystemService(Context.DOWNLOAD_SERVICE);
-                lastDownload=
                         mgr.enqueue(new DownloadManager.Request(uri)
                                 .setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI |
                                         DownloadManager.Request.NETWORK_MOBILE)
@@ -701,30 +368,6 @@ public class MusicFragment extends Fragment
                 }
             }.start();
         }
-    }
-
- // Music Disc spinning rotating animation
-    private void startRotateAnimation()
-    {
-        rotateAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.spinimage);
-        shalomVinyl.startAnimation(rotateAnimation);
-
-    }
-
-    // Music Disc spinning rotating animation
-    private void endRotateAnimation()
-    {
-        rotateAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.spinimage);
-        shalomVinyl.clearAnimation();
-    }
-
-
-    private String convertFormat(int duration)
-    {
-        return String.format("%02d:%02d",
-                TimeUnit.MILLISECONDS.toMinutes(duration),
-                TimeUnit.MILLISECONDS.toSeconds(duration) -
-                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(duration)));
     }
 
     //Setting the CountDown Timer
@@ -816,5 +459,180 @@ public class MusicFragment extends Fragment
                 shalomButtonReset.setVisibility(View.INVISIBLE);
             }
         }
+    }
+
+    //sets up the Mediaplayer and the seekbar and provides a default track
+    public void setUpMediaPlayer(){
+
+        //Setting up Media Player
+        shalomMediaPlayer.setAudioAttributes
+                (new AudioAttributes
+                        .Builder()
+                        .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                        .build()
+                );
+
+        //Seekbar progress Duration check for the song.
+        shalomRunnable = new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                shalomMediaSeekBar.setProgress(shalomMediaPlayer.getCurrentPosition());
+
+                shalomHandler.postDelayed(this, 500);
+
+            }
+        };
+
+        //Setting Audio Stream / Default Track
+        shalomMediaPlayer = MediaPlayer.create(getContext(),R.raw.taj);
+    }
+
+    // Creates cases to setup songs for each spinner position
+    public void createMediaPlayerCases(int position){
+        spinnerString = shalomSongSpinner.getItemAtPosition(position).toString();
+        Context context = getContext();
+
+        switch (spinnerString)
+        {
+            case "Select Your Song":
+                Toast.makeText(context,R.string.select_song_below, Toast.LENGTH_LONG).show();
+
+                break;
+
+            case "ATC - All Around The World":
+                Toast.makeText(context,R.string.atc, Toast.LENGTH_LONG).show();
+
+                DBSongUrlChoice = "https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/ATC%20-%20All%20Around%20The%20World.mp3?alt=media&token=41077a29-12e9-4371-b8a0-af1c7179a0d4";
+                DBSongName = getString(R.string.atc);
+                DBSongExtension = getString(R.string.mp3);
+                TextChanger = getString(R.string.downloading_atc);
+
+                downloadingSong();
+                databaseToMediaPlayer();
+
+                break;
+
+            case "Dynoro - In My Mind":
+
+                Toast.makeText(context,R.string.dynoro, Toast.LENGTH_LONG).show();
+
+                DBSongUrlChoice = "https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/Dynoro%20-%20In%20My%20Mind.mp3?alt=media&token=8600afad-31fb-4f7f-97b4-92e2968ff851";
+                DBSongName = getString(R.string.dynoro);
+                DBSongExtension = getString(R.string.mp3);
+                TextChanger = getString(R.string.downloading_dynoro);
+
+                downloadingSong();
+                databaseToMediaPlayer();
+
+                break;
+
+            case "MEDUZA - Lose Control":
+                Toast.makeText(context,R.string.meduza, Toast.LENGTH_LONG).show();
+
+                DBSongUrlChoice = "https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/MEDUZA%20-%20Lose%20Control.mp3?alt=media&token=92253d10-47c6-455b-897b-14bec7e1b923";
+                DBSongName = getString(R.string.meduza);
+                DBSongExtension = getString(R.string.mp3);
+                TextChanger = getString(R.string.downloading_meduza);
+
+                downloadingSong();
+                databaseToMediaPlayer();
+
+                break;
+
+            case "Regard - Ride It":
+                Toast.makeText(context,R.string.rideIt, Toast.LENGTH_LONG).show();
+
+                DBSongUrlChoice = "https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/Regard%20-%20Ride%20It.mp3?alt=media&token=d52d0d1e-1152-4b64-9cfc-0def83505f00";
+                DBSongName = getString(R.string.rideIt);
+                DBSongExtension = getString(R.string.mp3);
+                TextChanger = getString(R.string.downloading_riedIt);
+
+                downloadingSong();
+                databaseToMediaPlayer();
+
+                break;
+
+            case "SAINt Jhn - Roses":
+                Toast.makeText(context,R.string.roses, Toast.LENGTH_LONG).show();
+
+                DBSongUrlChoice = "https://firebasestorage.googleapis.com/v0/b/shalominc-smartbeats.appspot.com/o/SAINt%20Jhn%20-%20Roses.mp3?alt=media&token=d077c318-e028-4ee1-a043-bc896c49dacb";
+                DBSongName = getString(R.string.roses);
+                DBSongExtension = getString(R.string.mp3);
+                TextChanger = getString(R.string.downloading_roses);
+
+                downloadingSong();
+                databaseToMediaPlayer();
+
+                break;
+        }
+    }
+
+    //Receives the musics from database and connects to musics;
+    public void databaseToMediaPlayer(){
+        shalomMediaPlayer.reset();
+
+        try
+        {
+            shalomMediaPlayer.setDataSource(DBSongUrlChoice);
+            shalomMediaPlayer.prepare();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    // Refactored code where it would download songs and play it from the stream so now it prompts a snackbar, downloads song and enables user to still stream the track.
+    public void downloadingSong(){
+        MusicFragment.DownloadMP3 downloadMP3 = new MusicFragment.DownloadMP3();
+
+        Snackbar snackbarSongOneIM = Snackbar.make(getView(), TextChanger, Snackbar.LENGTH_LONG);
+        snackbarSongOneIM.setTextColor(getResources().getColor(R.color.black));
+        snackbarSongOneIM.setBackgroundTint(getResources().getColor(R.color.purple_200));
+        snackbarSongOneIM.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE);
+        snackbarSongOneIM.show();
+
+        new CountDownTimer(2000, 1000) {
+            public void onTick(long millisUntilFinished) { }
+
+            public void onFinish()
+            {
+                downloadMP3.execute();
+            }
+        }.start();
+
+        new CountDownTimer(2000, 1000) {
+            public void onTick(long millisUntilFinished) { }
+
+            public void onFinish() {
+                Snackbar snackbarSongOneC = Snackbar.make(getView(), "Download Complete", Snackbar.LENGTH_LONG);
+                snackbarSongOneC.setTextColor(getResources().getColor(R.color.black));
+                snackbarSongOneC.setBackgroundTint(getResources().getColor(R.color.purple_200));
+                snackbarSongOneC.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE);
+                snackbarSongOneC.show();
+            }}.start();
+    }
+
+    // Music Disc spinning rotating animation
+    private void startRotateAnimation() {
+        rotateAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.spinimage);
+        shalomMusicDiscIV.startAnimation(rotateAnimation);
+
+    }
+
+    // Music Disc spinning rotating animation
+    private void endRotateAnimation() {
+        rotateAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.spinimage);
+        shalomMusicDiscIV.clearAnimation();
+    }
+
+  // Converting format for start and end time of a song
+    private String convertFormat(int duration) {
+        return String.format("%02d:%02d",
+                        TimeUnit.MILLISECONDS.toMinutes(duration),
+                        TimeUnit.MILLISECONDS.toSeconds(duration) -
+                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(duration)));
     }
 }

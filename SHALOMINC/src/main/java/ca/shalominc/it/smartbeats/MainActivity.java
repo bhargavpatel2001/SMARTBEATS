@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity
 
         // Handle item selection
         Intent intent = null;
-        musicSpinner = findViewById(R.id.shalom_music_spinner);
+        musicSpinner = findViewById(R.id.shalom_music_songs_spinner);
 
         switch (item.getItemId())
         {

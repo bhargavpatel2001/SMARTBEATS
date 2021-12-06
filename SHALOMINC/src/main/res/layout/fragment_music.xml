@@ -19,7 +19,7 @@
         android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/shalom_edit_text_input"
+            android:id="@+id/shalom_music_minutes_et"
             android:layout_width="wrap_content"
             android:layout_height="44dp"
             android:layout_alignParentStart="true"
@@ -35,7 +35,7 @@
             android:maxLength="4" />
 
         <Button
-            android:id="@+id/shalom_button_set"
+            android:id="@+id/shalom_music_set_btn"
             android:layout_width="wrap_content"
             android:layout_height="49dp"
             android:layout_alignParentStart="true"
@@ -48,7 +48,7 @@
             android:text="@string/set" />
 
         <TextView
-            android:id="@+id/shalom_text_view_countdown"
+            android:id="@+id/shalom_muic_countdown_tv"
             android:layout_width="177dp"
             android:layout_height="60dp"
             android:layout_alignParentStart="true"
@@ -60,10 +60,10 @@
             android:layout_marginEnd="108dp"
             android:layout_marginBottom="142dp"
             android:text="@string/_00_00"
-            android:textSize="50dp" />
+            android:textSize="50sp" />
 
         <Button
-            android:id="@+id/shalom_button_start_pause"
+            android:id="@+id/shalom_music_start_btn"
             android:layout_width="110dp"
             android:layout_height="51dp"
             android:layout_alignParentStart="true"
@@ -73,12 +73,11 @@
             android:layout_marginStart="98dp"
             android:layout_marginTop="129dp"
             android:layout_marginEnd="203dp"
-            android:layout_marginRight="20dp"
             android:layout_marginBottom="74dp"
             android:text="@string/t_start" />
 
         <Button
-            android:id="@+id/shalom_button_reset"
+            android:id="@+id/shalom_music_reset_btn"
             android:layout_width="123dp"
             android:layout_height="49dp"
             android:layout_alignParentStart="true"
@@ -96,13 +95,14 @@
     </RelativeLayout>
 
     <ImageView
-        android:id="@+id/shalom_IV"
+        android:id="@+id/shalom_music_disc_iv"
         android:layout_width="212dp"
         android:layout_height="154dp"
-        android:src="@drawable/vinyl" />
+        android:src="@drawable/vinyl" >
+    </ImageView>
 
     <Spinner
-        android:id="@+id/shalom_music_spinner"
+        android:id="@+id/shalom_music_songs_spinner"
         android:layout_width="281dp"
         android:layout_height="wrap_content"
         android:spinnerMode="dropdown"
@@ -111,7 +111,7 @@
 
 
     <SeekBar
-        android:id="@+id/shalom_volume"
+        android:id="@+id/shalom_music_volume_seekbar"
         android:layout_width="292dp"
         android:layout_height="wrap_content"
         android:progressTint="@color/grape"
@@ -126,7 +126,7 @@
         android:padding="12dp">
 
         <TextView
-            android:id="@+id/shalom_timer"
+            android:id="@+id/shalom_music_startimer_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/_00_00"
@@ -135,7 +135,7 @@
         </TextView>
 
         <SeekBar
-            android:id="@+id/shalom_seekbar"
+            android:id="@+id/shalom_music_player_seekbar"
             android:layout_width="0dp"
             android:progressTint="@color/grape"
             android:thumbTint="@color/grape"
@@ -144,7 +144,7 @@
 
 
         <TextView
-            android:id="@+id/shalom_timer_duration"
+            android:id="@+id/shalom_music_endtimer_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/_00_00"
@@ -159,14 +159,14 @@
         android:layout_marginTop="8dp">
 
         <ImageView
-            android:id="@+id/shalom_rewind"
+            android:id="@+id/shalom_music_rewind_ivbtn"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:src="@drawable/ic_fast_rewind">
         </ImageView>
 
         <ImageView
-            android:id="@+id/bt_play"
+            android:id="@+id/shalom_music_play_ivbtn"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:background="@color/lilac"
@@ -175,20 +175,20 @@
         </ImageView>
 
         <ImageView
-            android:src="@drawable/shalom_pause"
+            android:id="@+id/shalom_music_pause_ivbtn"
+            android:src="@drawable/shalom_music_pause_ivbtn"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:elevation="10dp"
             android:background="@color/lilac"
-            android:id="@+id/bt_pause"
             android:visibility="gone">
         </ImageView>
 
         <ImageView
-            android:src="@drawable/shalom_forward"
+            android:id="@+id/shalom_music_fastforward_ivbtn"
+            android:src="@drawable/shalom_music_fastforward_ivbtn"
             android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:id="@+id/bt_ff">
+            android:layout_height="60dp">
         </ImageView>
 
     </LinearLayout>
