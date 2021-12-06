@@ -81,8 +81,8 @@
     <string name="error">Échec de l\'erreur</string>
     <string name="myNoti">Ma notification</string>
     <string name="review_submission">Réviser la soumission</string>
-    <string name="review_message">Réviser la soumissionMerci ! Votre avis a été soumis avec succès !</string>
-    <string name="rating">\"Évaluation: \"</string>
+    <string name="review_message">Merci! Votre avis a été soumis avec succès!</string>
+    <string name="rating">"Évaluation: "</string>
     <string name="select_song_below">Sélectionnez une chanson ci-dessous</string>
     <string name="atc">ATC - Partout dans le monde</string>
     <string name="mp3">.mp3</string>
@@ -104,10 +104,14 @@
     <string name="must_be_in_music_fragment_label">Doit etre dans fragment Musique!</string>
     <string name="must_enable_an_internet_connection">Activez la Connection Internet</string>
     <string name="Bluetooth_on">Please Turn on Bluetooth</string>
-    <string name="Invalid_email">Invalid Email!</string>
-    <string name="empty_field">Invalid Name! Field Empty</string>
-    <string name="Invalid_comment">Invalid Comment! Empty Field</string>
-    <string name="Invalid_phone_number">Invalid Phone Number</string>
-    <string name="night_enabled">Night mode enabled</string>
-    <string name="night_disabled">Night mode disabled</string>
+    <string name="Invalid_email">Address Courriel Invalide!</string>
+    <string name="empty_field">Nom Invalide! Champs vide</string>
+    <string name="Invalid_comment">Commentaire Invalide! Champ vide</string>
+    <string name="Invalid_phone_number">Numero Telephone Invalid</string>
+    <string name="Eval_review">Evaluez votre critique</string>
+    <string name="moment">Un moment s\'il vous plait</string>
+    <string name="night_enabled">Mode Nuit Active</string>
+    <string name="night_disabled">Mode Nuit Desactive</string>
+    <string name="channel_1">Channel 1</string>
+    <string name="channel_2">Channel 2</string>
 </resources>
