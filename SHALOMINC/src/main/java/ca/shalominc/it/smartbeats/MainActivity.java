@@ -224,7 +224,7 @@ public class MainActivity extends AppCompatActivity
                     break;
             }
         } else{
-            Toast.makeText(getApplicationContext(), "THIS BISH IS OFF", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Please Turn on Bluetooth", Toast.LENGTH_LONG).show();
         }
 
     }

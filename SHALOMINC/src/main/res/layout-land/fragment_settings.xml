@@ -7,7 +7,7 @@
 
 
     <Button
-        android:id="@+id/about_us_btn"
+        android:id="@+id/shalom_settings_aboutus_btn"
         android:layout_width="501dp"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -19,7 +19,7 @@
         android:textAlignment="textStart" />
 
     <Button
-        android:id="@+id/shalom_privacy_policy_btn"
+        android:id="@+id/shalom_settings_privacypolicy_btn"
         android:layout_width="504dp"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -31,7 +31,7 @@
         android:textAlignment="textStart" />
 
     <TextView
-        android:id="@+id/shalom_about_us_tv"
+        android:id="@+id/shalom_settings_aboutus_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -44,7 +44,7 @@
         android:theme="@style/small_title_text" />
 
     <TextView
-        android:id="@+id/shalom_general_tv"
+        android:id="@+id/shalom_settings_general_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -56,7 +56,7 @@
         android:theme="@style/small_title_text" />
 
     <Switch
-        android:id="@+id/shalom_night_mode_switch"
+        android:id="@+id/shalom_settings_nightmode_switch"
         android:layout_width="609dp"
         android:layout_height="49dp"
         android:layout_alignParentEnd="true"
@@ -70,7 +70,7 @@
         tools:ignore="UseSwitchCompatOrMaterialXml" />
 
     <Switch
-        android:id="@+id/shalom_portrait_switch"
+        android:id="@+id/shalom_settings_portrait_switch"
         android:layout_width="609dp"
         android:layout_height="45dp"
         android:layout_alignParentEnd="true"
@@ -84,7 +84,7 @@
         tools:ignore="UseSwitchCompatOrMaterialXml" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/shalom_floatingbutton"
+        android:id="@+id/shalom_settings_floating_button"
         backgroundTint="#00FFFFFF"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

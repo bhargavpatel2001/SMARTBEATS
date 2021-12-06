@@ -26,8 +26,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import ca.shalominc.it.smartbeats.ui.settings.SettingsFragment;
-
 @LargeTest
 @RunWith(AndroidJUnit4.class)
 public class SettingsFragmentTest {
@@ -49,7 +47,7 @@ public class SettingsFragmentTest {
         bottomNavigationItemView.perform(click());
 
         ViewInteraction switch_ = onView(
-                allOf(withId(R.id.shalom_night_mode_switch), withText("Night Mode"),
+                allOf(withId(R.id.shalom_settings_nightmode_switch), withText("Night Mode"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.nav_host_fragment),
@@ -59,7 +57,7 @@ public class SettingsFragmentTest {
         switch_.perform(click());
 
         ViewInteraction switch_2 = onView(
-                allOf(withId(R.id.shalom_night_mode_switch), withText("Night Mode"),
+                allOf(withId(R.id.shalom_settings_nightmode_switch), withText("Night Mode"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.nav_host_fragment),
@@ -83,7 +81,7 @@ public class SettingsFragmentTest {
         bottomNavigationItemView.perform(click());
 
         ViewInteraction switch_3 = onView(
-                allOf(withId(R.id.shalom_portrait_switch), withText("Portrait Mode"),
+                allOf(withId(R.id.shalom_settings_portrait_switch), withText("Portrait Mode"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.nav_host_fragment),
@@ -93,7 +91,7 @@ public class SettingsFragmentTest {
         switch_3.perform(click());
 
         ViewInteraction switch_4 = onView(
-                allOf(withId(R.id.shalom_portrait_switch), withText("Portrait Mode"),
+                allOf(withId(R.id.shalom_settings_portrait_switch), withText("Portrait Mode"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.nav_host_fragment),
@@ -117,7 +115,7 @@ public class SettingsFragmentTest {
         bottomNavigationItemView.perform(click());
 
         ViewInteraction materialButton = onView(
-                allOf(withId(R.id.about_us_btn), withText("About Us"),
+                allOf(withId(R.id.shalom_settings_aboutus_btn), withText("About Us"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.nav_host_fragment),
@@ -141,7 +139,7 @@ public class SettingsFragmentTest {
         bottomNavigationItemView.perform(click());
 
         ViewInteraction materialButton2 = onView(
-                allOf(withId(R.id.shalom_privacy_policy_btn), withText("Privacy Policy"),
+                allOf(withId(R.id.shalom_settings_privacypolicy_btn), withText("Privacy Policy"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.nav_host_fragment),
@@ -153,7 +151,7 @@ public class SettingsFragmentTest {
         pressBack();
 
         ViewInteraction floatingActionButton = onView(
-                allOf(withId(R.id.shalom_floatingbutton),
+                allOf(withId(R.id.shalom_settings_floating_button),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.nav_host_fragment),
