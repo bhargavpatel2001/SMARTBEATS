@@ -224,7 +224,7 @@ public class MainActivity extends AppCompatActivity
                     break;
             }
         } else{
-            Toast.makeText(getApplicationContext(), "Please Turn on Bluetooth", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),R.string.Bluetooth_on, Toast.LENGTH_LONG).show();
         }
 
     }

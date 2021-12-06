@@ -99,7 +99,6 @@ public class ReviewFragment extends Fragment
         shalomEmail = view.findViewById(R.id.shalom_EditText_EmailAddress);                         // UserEmail EditText
         shalomComment = view.findViewById(R.id.shalom_EditText_Comment);                            // UserComment Edittext
         shalomRateUs = view.findViewById(R.id.shalom_ratingBar);                                    // UserRating RatingBar
-        //shalomRead = view.findViewById(R.id.read_review_form_btn);
 
 
         // Setting up firestore to folder userReview file sent_Review.
@@ -108,7 +107,7 @@ public class ReviewFragment extends Fragment
         //Gets Model Number
         ModelNo = getModelNo();
 
-        //retrieving Shared Prefrences for all user values
+        //retrieving Shared Preferences for all user values
         saveSetPref();
 
         // Submit buttons functionality
@@ -133,8 +132,8 @@ public class ReviewFragment extends Fragment
 
                     PD = new ProgressDialog(getContext());
                     PD.setIcon(R.drawable.ic_baseline_rate_review_24);
-                    PD.setTitle("Evaluating Your Review");
-                    PD.setMessage("Give us a few moments");
+                    PD.setTitle(getString(R.string.Eval_review));
+                    PD.setMessage(getString(R.string.moment));
                     PD.setIndeterminate(false);
                     PD.setCancelable(false);
                     PD.show();
@@ -219,7 +218,7 @@ public class ReviewFragment extends Fragment
         else
         {
 
-            shalomEmail.setError("Invalid Email!");
+            shalomEmail.setError(getString(R.string.Invalid_email));
             return false;
         }
     }
@@ -232,7 +231,7 @@ public class ReviewFragment extends Fragment
         }
         else
         {
-            shalomName.setError("Invalid Name! Field Empty");
+            shalomName.setError(getString(R.string.empty_field));
             return false;
         }
     }
@@ -247,7 +246,7 @@ public class ReviewFragment extends Fragment
 
         else
         {
-            shalomComment.setError("Invalid Comment! Empty Field");
+            shalomComment.setError(getString(R.string.Invalid_comment));
             return false;
         }
     }
@@ -261,7 +260,7 @@ public class ReviewFragment extends Fragment
         }
         else
         {
-            shalomPhone.setError("Invalid Phone Number");
+            shalomPhone.setError(getString(R.string.Invalid_phone_number));
             return false;
         }
     }

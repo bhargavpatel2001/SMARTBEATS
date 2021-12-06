@@ -116,6 +116,17 @@
     <string name="successMsg">Success</string>
     <string name="must_be_in_music_fragment_label">Must Be In Music Fragment!</string>
     <string name="must_enable_an_internet_connection">Must Enable a Internet Connection</string>
+    <string name="Bluetooth_on">Please Turn on Bluetooth</string>
+    <string name="Eval_review">Evaluating Your Review</string>
+    <string name="moment">Give us a few moments</string>
+    <string name="Invalid_email">Invalid Email!</string>
+    <string name="empty_field">Invalid Name! Field Empty</string>
+    <string name="Invalid_comment">Invalid Comment! Empty Field</string>
+    <string name="Invalid_phone_number">Invalid Phone Number</string>
+    <string name="night_enabled">Night mode enabled</string>
+    <string name="night_disabled">Night mode disabled</string>
+    <string name="channel_1">This is Channel 1</string>
+    <string name="channel_2">This is Channel 2</string>
 
 
 </resources>
