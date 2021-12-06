@@ -2,14 +2,8 @@
 
 package ca.shalominc.it.smartbeats.ui.review;
 
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -29,13 +23,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -54,17 +45,16 @@ public class ReviewFragment extends Fragment
 {
 
     String modelNum, manufacturerName, ModelNo;
-    TextView shalomRateDisp;
-    EditText shalomName;
-    EditText shalomPhone;
-    EditText shalomEmail;
-    EditText shalomComment;
-    RatingBar shalomRateUs;
+    TextView shalomRateDispTV;
+    EditText shalomNameET;
+    EditText shalomPhoneET;
+    EditText shalomEmailET;
+    EditText shalomCommentET;
+    RatingBar shalomRateUsRB;
     String pNumber,userValue, userValue2, userValue3, rateOverall, rateOverallTV;
     float  rateReading, amountOfStars;
-    Button shalomSubmit, shalomReset, shalomRead;
+    Button shalomSubmitBtn, shalomResetBtn;
     DocumentReference shalomDocRef;
-    boolean validation = false;
     ProgressDialog PD;
     NotificationManagerCompat notificationManager;
 
@@ -91,14 +81,16 @@ public class ReviewFragment extends Fragment
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
 
-        shalomRateDisp = view.findViewById(R.id.shalomRateTV);                                      // Shows Rating in TextView
-        shalomSubmit = view.findViewById(R.id.submit_review_form_btn);                              // Submit Button
-        shalomReset = view.findViewById(R.id.reset_review_form_btn);                                // Reset Button
-        shalomPhone = view.findViewById(R.id.shalom_EditText_Phone);                                // UserPhone EditText
-        shalomName = view.findViewById(R.id.shalom_EditText_PersonName);                            // UserName EditText
-        shalomEmail = view.findViewById(R.id.shalom_EditText_EmailAddress);                         // UserEmail EditText
-        shalomComment = view.findViewById(R.id.shalom_EditText_Comment);                            // UserComment Edittext
-        shalomRateUs = view.findViewById(R.id.shalom_ratingBar);                                    // UserRating RatingBar
+
+        shalomRateDispTV = view.findViewById(R.id.shalom_review_ratings_tv);                        // Shows Rating in TextView
+        shalomSubmitBtn = view.findViewById(R.id.shalom_review_sumbit_btn);                         // Submit Button
+        shalomResetBtn = view.findViewById(R.id.shalom_review_reset_btn);                           // Reset Button
+        shalomPhoneET = view.findViewById(R.id.shalom_review_phone_et);                             // UserPhone EditText
+        shalomNameET = view.findViewById(R.id.shalom_review_name_et);                               // UserName EditText
+        shalomEmailET = view.findViewById(R.id.shalom_review_email_et);                             // UserEmail EditText
+        shalomCommentET = view.findViewById(R.id.shalom_review_comment_et);                         // UserComment Edittext
+        shalomRateUsRB = view.findViewById(R.id.shalom_review_stars_ratingbar);                     // UserRating RatingBar
+
 
 
         // Setting up firestore to folder userReview file sent_Review.
@@ -111,25 +103,23 @@ public class ReviewFragment extends Fragment
         saveSetPref();
 
         // Submit buttons functionality
-        shalomSubmit.setOnClickListener(new View.OnClickListener()
-        {
+        shalomSubmitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                pNumber = shalomPhone.getText().toString();
-                userValue = shalomName.getText().toString();
-                userValue2 = shalomEmail.getText().toString();
-                userValue3 = shalomComment.getText().toString();
-                amountOfStars = shalomRateUs.getRating();
+                pNumber = shalomPhoneET.getText().toString();
+                userValue = shalomNameET.getText().toString();
+                userValue2 = shalomEmailET.getText().toString();
+                userValue3 = shalomCommentET.getText().toString();
+                amountOfStars = shalomRateUsRB.getRating();
                 rateReading = amountOfStars;
                 rateOverallTV = getRate();
-                shalomRateDisp.setText(rateOverallTV);
+                shalomRateDispTV.setText(rateOverallTV);
 
                 //Saving the data using Shared Prefrences
                 createSetPref();
 
                     // Action can be performed only when email and other parameters are present.
-
                     PD = new ProgressDialog(getContext());
                     PD.setIcon(R.drawable.ic_baseline_rate_review_24);
                     PD.setTitle(getString(R.string.Eval_review));
@@ -167,14 +157,14 @@ public class ReviewFragment extends Fragment
         });
 
         // Reset button's functionality
-        shalomReset.setOnClickListener(new View.OnClickListener() {
+        shalomResetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                shalomPhone.setText("");
-                shalomName.setText("");
-                shalomEmail.setText("");
-                shalomComment.setText("");
-                shalomRateUs.setRating(0);
+                shalomPhoneET.setText("");
+                shalomNameET.setText("");
+                shalomEmailET.setText("");
+                shalomCommentET.setText("");
+                shalomRateUsRB.setRating(0);
             }
         });
     }
@@ -210,7 +200,7 @@ public class ReviewFragment extends Fragment
     public boolean isEmailValid() {
 
         String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-        String email = shalomEmail.getText().toString().trim();
+        String email = shalomEmailET.getText().toString().trim();
         if (email.matches(emailPattern) && email.length() != 0)
         {
            return true;
@@ -218,27 +208,35 @@ public class ReviewFragment extends Fragment
         else
         {
 
-            shalomEmail.setError(getString(R.string.Invalid_email));
+
+            shalomEmailET.setError("Invalid Email!");
+
+            shalomEmailET.setError(getString(R.string.Invalid_email));
+
             return false;
         }
     }
 
     public boolean isNameValid() {
-        String name = shalomName.getText().toString().trim();
+        String name = shalomNameET.getText().toString().trim();
         if ((name.length() != 0))
         {
             return true;
         }
         else
         {
-            shalomName.setError(getString(R.string.empty_field));
+
+            shalomNameET.setError("Invalid Name! Field Empty");
+
+            shalomNameET.setError(getString(R.string.empty_field));
+
             return false;
         }
     }
 
     public boolean isCommentValid() {
 
-        String comment = shalomComment.getText().toString().trim();
+        String comment = shalomCommentET.getText().toString().trim();
         if (comment.length() != 0)
         {
             return true;
@@ -246,28 +244,36 @@ public class ReviewFragment extends Fragment
 
         else
         {
-            shalomComment.setError(getString(R.string.Invalid_comment));
+
+            shalomCommentET.setError("Invalid Comment! Empty Field");
+
+            shalomCommentET.setError(getString(R.string.Invalid_comment));
+
             return false;
         }
     }
 
     public boolean isPhoneNoValid() {
 
-        String phoneNo = shalomPhone.getText().toString().trim();
+        String phoneNo = shalomPhoneET.getText().toString().trim();
         if (phoneNo.length() == 10)
         {
             return true;
         }
         else
         {
-            shalomPhone.setError(getString(R.string.Invalid_phone_number));
+
+            shalomPhoneET.setError("Invalid Phone Number");
+
+            shalomPhoneET.setError(getString(R.string.Invalid_phone_number));
+
             return false;
         }
     }
 
     public String getRate() {
-        float starsSelected = shalomRateUs.getRating();
-        int  totalStars = shalomRateUs.getNumStars();
+        float starsSelected = shalomRateUsRB.getRating();
+        int  totalStars = shalomRateUsRB.getNumStars();
         return rateOverall = getString(R.string.rating)+starsSelected+"/"+totalStars;
     }
 
@@ -280,11 +286,11 @@ public class ReviewFragment extends Fragment
 
     public void saveSetPref(){
         SharedPreferences shalomprefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-        String Number = shalomprefs.getString(getString(R.string.phoneNUm),"4169671111");      shalomPhone.setText(Number);
-        String value1 = shalomprefs.getString(getString(R.string.userValue),"Alice");      shalomName.setText(value1);
-        String value2 = shalomprefs.getString(getString(R.string.userValue2), "bob@alice.ca");     shalomEmail.setText(value2);
-        String value3 = shalomprefs.getString(getString(R.string.uservalue3), "App Rocks!");   shalomComment.setText(value3);
-        float value4 = shalomprefs.getFloat(getString(R.string.rateReading), 4);  shalomRateUs.setRating(value4);
+        String Number = shalomprefs.getString(getString(R.string.phoneNUm),"4169671111");      shalomPhoneET.setText(Number);
+        String value1 = shalomprefs.getString(getString(R.string.userValue),"Alice");      shalomNameET.setText(value1);
+        String value2 = shalomprefs.getString(getString(R.string.userValue2), "bob@alice.ca");     shalomEmailET.setText(value2);
+        String value3 = shalomprefs.getString(getString(R.string.uservalue3), "App Rocks!");   shalomCommentET.setText(value3);
+        float value4 = shalomprefs.getFloat(getString(R.string.rateReading), 4);  shalomRateUsRB.setRating(value4);
     }
 
     public void createSetPref(){
