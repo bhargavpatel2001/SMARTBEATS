@@ -13,7 +13,7 @@
 
 
     <TextView
-        android:id="@+id/shalom_review_fragment_tv"
+        android:id="@+id/shalom_review_heading_tv"
         android:layout_width="421dp"
         android:layout_height="35dp"
         android:text="@string/review_page"
@@ -28,7 +28,7 @@
         app:layout_constraintVertical_bias="0.085" />
 
     <EditText
-        android:id="@+id/shalom_EditText_PersonName"
+        android:id="@+id/shalom_review_name_et"
         android:layout_width="197dp"
         android:layout_height="52dp"
         android:ems="10"
@@ -43,7 +43,7 @@
         app:layout_constraintVertical_bias="0.314" />
 
     <EditText
-        android:id="@+id/shalom_EditText_Phone"
+        android:id="@+id/shalom_review_phone_et"
         android:layout_width="207dp"
         android:layout_height="53dp"
         android:ems="10"
@@ -58,7 +58,7 @@
         app:layout_constraintVertical_bias="0.312" />
 
     <EditText
-        android:id="@+id/shalom_EditText_EmailAddress"
+        android:id="@+id/shalom_review_email_et"
         android:layout_width="196dp"
         android:layout_height="50dp"
         android:ems="10"
@@ -73,7 +73,7 @@
         app:layout_constraintVertical_bias="0.457" />
 
     <EditText
-        android:id="@+id/shalom_EditText_Comment"
+        android:id="@+id/shalom_review_comment_et"
         android:layout_width="201dp"
         android:layout_height="51dp"
         android:ems="10"
@@ -88,7 +88,7 @@
         app:layout_constraintVertical_bias="0.455" />
 
     <RatingBar
-        android:id="@+id/shalom_ratingBar"
+        android:id="@+id/shalom_review_stars_ratingbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -106,7 +106,7 @@
         android:rating="3.5"/>
 
     <Button
-        android:id="@+id/reset_review_form_btn"
+        android:id="@+id/shalom_review_reset_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/reset_btn_label"
@@ -119,7 +119,7 @@
         tools:ignore="MissingConstraints" />
 
     <Button
-        android:id="@+id/submit_review_form_btn"
+        android:id="@+id/shalom_review_sumbit_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/submit_btn_label"
@@ -132,7 +132,7 @@
         tools:ignore="MissingConstraints" />
 
     <TextView
-        android:id="@+id/shalomRateTV"
+        android:id="@+id/shalom_review_ratings_tv"
         android:layout_width="107dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
