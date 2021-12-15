@@ -10,10 +10,18 @@
         android:title="@string/menu_bar_help_btn_title" />
 
     <item
-        app:showAsAction="ifRoom"
+        app:showAsAction="always"
         android:id="@+id/musicBtn"
         android:title="@string/menu_bar_music_btn_title"
         android:icon="@drawable/music_note_foreground">
+    </item>
+
+
+    <item
+        app:showAsAction="always"
+        android:id="@+id/micBtn"
+        android:title="Mic"
+        android:icon="@drawable/ic_launcher_mic_foreground">
     </item>
 
     <item
