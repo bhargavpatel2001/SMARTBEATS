@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "850966877621",
+    "firebase_url": "https://shalominc-smartbeats-default-rtdb.firebaseio.com",
     "project_id": "shalominc-smartbeats",
     "storage_bucket": "shalominc-smartbeats.appspot.com"
   },
