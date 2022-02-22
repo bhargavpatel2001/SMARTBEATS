@@ -31,6 +31,8 @@ import com.flask.colorpicker.builder.ColorPickerClickListener;
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -174,6 +176,19 @@ public class LightsFragment extends Fragment {
         hashMap.put("brightness",brightness);
 
         if(bluetoothAdapter.isEnabled()) {
+
+            // Write a message to REALTIME DATABASE
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference myRefR = database.getReference("R");
+            myRefR.setValue(r);
+            DatabaseReference myRefG = database.getReference("G");
+            myRefG.setValue(g);
+            DatabaseReference myRefB = database.getReference("B");
+            myRefB.setValue(b);
+            DatabaseReference myRefClickedMode = database.getReference("ClickedMode");
+            myRefClickedMode.setValue(clickedModeName);
+            DatabaseReference myRefBrightness = database.getReference("Brightness");
+            myRefBrightness.setValue(brightness);
 
             FirebaseFirestore.getInstance().collection("user_lights")
                     .document("rgb_controller_values")
