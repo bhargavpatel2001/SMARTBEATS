@@ -20,8 +20,7 @@
     <item
         app:showAsAction="always"
         android:id="@+id/micBtn"
-        android:title="Mic"
-        android:icon="@drawable/ic_launcher_mic_foreground">
+        android:title="Mic">
     </item>
 
     <item
