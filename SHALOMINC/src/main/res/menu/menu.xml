@@ -16,13 +16,6 @@
         android:icon="@drawable/music_note_foreground">
     </item>
 
-
-    <item
-        app:showAsAction="always"
-        android:id="@+id/micBtn"
-        android:title="Mic">
-    </item>
-
     <item
         android:id="@+id/lightsPwrBtn"
         app:showAsAction="always"

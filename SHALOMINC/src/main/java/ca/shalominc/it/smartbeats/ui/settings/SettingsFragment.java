@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,14 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.google.protobuf.Value;
 
 import ca.shalominc.it.smartbeats.AboutUsActivity;
 import ca.shalominc.it.smartbeats.PrivacyPolicyActivity;
@@ -30,6 +39,9 @@ public class SettingsFragment extends Fragment {
     Button shalomAboutUsBtn, shalomPrivacyPolicyBtn;
     Switch shalomNightModeSwitch, shalomPortraitLockSwitch;
     FloatingActionButton shalomFloatBtn;
+    TextView shalomTempTv, shalomTempTv2, shalomAmpTv;
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -47,7 +59,10 @@ public class SettingsFragment extends Fragment {
         shalomPrivacyPolicyBtn = view.findViewById(R.id.shalom_settings_privacypolicy_btn);
         shalomNightModeSwitch = view.findViewById(R.id.shalom_settings_nightmode_switch);
         shalomPortraitLockSwitch = view.findViewById(R.id.shalom_settings_portrait_switch);
-        shalomFloatBtn = view.findViewById(R.id.shalom_settings_floating_button);                                  //Floating Point Button
+        shalomFloatBtn = view.findViewById(R.id.shalom_settings_floating_button);//Floating Point Button
+        shalomTempTv = view.findViewById(R.id.shalom_settings_Temp_tv);
+        shalomTempTv2 = view.findViewById(R.id.shalom_settings_Temp_tv2);
+        shalomAmpTv = view.findViewById(R.id.shalom_settings_Amp_tv);
 
         createNightMode();
         shalomNightModeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -84,6 +99,9 @@ public class SettingsFragment extends Fragment {
         });
 
 
+        getCelsius();
+        getFahrenheit();
+        getAmps();
 
         //For the FAB
         shalomFloatBtn.setOnClickListener(new View.OnClickListener() {
@@ -98,6 +116,62 @@ public class SettingsFragment extends Fragment {
             }
         });
     }
+
+
+
+    public void getCelsius(){
+        databaseReference = FirebaseDatabase.getInstance().getReference("Fahrenheit-Celsius-Data/1-set/Celsius: ");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                String value = snapshot.getValue(String.class) + " C";
+                shalomTempTv.setText(value);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), "Fail to get data.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void getFahrenheit(){
+        databaseReference = FirebaseDatabase.getInstance().getReference("Fahrenheit-Celsius-Data/1-set/Fahrenheit: ");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                String value = snapshot.getValue(String.class) + " F";
+                shalomTempTv2.setText(value);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), "Fail to get data.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void getAmps(){
+        databaseReference = FirebaseDatabase.getInstance().getReference("Amps-Data/1-set/Amperage Draw: ");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                String value = snapshot.getValue(String.class);
+                shalomAmpTv.setText(value);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), "Fail to get data.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
+
 
     //Sets Visibility to false in this fragment for power button In menu
     @Override
@@ -118,6 +192,7 @@ public class SettingsFragment extends Fragment {
             getActivity().setTheme(R.style.SMARTBEATS);
         }
     }
+
     public void nightOnOff(boolean isChecked){
         if(isChecked){
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);

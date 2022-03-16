@@ -97,5 +97,78 @@
         android:elevation="10dp"
         android:src="@drawable/email_support" />
 
+    <TextView
+        android:id="@+id/shalom_settings_Amp_tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="23dp"
+        android:layout_alignTop="@+id/shalom_settings_privacypolicy_btn"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="387dp"
+        android:layout_marginTop="68dp"
+        android:layout_marginEnd="84dp"
+        android:layout_marginBottom="38dp"
+        android:layout_toStartOf="@+id/shalom_settings_floating_button"
+        android:text="Amp Current       :"
+        android:textColor="@color/purple_500"
+        android:theme="@style/small_title_text"></TextView>
+
+    <TextView
+        android:id="@+id/shalom_settings_Amp_tv"
+        android:layout_width="152dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/shalom_settings_privacypolicy_btn"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="535dp"
+        android:layout_marginTop="67dp"
+        android:layout_marginEnd="-76dp"
+        android:layout_marginBottom="31dp"
+        android:layout_toStartOf="@+id/shalom_settings_floating_button"
+        android:textStyle="bold"></TextView>
+
+    <TextView
+        android:id="@+id/shalom_settings_Temp_tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/shalom_settings_privacypolicy_btn"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="68dp"
+        android:layout_marginEnd="481dp"
+        android:layout_marginBottom="36dp"
+        android:layout_toStartOf="@+id/shalom_settings_floating_button"
+        android:text="Temperature       :"
+        android:textColor="@color/purple_500"
+        android:theme="@style/small_title_text">
+    </TextView>
+
+    <TextView
+        android:id="@+id/shalom_settings_Temp_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/shalom_settings_privacypolicy_btn"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="71dp"
+        android:layout_marginEnd="407dp"
+        android:layout_toStartOf="@+id/shalom_settings_floating_button"
+        android:textStyle="bold"></TextView>
+
+    <TextView
+        android:id="@+id/shalom_settings_Temp_tv2"
+        android:layout_width="74dp"
+        android:layout_height="22dp"
+        android:layout_alignTop="@+id/shalom_settings_privacypolicy_btn"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="217dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="440dp"
+        android:layout_marginBottom="37dp"
+        android:textStyle="bold"></TextView>
+
 
 </RelativeLayout>
